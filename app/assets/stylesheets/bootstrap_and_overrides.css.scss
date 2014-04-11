@@ -1,0 +1,13 @@
+// Set the correct sprite paths
+$iconSpritePath: image-path('glyphicons-halflings.png');
+$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+
+// Override any bootstrap styles here
+.ajax-loading-indicator
+{
+  position:absolute;
+  top: 2px;
+  left: 50%;
+  display:none;
+  z-index:1001;
+}

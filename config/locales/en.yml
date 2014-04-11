@@ -1,0 +1,29 @@
+en:
+  application:
+    name: "Greentime"
+    home: "Home"
+    administrations: "Administrations"
+    loading: "Loading..."
+  administrations:
+    index:
+      search: "Search"
+      search_text: "Text to be seach"
+      new: "New"
+      bootstrap_table: "Bootstrap table"
+      datatable_table: "DataTable"
+    show:
+      new: "New"
+      id: "ID"
+      name: "Name"
+      cancel: "Cancel"
+      save: "Save"
+    table:
+      id: "ID"
+      name: "Name"
+      actions: "Actions"
+      show: "Show"
+      delete: "Delete"
+      confirmation_title: "Confirmation needed from user"
+      confirmation: "Are you sure you want to delete this administration?"
+      confirm: "Yes"
+      cancel: "Cancel"

@@ -1,0 +1,45 @@
+###############################################################################
+# Starts a tmux session with all the required services
+# Requires tmux
+###############################################################################
+
+tmux_bin=$(which tmux)
+
+if [ -z "$tmux_bin" ]; then
+	echo "Cannot find tmux bin"
+	exit 1
+fi
+
+tmux_sessions=$(tmux list-session 2>&1)
+if [[ $tmux_sessions =~ "Connection refused" ]]; then
+	echo "You must have a tmux session open to run this script"
+	exit 1
+fi
+
+tmux_window_2=$(tmux list-window | grep 2:)
+echo $tmux_window_2
+if [ "$tmux_window_2" != "" ]; then
+	echo "You must have only one window open at tmux to use this script. Restart tmux with only one basic window"
+	exit 1
+fi
+
+cd ~/Github/greentime
+
+# Create the windows
+tmux new-window -n "zeus" 			-t 8 "zeus start"
+sleep 2 												# Other services must wait for zeus to launch the socket
+tmux new-window -n "rackup" 		-t 7 "bundle exec rackup private_pub.ru -s thin -E production"
+tmux new-window -n "jobs" 			-t 6 "zeus rake jobs:work"
+tmux new-window -n "tests" 			-t 5 "bundle exec rspec spec"
+tmux new-window -n "dbconsole"	-t 4 "zeus dbconsole"
+tmux new-window -n "console" 		-t 3 "zeus console"
+tmux new-window -n "server"	 		-t 2 "zeus server"
+
+# Force the windows to stay whenever they're executed
+for i in {1..8}
+do
+	tmux set-window-option -t $i remain-on-exit on >> /dev/null
+done
+
+tmux rename-window -t 1 "bash"
+tmux select-window -t 1

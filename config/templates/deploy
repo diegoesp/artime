@@ -1,0 +1,87 @@
+###############################################################################
+# This shell script deploys a Crespon application
+# Copy this file to the app folder and customize it for your application
+###############################################################################
+
+# Reusable bash function that echoes a string to stdout using color
+#
+# @param %1 is the string to be echoed
+colored_echo() 
+{
+	echo -e "\e[96m[deployer]\e[0m \e[92m$1\e[0m"
+}
+
+# Reusable bash function that receives a pid name file (without the .pid extension) and
+# kills the process referenced by that PID file only if it's running. If it is not,
+# it does nothing and returns silently.
+#
+# @param %1 is the PID name file without the .pid extension. Possible examples are unicorn, delayed_job, etc
+kill_process() 
+{
+	if [ -f ./tmp/pids/$1.pid ]; then
+		pid=$(cat tmp/pids/$1.pid)
+		ps_line=$(ps -A | grep $pid)
+		if [[ "$ps_line" != "" ]]
+		then
+			colored_echo "Killing $1 process $pid"
+			kill -9 $pid
+		fi
+
+		sleep 2
+	fi
+}
+
+colored_echo "Deployer v0.1 will start deploying now..."
+
+# Save current dir to go back when we end
+current_dir=$(pwd)
+
+# Relocate to application
+cd /home/deployer/apps/eighthfloor
+
+# Pull last changes from the HEAD
+colored_echo "Pulling last changes from master branch"
+git pull origin master
+
+# Update gems
+colored_echo "Updating gems"
+bundle install
+
+# Run rails migrations
+colored_echo "Running rails migrations"
+RAILS_ENV=production bundle exec rake db:migrate
+
+# Stop Nginx
+colored_echo "Stopping nginx"
+sudo service nginx stop
+
+# Re-compile assets
+colored_echo "Re-compile assets for the assets pipeline"
+RAILS_ENV=production bundle exec rake assets:precompile
+
+# Start Nginx
+colored_echo "Starting nginx"
+sudo service nginx start
+
+# Restart unicorn
+kill_process unicorn
+colored_echo "Starting unicorn"
+RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/eighthfloor/config/unicorn.rb -E production
+
+# Restart Faye
+kill_process private_pub
+colored_echo "Starting private_pub"
+RAILS_ENV=production /usr/bin/env bundle exec rackup private_pub.ru -s thin -E production -D -P tmp/pids/private_pub.pid
+
+# Restart Delayed job
+kill_process delayed_job
+colored_echo "Starting delayed_job"
+RAILS_ENV=production script/delayed_job start
+
+# Go back to initial dir
+cd $current_dir
+
+unset kill_process
+unset colored_echo
+
+colored_echo "Deployment is complete"

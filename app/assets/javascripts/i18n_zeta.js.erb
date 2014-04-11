@@ -1,0 +1,23 @@
+/**
+ * Internationalization module for the reference implementation
+ *
+ * It uses both the Rails i18n framework and the i18n-js framework (https://github.com/fnando/i18n-js) for
+ * a consistent server and client i18n implementation.
+ *
+ * Include logic here to determine the correct localization for the resource files. Options are as follows:
+ *
+ * 1) Based on the referenced domain: This is the recommended implementation. It allows to automatically determines 
+ * the language and plays well with URL copying and pasting.
+ * 2) Session based language choice: It should be implemented based on choice of the user and saved as a personal 
+ * preference. Can be set using this module.
+ */
+
+<%
+# Server side i18n set 
+I18n.default_locale = "es"
+I18n.locale ="en"
+%>
+
+// Javascript set
+I18n.defaultLocale = "es";
+I18n.locale = "en";

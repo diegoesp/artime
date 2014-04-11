@@ -1,0 +1,45 @@
+<table id="administrationsTable" class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th><%= I18n.t("administrations.table.id") %></th>
+      <th><%= I18n.t("administrations.table.name") %></th>
+      <th><%= I18n.t("administrations.table.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%
+    for (i = 0; i < administrationsCollection.models.length; i++)
+    {
+      administration = administrationsCollection.models[i];
+      %>
+      <tr>
+        <td><%= administration.attributes.id %></td>
+        <td><%= administration.attributes.name %></td>
+        <td>
+          <input type="button" class="btn btn-info show-button" data-modelid="<%= administration.attributes.id %>" id="show" value="<%= I18n.t("administrations.table.show") %>" />
+          <input type="button" class="btn btn-danger destroy-button" data-modelid="<%= administration.attributes.id %>" id="destroy" value="<%= I18n.t("administrations.table.delete") %>" />
+        </td>
+      </tr>
+    <%
+    }
+   %>
+  </tbody>
+</table>
+
+<div id="delete_modal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= I18n.t("administrations.table.confirmation_title") %></h4>
+      </div>
+      <div class="modal-body">
+        <p><%= I18n.t("administrations.table.confirmation") %></p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="deleteCancel" class="btn" data-dismiss="modal"><%= I18n.t("administrations.table.cancel") %></a>
+        <a href="#" id="deleteConfirm" class="btn btn-danger" data-dismiss="modal"><%= I18n.t("administrations.table.confirm") %></a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,16 @@
+<form id="adminForm">
+  <fieldset>
+    <div>
+      <label><%= I18n.t("administrations.show.id") %></label>
+      <input disabled="disabled" placeholder="<%=I18n.t("administrations.show.new")%>" type="text" value="<%= administration !== null ? administration.attributes.id : "" %>" />
+    </div>
+    <div>
+      <label><%= I18n.t("administrations.show.name") %></label>
+      <input type="text" name="name" id="name" value="<%= administration !== null ? administration.attributes.name : "" %>" />
+    </div>
+    <div>
+      <input type="button" class="btn" id="cancel" value="<%= I18n.t("administrations.show.cancel") %>" />
+      <input type="button" class="btn btn-primary" id="save" value="<%= I18n.t("administrations.show.save") %>" />
+    </div>
+  </fieldset>
+</form>

@@ -1,0 +1,29 @@
+es:
+  application:
+    name: "Greentime"
+    home: "Inicio"
+    administrations: "Administraciones"
+    loading: "Cargando..."
+  administrations:
+    index:
+      search: "Buscar"
+      search_text: "Texto a buscar aqui"
+      new: "Nuevo"
+      bootstrap_table: "Tabla Bootstrap"
+      datatable_table: "Tabla DataTable"
+    show:
+      new: "Nuevo"
+      id: "ID"
+      name: "Nombre"
+      cancel: "Cancelar"
+      save: "Guardar"
+    table:
+      id: "ID"
+      name: "Nombre"
+      actions: "Acciones"
+      show: "Ver"
+      delete: "Borrar"
+      confirmation_title: "Se necesita confirmacion del usuario"
+      confirmation: "Esta seguro que desea eliminar esta administracion?"
+      confirm: "Si"
+      cancel: "Cancelar"

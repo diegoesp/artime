@@ -1,0 +1,22 @@
+{
+  "command": "ruby -rubygems -rzeus/rails -eZeus.go",
+
+  "plan": {
+    "boot": {
+      "default_bundle": {
+        "development_environment": {
+          "prerake": {"rake": []},
+          "console": ["c"],
+          "server": ["s"],
+          "generate": ["g"],
+          "dbconsole": ["db"]
+        },
+        "test_environment": {
+          "test_helper": { "test": ["rspec"] }
+        }
+      }
+    }
+  },
+
+  "__comment": "Reference here: http://robots.thoughtbot.com/post/40193452558/improving-rails-boot-time-with-zeus"
+}

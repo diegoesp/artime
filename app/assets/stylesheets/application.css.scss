@@ -1,0 +1,68 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+@import "bootstrap";
+@import "bootstrap_and_overrides";
+
+$color-cyan: #45C8AF;
+$color-red: #e74c3c;
+$color-green: #2ecc71;
+$color-yellow: #ffcb05;
+$color-info-bg: #3498db;
+$color-info-fg: #ffffff;
+
+#alert
+{
+	border: none;
+	color: #fff;
+	display:none;
+	left:30%;
+	position:absolute;
+	text-align: center;
+	top: 10%;
+	width:40%;
+	z-index: 10000;
+	
+	&.alert-success, &.alert-info {
+		background-color: $color-cyan;
+	}
+	&.alert-danger, &.alert-error {
+		background-color: $color-red;
+	}
+}
+
+.alert-success {
+  background-color: $color-green;
+  border-color: #d6e9c6;
+  color: #fff;
+}
+.alert-success h4 {
+  color: #fff;
+}
+.alert-danger, .alert-error {
+  background-color: $color-red;
+  border-color: #eed3d7;
+  color: #fff;
+}
+.alert-danger h4,
+.alert-error h4 {
+  color: #fff;
+}
+.alert-info {
+  background-color: $color-info-bg;
+  border: none;
+  color: $color-info-fg;
+}
+.alert-info h4 {
+  color: #fff;
+}
