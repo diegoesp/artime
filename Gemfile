@@ -13,6 +13,7 @@ gem 'sass-rails', '3.2.6'                                   # SASS support
 gem 'uglifier', '1.3.0'                                     # Javascript compressor used by Rails
 gem 'validates_email_format_of', "1.5.3"                    # Validation gem for emails
 gem "coffee-rails", "3.2.2"                                 # Required by tests => if not a warning is thrown
+gem 'devise'
 
 # Optional gems for additional features
 # gem "paperclip", "3.5.0"                                    # Easy file attachment library for Active Record
@@ -27,10 +28,11 @@ gem 'jquery-rails', "2.3.0"                                 # Provides JQuery
 gem 'i18n-js', "3.0.0.rc5"                                  # Provides internationalization for javascript
 gem 'bootstrap-sass', '~> 3.1.0'                            # Twitter Bootstrap using SASS instead of LESS
 gem 'momentjs-rails', '2.5.1'                               # Moment.js library for managing dates (better than Date)
+gem 'bootstrap-datepicker-rails'                            # powerful datepicker feature for jquery
+gem "font-awesome-rails", "4.0.3.1"                         # Complementary icons for bootstrap
+
 # Additional Javascript features
 # gem "jquery-fileupload-rails", "0.4.1"                      # JQuery File Upload plugin for Rails
-# gem 'bootstrap-datepicker-rails'                            # powerful datepicker feature for jquery
-# gem "font-awesome-rails", "4.0.3.1"                         # Complementary icons for bootstrap
 # gem 'bootstrap3-datetimepicker-rails', '2.1.30'             # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
 
 # Gems exclusively used for development and test. Not needed @ prod environment

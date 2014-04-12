@@ -12,20 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<%= link_to 'Salir', destroy_user_session_path, :method => :delete, id: "logout" %>
 	<div class="container">
-
-		<ul class="nav nav-pills">
-		  <li class="active"><a href="#"><%= I18n.t("application.home") %></a></li>
-		  <li><a href="#"><%= "Otro" %></a></li>
-		</ul>
 
 		<div id="ajax-loading-indicator" class="ajax-loading-indicator">
 			<img src="/assets/ajax-loader.gif"/>
 		</div>
 
-	<!-- Use the AlertMessage javascript singleton object to manage alerts  -->
-	<div id="alert" name="alert" style="display: none"></div>
+		<!-- Use the AlertMessage javascript singleton object to manage alerts  -->
+		<div id="alert" name="alert" style="display: none"></div>
 
 	<% 
 		flash.each do |key, value|

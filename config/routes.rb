@@ -6,7 +6,8 @@ Greentime::Application.routes.draw do
 		resources :administrations
 	end
 
-  devise_for :users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+	devise_for :users
+	
+	ActiveAdmin.routes(self)
 
 end
