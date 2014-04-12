@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Basic infrastructure gems
+# Basic infrastructure gems ok
 gem 'rails', '3.2.16'                                       # Good ol' Rails
 gem 'activeadmin', '0.6.3'                                  # Provides an automatically generated backoffice
 gem "meta_search", '>=0.9.2'                                # Dependency for active admin
