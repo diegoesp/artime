@@ -2,7 +2,6 @@ CresponApp.Routers.Administrations = Backbone.Router.extend ({
 
 	routes:
 	{
-		"": "index",
 		"administrations/index": "index",
 		"administrations/new": "newEntry",
 		"administrations/:id": "showEntry"

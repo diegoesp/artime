@@ -30,7 +30,8 @@ window.CresponApp =
 	{
 		this.Routers = 
 		{
-			administrationRouter: new CresponApp.Routers.Administrations()
+			administrationRouter: new CresponApp.Routers.Administrations(),
+			homeRouter: new CresponApp.Routers.Home()
 		};
 
 		// You can link all routers to an action whenever they route something

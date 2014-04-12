@@ -6,53 +6,112 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
   <![endif]-->
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "dashio_theme", :media => "all" %>
+  <%= stylesheet_link_tag    "dashio_responsive", :media => "all" %>
+  <%= javascript_include_tag "application_full" %>
+  <%= javascript_include_tag "Chart.min" %>
   <%= csrf_meta_tags %>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<%= link_to 'Salir', destroy_user_session_path, :method => :delete, id: "logout" %>
-	<div class="container">
-
-		<ul class="nav nav-pills">
-		  <li class="active"><a href="#"><%= I18n.t("application.home") %></a></li>
-		  <li><a href="#"><%= "Otro" %></a></li>
-		</ul>
-
-		<div id="ajax-loading-indicator" class="ajax-loading-indicator">
-			<img src="/assets/ajax-loader.gif"/>
-		</div>
+	
+	<div id="ajax-loading-indicator" class="ajax-loading-indicator">
+		<img src="/assets/ajax-loader.gif"/>
+	</div>
 
 	<!-- Use the AlertMessage javascript singleton object to manage alerts  -->
 	<div id="alert" name="alert" style="display: none"></div>
 
 	<% 
-		flash.each do |key, value|
-			alert_class = case key
-				when :alert then 'alert-danger'
-				when :notice then 'alert-success'
-				else 'alert-info'
-			end
-		
-			unless value.blank? %>
-				<script>
-					AlertMessage.display_alert('<%= value %>', '<%=alert_class%>');
-				</script>
-			<% 
-			end 
+	flash.each do |key, value|
+		alert_class = case key
+			when :alert then 'alert-danger'
+			when :notice then 'alert-success'
+			else 'alert-info'
+		end
+	
+		unless value.blank? %>
+			<script>
+				AlertMessage.display_alert('<%= value %>', '<%=alert_class%>');
+			</script>
+		<% 
 		end 
+	end 
 	%>
 
-		<div id="template">
-			<%= yield %>
-		</div>
-    
-		<footer>
-			<span>(C) 2014</span>
-		</footer>
-	
-	</div>
+	<section id="container" >
+		<header class="header black-bg">
+			<div class="sidebar-toggle-box">
+				<div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+			</div>
+			<!--logo start-->
+			<a href="/" class="logo"><b>Green<span>Time</span></b></a>
+			<!--logo end-->
+			<div class="top-menu">
+				<ul class="nav pull-right top-menu">
+					<li><%= link_to 'Logout', destroy_user_session_path, :method => :delete, id: "logout", class: "logout" %></li>
+				</ul>
+			</div>
+		</header>
+	</section>	
+	<aside>
+		<div id="sidebar"  class="nav-collapse ">
 
+			<!-- sidebar menu start-->
+			<ul class="sidebar-menu" id="nav-accordion">
+
+				<p class="centered">
+					<a href="/profile.html"><img src="/assets/ui-sam.jpg" class="img-circle" width="80"></a>
+				</p>
+				<h5 class="centered">Diego Espada</h5>
+
+				<li class="mt">
+					<a class="active" href="#dashboard">
+						<i class="fa fa-dashboard"></i>
+						<span>Dashboard</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="#projects">
+						<i class="fa fa-film"></i>
+						<span>Proyectos</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="#tasks">
+						<i class="fa fa-tasks"></i>
+						<span>Tareas</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="#time">
+						<i class="fa fa-clock-o"></i>
+						<span>Horas</span>
+					</a>
+				</li>
+			</ul>
+			<!-- sidebar menu end-->
+		</div>
+	</aside>
+	<section id="main-content">
+		<section class="wrapper" id="template">
+			<%= yield %>
+		</section>
+	</section>
+
+	<!--footer start-->
+	<footer class="site-footer">
+		<div class="text-center">
+			Greentime (C) 2014
+			<a href="index.html#" class="go-top">
+				<i class="fa fa-angle-up"></i>
+			</a>
+		</div>
+	</footer>
+	<!--footer end-->
 </body>
 </html>
