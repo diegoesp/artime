@@ -8,11 +8,16 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require bootstrap-datepicker3
+ *= require bootstrap-switch
+ *= require bootstrap-tokenfield
  *= require_self
  */
 
 @import "bootstrap";
 @import "bootstrap_and_overrides";
+@import "bootstrap-chosen";
+@import "font-awesome";
 
 $color-cyan: #45C8AF;
 $color-red: #e74c3c;

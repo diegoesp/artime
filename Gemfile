@@ -27,8 +27,8 @@ gem 'devise'
 gem 'jquery-rails', "2.3.0"                                 # Provides JQuery
 gem 'i18n-js', "3.0.0.rc5"                                  # Provides internationalization for javascript
 gem 'bootstrap-sass', '~> 3.1.0'                            # Twitter Bootstrap using SASS instead of LESS
-gem 'momentjs-rails', '2.5.1'                               # Moment.js library for managing dates (better than Date)
 gem 'bootstrap-datepicker-rails'                            # powerful datepicker feature for jquery
+gem 'momentjs-rails', '2.5.1'                               # Moment.js library for managing dates (better than Date)
 gem "font-awesome-rails", "4.0.3.1"                         # Complementary icons for bootstrap
 
 # Additional Javascript features
