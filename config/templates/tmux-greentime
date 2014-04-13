@@ -28,8 +28,8 @@ cd ~/Github/greentime
 # Create the windows
 tmux new-window -n "zeus" 			-t 8 "zeus start"
 sleep 2 												# Other services must wait for zeus to launch the socket
-tmux new-window -n "rackup" 		-t 7 "bundle exec rackup private_pub.ru -s thin -E production"
-tmux new-window -n "jobs" 			-t 6 "zeus rake jobs:work"
+# tmux new-window -n "rackup" 		-t 7 "bundle exec rackup private_pub.ru -s thin -E production"
+# tmux new-window -n "jobs" 			-t 6 "zeus rake jobs:work"
 tmux new-window -n "tests" 			-t 5 "bundle exec rspec spec"
 tmux new-window -n "dbconsole"	-t 4 "zeus dbconsole"
 tmux new-window -n "console" 		-t 3 "zeus console"

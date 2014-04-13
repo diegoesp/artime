@@ -23,7 +23,7 @@ require 'spec_helper'
 describe User do
 
   before (:each) do
-    @user = FactoryGirl.create(:user)
+    @user = build(:user)
   end
 
   it "should be a valid object" do
