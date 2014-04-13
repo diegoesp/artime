@@ -30,7 +30,9 @@ window.CresponApp =
 	{
 		this.Routers = 
 		{
-			administrationRouter: new CresponApp.Routers.Administrations()
+			administrationRouter: new CresponApp.Routers.Administrations(),
+			homeRouter: new CresponApp.Routers.Home(),
+			projectsRouter: new CresponApp.Routers.Projects()
 		};
 
 		// You can link all routers to an action whenever they route something
@@ -39,7 +41,9 @@ window.CresponApp =
 			var router = this.Routers[key];
 			router.bind("route", function(trigger, args) 
 			{
-				// Action
+				$(".sidebar-menu a").removeClass("active");
+				var selector = sprintf(".sidebar-menu a[href$='%s']", window.location.hash);
+				$(selector).addClass("active");
 			});
 		}
 

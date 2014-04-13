@@ -1,0 +1,40 @@
+<ul class="list-unstyled project-tasks">
+<%
+	for(var i=0; i < 10; i++)
+	{
+		var progress = Math.round(Math.random() * 100);
+		var hours = Math.round(Math.random() * 16) * 10;
+%>
+	
+	<li>
+		<div class="row">
+			<div class="col-md-6">
+				<a href="#" data-model-id="<%=i%>" class="task-name">Nombre de la tarea <%=i%></a>
+			</div>
+			<div class="col-md-1 text-right">
+				<strong><%=hours%> hs</strong>
+			</div>
+			<div class="col-md-5">
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="<%=progress%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=progress%>%; background-color:#4ECDC4"><%=progress%>%</div>
+				</div>
+			</div>
+		</div>
+	</li>
+
+<%
+	}
+%>
+</ul>
+<style>
+.project-tasks > li {
+	border-bottom: 1px solid whitesmoke;
+	padding: 10px;
+}
+.task-name {
+	color: inherit;
+}
+.progress {
+	margin-bottom: 0px;
+}
+</style>
