@@ -17,11 +17,15 @@
 //= require jquery_ujs
 //= require underscore
 //= require backbone
+//= require bootstrap
+//= require bootstrap-switch
+//= require bootstrap-tokenfield
+//= require jquery.chosen
+//= require Chart.min
 //= require crespon_app
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections
 //= require_tree ./views
 //= require_tree ./routers
-//= require bootstrap
 //= require_tree .

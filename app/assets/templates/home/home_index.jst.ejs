@@ -2,17 +2,17 @@
 <div class="border-head mt">
 	<h3>Dashboard de proyectos</h3>
 </div>
-<ul class="list-unstyled list-inline">
+<ul class="list-unstyled list-inline" id="project_charts">
 <!-- SERVER STATUS PANELS -->
 <%
 	for(var i=0; i <10; i++)
 	{
 %>
 	
-	<li style="margin-bottom: 10px">
-		<div class="grey-panel pn donut-chart" style="width:200px;position:relative">
+	<li>
+		<div class="grey-panel pn donut-chart">
 			<div class="grey-header">
-				 <a href="green_project_form.html"><h5>NIKE COMERCIAL 2014</h5></a>
+				 <h5>NIKE COMERCIAL 2014</h5>
 			</div>
 			<div class="donut-chart-indicator">70%</div>
 			<canvas id="serverstatus" height="120" width="120"></canvas>
@@ -33,20 +33,23 @@
 %>	
 </ul>
 <style>
-		.progress-bar {
-			-webkit-box-shadow: none;
-			box-shadow: none;
-		}
-		.donut-chart-indicator {
-			position: absolute;
-			text-align: center;
-			top: 104px;
-			font-weight: 900;
-			color: #FF6B6B;
-			font-size: 20px;
-			width: 100%;
-		}
-		.grey-header > a {
-			color: rgb(121,121,121);
-		}
+	#project_charts > li {
+		cursor: pointer;
+		margin-bottom: 10px;
+		position:relative;
+		width:220px;
+	}
+	.progress-bar {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+	.donut-chart-indicator {
+		position: absolute;
+		text-align: center;
+		top: 104px;
+		font-weight: 900;
+		color: #FF6B6B;
+		font-size: 20px;
+		width: 100%;
+	}
 </style>

@@ -4,7 +4,8 @@ CresponApp.Views.HomeIndex = Backbone.View.extend ({
 
 	events:
 	{
-
+		"click li": "editProject",
+		"click #new": "newProject"
 	},
 
 	initialize: function()
@@ -30,6 +31,16 @@ CresponApp.Views.HomeIndex = Backbone.View.extend ({
 			var myDoughnut = new Chart(this.$("#serverstatus")[i].getContext("2d")).Doughnut(doughnutData);
 		}
 		return this;
+	},
+
+	editProject: function()
+	{
+		Backbone.history.navigate("projects/1", true);
+	},
+
+	newProject: function()
+	{
+		Backbone.history.navigate("projects/new", true);
 	}
 	
 });

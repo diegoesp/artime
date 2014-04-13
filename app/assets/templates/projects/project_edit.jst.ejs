@@ -1,0 +1,69 @@
+
+<div class="form-panel mt">
+	<div class="pull-right">
+		<label class="control-label">Show in dashboard </label>
+		<input type="checkbox" checked="" data-toggle="switch" />
+	</div>
+	<h4 class="mb">Datos del proyecto</h4>
+	<form class="style-form" method="get" id="projectForm">
+		<div class="row form-group">
+			<div class="col-md-4">
+				<label class="control-label">Name</label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-md-2">
+				<label class="control-label">Code</label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-md-2">
+				<label class="control-label">Start date</label>
+				<input class="form-control input-medium default-date-picker" type="text" value="">
+			</div>
+			<div class="col-md-2">
+				<label class="control-label">End date</label>
+				<input class="form-control input-medium default-date-picker" type="text" value="">
+			</div>
+			<div class="col-md-2">
+				<label class="control-label">Status</label>
+				<select class="form-control">
+					<option value="A">Active</option>
+					<option value="I">Inactive</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Project description</label>
+			<textarea class="form-control" rows="3"></textarea>
+		</div>
+
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#tasks" data-toggle="tab">Tasks</a>
+			</li>
+			<li>
+				<a href="#members" data-toggle="tab">Members</a>
+			</li>
+			<li>
+				<a href="#" id="newTask" class="green">New task</a>
+			</li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content" style="padding-top:10px">
+		  <div class="tab-pane active" id="tasks"></div>
+		  <div class="tab-pane" id="members">
+		  	<select id="member_ids" multiple="multiple">
+		  		<option value="1">Diego Espada</option>
+		  		<option value="2">Martin Dasnoy</option>
+		  		<option value="3">Nicolás Rossi</option>
+		  	</select>
+		  </div>
+		</div>
+
+	</form>
+	<div class="text-center">
+		<button class="btn btn-theme">Save</button>
+		<button class="btn btn-default">Cancel</button>
+	</div>
+</div>
