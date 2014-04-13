@@ -41,7 +41,9 @@ window.CresponApp =
 			var router = this.Routers[key];
 			router.bind("route", function(trigger, args) 
 			{
-				// Action
+				$(".sidebar-menu a").removeClass("active");
+				var selector = sprintf(".sidebar-menu a[href$='%s']", window.location.hash);
+				$(selector).addClass("active");
 			});
 		}
 

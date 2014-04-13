@@ -11,12 +11,12 @@
  *= require bootstrap-datepicker3
  *= require bootstrap-switch
  *= require bootstrap-tokenfield
- *= require jquery.chosen
  *= require_self
  */
 
 @import "bootstrap";
 @import "bootstrap_and_overrides";
+@import "bootstrap-chosen";
 @import "font-awesome";
 
 $color-cyan: #45C8AF;

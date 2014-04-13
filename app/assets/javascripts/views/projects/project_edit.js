@@ -23,7 +23,7 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 			placeholder_text_multiple: "Select one or more members...",
 			width: "100%"}
 		);
-		this.$('.default-date-picker').datepicker({ 
+		this.$('.date-picker').datepicker({ 
 			format: 'mm-dd-yyyy',
 			autoclose: true,
     		todayHighlight: true

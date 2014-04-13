@@ -2,14 +2,14 @@ CresponApp.Routers.Projects = Backbone.Router.extend ({
 
 	routes:
 	{
-		"projects/index": "index",
+		"projects": "index",
 		"projects/new": "create",
 		"projects/:id": "edit"
 	},
 
 	index: function()
 	{
-		var view  = new CresponApp.Views.HomeIndex();
+		var view  = new CresponApp.Views.ProjectsIndex();
 		$("#template").html(view.render().el);
 	},
 
