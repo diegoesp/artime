@@ -4,6 +4,8 @@ class AddAdminToUser < ActiveRecord::Migration
     User.create! do |r|
       r.email      = 'admin@example.com'
       r.password   = 'password'
+      r.first_name = 'John'
+      r.last_name= 'Admin'
       r.admin = true
     end
   end

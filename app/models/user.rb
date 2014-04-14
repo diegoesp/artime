@@ -18,6 +18,7 @@
 #  admin                  :boolean          default(FALSE), not null
 #
 
+# A Greentime user
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -26,4 +27,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  has_many :roles
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true
 end
