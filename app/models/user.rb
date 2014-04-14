@@ -29,4 +29,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :roles
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true
 end
