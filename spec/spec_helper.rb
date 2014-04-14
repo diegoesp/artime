@@ -12,7 +12,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'support/warning_suppressor'
 require 'capybara/poltergeist'
-require 'support/poltergeist_eighthfloor_driver'
+require 'support/poltergeist_crespon_driver'
 # Force every thread to use the same connection in a synchronized way
 require 'support/base'
 # Disable private pub when using PostgreSQL + zeus in tests
@@ -41,7 +41,7 @@ RSpec.configure do |config|
 
   config.before(:each, js: true) do
     # Comment this line if you want to use Selenium
-    Capybara.current_driver = :poltergeist_eighthfloor
+    Capybara.current_driver = :poltergeist_crespon
 
     RSpec::Core::Runner.disable_autorun!
     
@@ -97,6 +97,9 @@ RSpec.configure do |config|
   # sign_out :user         # sign_out(scope)
   # sign_out @user         # sign_out(resource)
   config.include Devise::TestHelpers, :type => :controller
+
+  # Include Factory Girl helper methods (aka create instead FactoryGirl.create and such)
+  config.include FactoryGirl::Syntax::Methods
 end
 
 # 
@@ -107,16 +110,6 @@ end
 # is to draw something in the page to give information to capybara on how
 # many connections are currently open by Ajax so we can trace and wait in a
 # smarter way
-def wait_util_ajax_finishes
+def wait_until_ajax_finishes
   sleep(0.2)
-end
-
-#
-# 
-# Sends the enter key event to a given selector
-# @param  selector [String] an xpath selector
-# 
-def send_enter_to(selector)
-  code = "var e = $.Event('keypress'); e.which = 13; e.keyCode = 13; $('#{selector}').trigger(e);"
-  page.execute_script(code)
 end
