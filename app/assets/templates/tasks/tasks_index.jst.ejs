@@ -1,0 +1,54 @@
+<div class="content-panel mt">
+	<h4>Tasks</h4>
+	<div style="padding:10px">
+		<div class="row">
+			<div class="col-md-4">
+				<ul class="list-unstyled tasks-list">
+					<li>
+						<strong>Task name</strong>
+						<span class="pull-right"><strong>Billable</strong></span>
+					</li>
+	<%
+					for(var i=0; i < 10; i++)
+					{
+						var billable = (Math.random() < 0.5);
+	%>
+					<li data-model-id="<%=i%>" class="task-link">
+						Tarea <%=i%>
+	<%
+						if(billable) {
+	%>
+							<i class="fa fa-check pull-right"></i>
+	<%
+						}
+	%>			
+					</li>
+	<%
+					}	
+	%>
+				</ul>
+			</div>
+			<div class="col-md-8">
+				<ul class="list-unstyled tasks-list">
+					<li class="text-center">
+						<strong>Task detail</strong>
+					</li>
+				</ul>
+				<div id="task-detail">
+					<p class="text-center">Select a task ...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+.tasks-list > li {
+	border-bottom: 1px solid whitesmoke;
+	cursor: pointer;
+	padding: 10px;
+}
+.tasks-list > li.active {
+	border-left: 3px solid #4ECDC4;
+	background-color: whitesmoke;
+}
+</style>
