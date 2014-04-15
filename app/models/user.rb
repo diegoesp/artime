@@ -26,15 +26,26 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_code
 
-  has_many :roles
+  belongs_to :company
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true
+  validates :company, presence: true
+  validates :role_code, presence: true
+  validates :role_code, inclusion: { in: Role.role_codes }
 
+  # Arranges the complete name for the user
   def name
     return "#{first_name} #{last_name}"
   end
+
+  # Returns true if the user is considered a manager in his company and has access to
+  # sensitive information
+  def manager?
+    role_code >= Role::MANAGER
+  end
+
 end

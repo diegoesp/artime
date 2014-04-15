@@ -30,4 +30,7 @@ class ApiApplicationController < ApplicationController
     str
   end
 
+  def is_manager_filter
+    raise "Cannot access this method if user is not manager" unless current_user.manager?
+  end
 end

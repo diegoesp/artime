@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :project do
+  	company
   	name "Nike e-lastishoes"
     active true
     deadline "2024-04-13"

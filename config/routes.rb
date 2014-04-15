@@ -3,7 +3,7 @@ Greentime::Application.routes.draw do
 	root :to => "home#index"
 
 	scope "api" do
-		resources :administrations
+		resources :projects
 	end
 
 	devise_for :users

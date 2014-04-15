@@ -10,6 +10,7 @@ def create_project(name, description, users)
 	project = FactoryGirl.create(
 	:project,
 	name: name,
+	start_date: Date.today - rand(0..60),
 	deadline: Date.today + rand(30..60), 
 	description: description)
 	# Tasks
@@ -75,12 +76,9 @@ end
 company = FactoryGirl.create(:company)
 
 # Users and their roles
-user_martin = FactoryGirl.create(:user, first_name: "Martin", last_name: "Dasnoy", email: "martindasnoy@gmail.com")
-FactoryGirl.create(:role, company: company, user: user_martin, code: Role::COMPANY)
-user_nicolas = FactoryGirl.create(:user, first_name: "Nicolas", last_name: "Rossi", email: "nrossi@gmail.com")
-FactoryGirl.create(:role, company: company, user: user_nicolas, code: Role::MANAGER)
-user_diego = FactoryGirl.create(:user, first_name: "Diego", last_name: "Espada", email: "diegoesp@gmail.com")
-FactoryGirl.create(:role, company: company, user: user_diego, code: Role::DEVELOPER)
+user_martin = FactoryGirl.create(:user, first_name: "Martin", last_name: "Dasnoy", email: "martindasnoy@gmail.com", company: company, role_code: Role::COMPANY)
+user_nicolas = FactoryGirl.create(:user, first_name: "Nicolas", last_name: "Rossi", email: "nrossi@gmail.com", company: company, role_code: Role::MANAGER)
+user_diego = FactoryGirl.create(:user, first_name: "Diego", last_name: "Espada", email: "diegoesp@gmail.com", company: company, role_code: Role::DEVELOPER)
 
 users = [user_martin, user_nicolas, user_diego]
 
@@ -88,5 +86,9 @@ users = [user_martin, user_nicolas, user_diego]
 create_project("Nike Running", "Advertising for the new Nike fast running shoes", users)
 create_project("Mama Luchetti Stickers", "The new advertising campaign for Mama Luchetti", users)
 create_project("La Luna", "New animated short produced for the Pixar studios", users)
-create_project("Metegol", "New animated movie from Juan Jose Campanella and many stars from Argentina cinema", users)
+create_project("Metegol", "New animated movie from Juan Jose Campanella and many stars from Argentinian cinema", users)
 create_project("Tomb Raider", "Advertising campaign for the new Tomb Raider game", users)
+create_project("Despicable Me 3", "The new animated film from Dreamworks. It has more minions, yay !", users)
+create_project("The Guardian", "Advertising campaign for The Guardian UK newspaper", users)
+create_project("MTV 2015", "Music Television new animated campaign for 2015", users)
+create_project("Return to Monkey Island", "New game for LucasFilm / Disney studios", users)
