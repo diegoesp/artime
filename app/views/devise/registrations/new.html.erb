@@ -1,18 +1,66 @@
-<h2>Sign up</h2>
+    <section class="section1">
+    	<div class="container clearfix">
+			<div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+                	<h4 class="title">
+                    	<span>Why Join Us?</span>
+                    </h4>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s..</p>
+                    <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+				<div class="col-lg-4 col-md-4 col-sm-12">
+                	<h4 class="title">
+                    	<span>Benefits</span>
+                    </h4>
+					<ul class="check">
+						<li><a href="#">5+ homepage style (check features menu)</a></li>
+						<li><a href="#">Compatible any eCommerce solutions</a></li>
+						<li><a href="#">Limitless color combinations</a></li>
+						<li><a href="#">Limitless page templates (15+ custom pages)</a></li>
+						<li><a href="#">100% responsive layout design</a></li>
+						<li><a href="#">Awesome slideshows for your contents</a></li>
+						<li><a href="#">Super awesome portfolio sections</a></li>
+						<li><a href="#">700+ custom font icons included</a></li>
+					</ul>
+                </div><!-- end login -->
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+				<div class="col-lg-4 col-md-4 col-sm-12">
+                	<h4 class="title">
+                    	<span>Register Form</span>
+                    </h4>
+					<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  						<%= devise_error_messages! %>
+						<div class="form-group">
+							<%= f.text_field :first_name, placeholder: "First name", class: "form-control" %>
+						</div>
+						<div class="form-group">
+							<%= f.text_field :last_name, placeholder: "Last name", class: "form-control" %>
+						</div>
+						<div class="form-group">
+							<%= f.email_field :email, placeholder: "Email", class: "form-control" %>
+						</div>
+						<div class="form-group">
+							<%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control" %>
+						</div>
+						<div class="form-group">
+							<%= f.password_field :password_confirmation, autocomplete: "off",placeholder: "Re-enter password", class:"form-control" %>
+						</div>
+						<div class="form-group">
+						  	<div><%= f.submit "Register an account", class: "button" %></div>
+						</div>
+					<% end %>
+				</div><!-- end register -->             
+  			</div><!-- end content -->
+        </div><!-- end container -->
+	</section><!-- end section -->
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+<script>
+	$("#jetmenu>li").removeClass("active");
+	$("li#sign_up").addClass("active");
+</script>
 
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+
+

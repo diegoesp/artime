@@ -6,20 +6,62 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
   <![endif]-->
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "dashio_frontend_theme", :media => "all" %>
+  <%= stylesheet_link_tag    "dashio_frontend_color", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div class="container">
 
-		<div id="ajax-loading-indicator" class="ajax-loading-indicator">
-			<img src="/assets/ajax-loader.gif"/>
-		</div>
+    <div class="topbar clearfix">
+    	<div class="container">
+			<div class="col-lg-12 text-right">
+                <div class="social_buttons">
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Dribbble"><i class="fa fa-dribbble"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="RSS"><i class="fa fa-rss"></i></a>
+                </div>
+			</div>
+    	</div><!-- end container -->
+    </div><!-- end topbar -->
 
-		<!-- Use the AlertMessage javascript singleton object to manage alerts  -->
-		<div id="alert" name="alert" style="display: none"></div>
+    <header class="header">
+    	<div class="container">
+        	<div class="site-header clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-12 title-area">
+                    <div class="site-title" id="title">
+                        <a href="index.html" title="">
+                            <h4>GREEN<span>TIME</span></h4>	
+                        </a>
+                    </div>
+                </div><!-- title area -->
+                <div class="col-lg-9 col-md-12 col-sm-12">
+                   <div id="nav" class="right">
+                        <div class="clearfix">
+	                        <ul id="jetmenu" class="jetmenu blue">
+	                            <li class="active"><a href="/">Home</a></li>
+	                            <li><a href="#">Prices</a></li>
+	                            <li><a href="#">Contact us</a></li>
+	                            <li id="sign_up"><a href="/users/sign_up">Register</a></li>
+	                            <li id="sign_in"><a href="/users/sign_in">Sign in</a></li>
+	                        </ul>
+                        </div>
+                    </div><!-- nav -->   
+                </div><!-- title area -->
+            </div><!-- site header -->
+    	</div><!-- end container -->
+    </header><!-- end header -->
+
+	<div id="ajax-loading-indicator" class="ajax-loading-indicator">
+		<img src="/assets/ajax-loader.gif"/>
+	</div>
+
+	<!-- Use the AlertMessage javascript singleton object to manage alerts  -->
+	<div id="alert" name="alert" style="display: none"></div>
 
 	<% 
 		flash.each do |key, value|
@@ -38,15 +80,53 @@
 		end 
 	%>
 
-		<div id="template">
-			<%= yield %>
-		</div>
-    
-		<footer>
-			<span>(C) 2014</span>
-		</footer>
-	
+	<div id="template">
+		<%= yield %>
 	</div>
+
+	<footer class="footer">
+        <div class="container">
+            <div class="widget col-lg-3 col-md-3 col-sm-12">
+            	<h4 class="title">About us</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s..</p>
+                <a class="button small" href="#">read more</a>
+            </div><!-- end widget -->
+            <div class="widget col-lg-3 col-md-3 col-sm-12">
+           		<h4 class="title">Get In Touch</h4>
+                <ul class="contact_details">
+                	<li><i class="fa fa-envelope-o"></i> info@yoursite.com</li>
+                	<li><i class="fa fa-phone-square"></i> +34 5565 6555</li>
+                	<li><i class="fa fa-home"></i> Some Fine Address, 887, Madrid, Spain.</li>
+                	<li><a href="#"><i class="fa fa-map-marker"></i> View large map</a></li>
+                </ul><!-- contact_details -->
+            </div><!-- end widget -->  
+            <div class="widget col-lg-6 col-md-6 col-sm-12">
+           
+            </div><!-- end widget -->  
+        </div><!-- end container -->
+        
+        <div class="copyrights">
+            <div class="container">
+                <div class="col-lg-6 col-md-6 col-sm-12 columns">
+                    <p>Copyright © 2014 - All rights reserved. Designed by <a title="Bootstrap Themes" href="http://alvarez.is">Alvarez</a></p>
+                </div><!-- end widget -->
+                <div class="col-lg-6 col-md-6 col-sm-12 columns text-right">
+                    <div class="footer-menu right">
+                        <ul class="menu">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Sitemap</a></li>
+                            <li><a href="#">Site Terms</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div><!-- end large-6 -->   
+            </div><!-- end container -->
+        </div><!-- end copyrights -->
+    </footer><!-- end footer -->
+    <div class="dmtop">Scroll to Top</div>
+	
+
 
 </body>
 </html>

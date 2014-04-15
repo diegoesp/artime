@@ -8,7 +8,7 @@ describe HomeController do
     it "returns a valid page" do
       get :index
         response.should be_success
-        response.body.should include("Sign up")
+        response.body.should include("Home")
     end
   end
 
