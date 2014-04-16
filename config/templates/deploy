@@ -84,7 +84,7 @@ RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/
 # Go back to initial dir
 cd $current_dir
 
+colored_echo "Deployment is complete"
+
 unset kill_process
 unset colored_echo
-
-colored_echo "Deployment is complete"
