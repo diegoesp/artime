@@ -55,6 +55,10 @@ RAILS_ENV=production bundle exec rake db:migrate
 colored_echo "Stopping nginx"
 sudo service nginx stop
 
+# Stop unicorn
+colored_echo "Stopping unicorn"
+kill_process unicorn
+
 # Re-compile assets
 colored_echo "Re-compile assets for the assets pipeline"
 RAILS_ENV=production bundle exec rake assets:precompile
@@ -63,8 +67,7 @@ RAILS_ENV=production bundle exec rake assets:precompile
 colored_echo "Starting nginx"
 sudo service nginx start
 
-# Restart unicorn
-kill_process unicorn
+# Start unicorn
 colored_echo "Starting unicorn"
 RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/greentime/config/unicorn.rb -E production
 
