@@ -69,14 +69,14 @@ colored_echo "Starting unicorn"
 RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/greentime/config/unicorn.rb -E production
 
 # Restart Faye
-kill_process private_pub
-colored_echo "Starting private_pub"
-RAILS_ENV=production /usr/bin/env bundle exec rackup private_pub.ru -s thin -E production -D -P tmp/pids/private_pub.pid
+# kill_process private_pub
+# colored_echo "Starting private_pub"
+# RAILS_ENV=production /usr/bin/env bundle exec rackup private_pub.ru -s thin -E production -D -P tmp/pids/private_pub.pid
 
 # Restart Delayed job
-kill_process delayed_job
-colored_echo "Starting delayed_job"
-RAILS_ENV=production script/delayed_job start
+# kill_process delayed_job
+# colored_echo "Starting delayed_job"
+# RAILS_ENV=production script/delayed_job start
 
 # Go back to initial dir
 cd $current_dir
