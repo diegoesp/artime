@@ -21,7 +21,7 @@ gem 'devise'
 # gem 'thin', "1.5.1"                                         # Simple server used by private_pub
 # gem 'delayed_job_active_record', "4.0.0"                    # Schedules job to an internal queue
 # gem 'clockwork', '0.7.3'                                    # cron-like gem to schedule repetitive tasks
-# gem 'unicorn', '4.7.0'                                      # Powerful ruby - rails server
+gem 'unicorn', '4.7.0'                                      # Powerful ruby - rails server
 
 # Javascript components
 gem 'jquery-rails', "2.3.0"                                 # Provides JQuery
@@ -34,8 +34,6 @@ gem "font-awesome-rails", "4.0.3.1"                         # Complementary icon
 # Additional Javascript features
 # gem "jquery-fileupload-rails", "0.4.1"                    # JQuery File Upload plugin for Rails
 # gem 'bootstrap3-datetimepicker-rails', '2.1.30'           # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
-
-gem 'factory_girl_rails', "4.2.1"                           # Temporary: delete when we have separate seeds for production
 
 # Gems exclusively used for development and test. Not needed @ prod environment
 group :development, :test do
