@@ -32,8 +32,10 @@ gem 'momentjs-rails', '2.5.1'                               # Moment.js library 
 gem "font-awesome-rails", "4.0.3.1"                         # Complementary icons for bootstrap
 
 # Additional Javascript features
-# gem "jquery-fileupload-rails", "0.4.1"                      # JQuery File Upload plugin for Rails
-# gem 'bootstrap3-datetimepicker-rails', '2.1.30'             # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
+# gem "jquery-fileupload-rails", "0.4.1"                    # JQuery File Upload plugin for Rails
+# gem 'bootstrap3-datetimepicker-rails', '2.1.30'           # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
+
+gem 'factory_girl_rails', "4.2.1"                           # Temporary: delete when we have separate seeds for production
 
 # Gems exclusively used for development and test. Not needed @ prod environment
 group :development, :test do
