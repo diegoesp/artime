@@ -56,14 +56,14 @@ describe Project do
   describe "hours management" do
     
     before(:each) do
-      @project.tasks << create(:task, project: @project, hours_planned: 10)
-      @project.tasks << create(:task, project: @project, hours_planned: 10)
-      @project.tasks << create(:task, project: @project, hours_planned: 10)
+      @project.project_tasks << create(:project_task, project: @project, hours_planned: 10)
+      @project.project_tasks << create(:project_task, project: @project, hours_planned: 10)
+      @project.project_tasks << create(:project_task, project: @project, hours_planned: 10)
 
-      task = @project.tasks.first
-      task.inputs << create(:input, task: task, hours: 4)
-      task = @project.tasks.last
-      task.inputs << create(:input, task: task, hours: 4)
+      task = @project.project_tasks.first
+      task.inputs << create(:input, project_task: task, hours: 4)
+      task = @project.project_tasks.last
+      task.inputs << create(:input, project_task: task, hours: 4)
     end
 
     it "should return total hours planned" do

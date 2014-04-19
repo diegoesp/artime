@@ -14,34 +14,25 @@ describe Task do
   	@task.should_not be_valid
   end
 
-	it "should require a project" do
-  	@task.project = nil
+  it "should require a company" do
+  	@task.company = nil
   	@task.should_not be_valid
   end
 
-  it "should require deadline" do
-  	@task.deadline = nil
-  	@task.should_not be_valid
+  it "should give me average spent hours" do
+    3.times do
+      project_task = create(:project_task, task: @task)
+      project_task.inputs << create(:input, project_task: project_task, hours: 4)
+    end
+
+    @task.average_spent_hours.should eq 4
   end
 
-  it "should require hours_planned" do
-  	@task.hours_planned = nil
-  	@task.should_not be_valid
-  end
+  it "should give me average estimated hours" do
+    3.times do
+      project_task = create(:project_task, task: @task, hours_planned: 8)
+    end
 
-  it "should give me hours already spent" do
-  	@task.save!
-  	create(:input, task: @task, hours: 8)
-  	create(:input, task: @task, hours: 3)
-  	create(:input, task: @task, hours: 2)
-  	@task.hours_spent.should eq 13
-  end
-
-  it "should find similar tasks to calculate stats" do
-  	3.times do 
-  		create(:task, name: "3D Modeling")
-  	end
-
-  	Task.find_similar("3D").length.should eq 3
+    @task.average_planned_hours.should eq 8
   end
 end

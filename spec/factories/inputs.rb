@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :input do
-    task
+    project_task
     user
     input_date "2024-04-13"
     hours 8

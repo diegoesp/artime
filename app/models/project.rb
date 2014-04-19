@@ -15,7 +15,7 @@ class Project < ActiveRecord::Base
   validates :deadline, presence: true
   validate :deadline_valid?
 
-  has_many :tasks
+  has_many :project_tasks
 
   def after_initialize
     self.start_date = Date.today if self.start_date.nil?
@@ -49,8 +49,8 @@ class Project < ActiveRecord::Base
   # Total hours for the project
   def hours_planned
     hours_planned = 0
-    tasks.each do |task|
-      hours_planned += task.hours_planned
+    project_tasks.each do |project_task|
+      hours_planned += project_task.hours_planned
     end
     hours_planned
   end
@@ -58,8 +58,8 @@ class Project < ActiveRecord::Base
   # Hours spent for the project
   def hours_spent
     hours_spent = 0
-    tasks.each do |task|
-      hours_spent += task.hours_spent
+    project_tasks.each do |project_task|
+      hours_spent += project_task.hours_spent
     end
     hours_spent
   end
