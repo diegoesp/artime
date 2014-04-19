@@ -6,8 +6,9 @@ describe ProjectsController do
   
   before(:each) do
   	user = create(:user, role_code: Role::MANAGER)
-  	project_1 = create(:project, company: user.company)
-  	project_2 = create(:project, company: user.company)
+    client = create(:client, company: user.company)
+  	project_1 = create(:project, client: client)
+  	project_2 = create(:project, client: client)
 
   	sign_in user
   end

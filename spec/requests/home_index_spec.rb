@@ -6,7 +6,7 @@ describe "home index" do
 
   before(:each)  do
     project_1 = create(:project)
-    project_2 = create(:project, company: project_1.company)
+    project_2 = create(:project, client: project_1.client)
 
     user = create(:user, role_code: Role::MANAGER)
 

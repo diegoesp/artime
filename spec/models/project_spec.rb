@@ -10,6 +10,11 @@ describe Project do
   	@project.should be_valid
   end
 
+  it "should require a client" do
+    @project.client = nil
+    @project.should_not be_valid
+  end
+
   it "should require deadline" do
   	@project.deadline = nil
   	@project.should_not be_valid
@@ -53,7 +58,7 @@ describe Project do
     @project.weeks_spent_percentage.should eq 0.5
   end
 
-  describe "hours management" do
+  describe "tasks management" do
     
     before(:each) do
       @project.project_tasks << create(:project_task, project: @project, hours_planned: 10)
@@ -78,6 +83,14 @@ describe Project do
       @project.hours_spent_percentage.should eq (8.to_f / 30).round(2)
     end
 
+    it "should tell me if the project is not completed" do
+      @project.completed?.should_not be_true
+    end
+
+    it "should tell me if the project is completed" do
+      @project.project_tasks.each { |project_task|  project_task.completed = true }        
+      @project.completed?.should be_true
+    end
   end
 
 end

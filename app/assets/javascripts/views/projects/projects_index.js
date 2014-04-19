@@ -10,7 +10,6 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 
 	initialize: function()
 	{
-
 	},
 
 	render: function()

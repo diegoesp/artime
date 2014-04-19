@@ -1,13 +1,13 @@
 # A project that the paying company is executing inside Greentime
 class Project < ActiveRecord::Base
 
-  belongs_to :company
+  belongs_to :client
 
   attr_accessible :start_date, :name, :active, :deadline, :description
 
   after_initialize :after_initialize
 
-  validates :company, presence: true
+  validates :client, presence: true
 	validates :name, presence: true
 	validates :description, presence: true
   validates :active, inclusion: { in: [true, false] }
@@ -68,5 +68,13 @@ class Project < ActiveRecord::Base
   def hours_spent_percentage
     return 1 if hours_planned == 0
     (hours_spent.to_f / hours_planned).round(2)
+  end
+
+  # Is the project completed ?
+  def completed?
+    project_tasks.each do |project_task|
+      return false unless project_task.completed
+    end
+    true
   end
 end
