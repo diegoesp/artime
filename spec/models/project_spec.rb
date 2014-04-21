@@ -58,6 +58,36 @@ describe Project do
     @project.weeks_spent_percentage.should eq 0.5
   end
 
+  describe "search_by" do
+
+    before(:each) do
+      @project.save!
+
+      @user = create(:user, company: @project.client.company)
+    end
+
+    it "should allow me to search using criteria" do
+      params = Hash.new
+      params[:client] = @project.client.id
+      params[:active] = true
+      params[:project_name] = @project.name
+
+      Project.search_by(params, @user).length.should eq 1
+    end
+
+    it "should allow me to search for a specific client" do
+      # Get another project from another client
+      client = create(:client, company: @project.client.company)
+      create(:project, client: client)
+
+      params = Hash.new
+      params[:client] = @project.client.id
+
+      # Should still return only one (for the client requested)
+      Project.search_by(params, @user).length.should eq 1
+    end
+  end
+
   describe "tasks management" do
     
     before(:each) do
@@ -91,6 +121,17 @@ describe Project do
       @project.project_tasks.each { |project_task|  project_task.completed = true }        
       @project.completed?.should be_true
     end
+  end
+
+  it "should say when a user in the project has access" do
+    user = create(:user, company: @project.client.company)
+    @project.has_user?(user).should_not be_true
+  end
+
+  it "should say when a user in the project has no access" do
+    user = create(:user, company: @project.client.company)
+    @project.users << user
+    @project.has_user?(user).should be_true
   end
 
 end

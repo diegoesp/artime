@@ -6,5 +6,11 @@ class Company < ActiveRecord::Base
   validates :name, presence: true
   validates :name, length: { maximum: 50 }
 
-  has_many :roles
+  has_many :users
+	has_many :tasks
+	
+  def has_user?(user)
+  	self.users.include?(user)
+  end
+
 end

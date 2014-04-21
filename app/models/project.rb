@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :client
 
-  attr_accessible :start_date, :name, :active, :deadline, :description
+  attr_accessible :start_date, :name, :active, :deadline, :description, :client_id
 
   after_initialize :after_initialize
 
@@ -16,6 +16,8 @@ class Project < ActiveRecord::Base
   validate :deadline_valid?
 
   has_many :project_tasks
+
+  has_and_belongs_to_many :users
 
   def after_initialize
     self.start_date = Date.today if self.start_date.nil?
@@ -46,7 +48,7 @@ class Project < ActiveRecord::Base
     (1 - (weeks_left.to_f / total_weeks)).round(2)
   end
 
-  # Total hours for the project
+  # Total planned hours for the project based on the tasks scheduled
   def hours_planned
     hours_planned = 0
     project_tasks.each do |project_task|
@@ -76,5 +78,41 @@ class Project < ActiveRecord::Base
       return false unless project_task.completed
     end
     true
+  end
+
+  # Allows to search by pre-defined params. All are optional.
+  #
+  # client: by client_id
+  # active: if true, only gets active projects
+  # name: name of the project as a like
+  def self.search_by(params, user)
+    conditions = []
+    arguments = Hash.new
+
+    conditions << "company_id = :company"
+    arguments[:company] = user.company.id
+
+    unless params[:client].blank?
+      conditions << "client_id = :client"
+      arguments[:client] = params[:client]
+    end
+
+    unless params[:active].blank?
+      conditions << "projects.active = :active"
+      arguments[:active] = params[:active]
+    end
+
+    unless params[:name].blank?
+      conditions << "lower(projects.name) LIKE lower(:name)"
+      arguments[:name] = "%#{params[:name]}%"
+    end
+
+    conditions_joined = conditions.join(" AND ")
+    Project.joins(:client).joins(client: :company).find(:all, conditions: [conditions_joined, arguments])
+  end
+
+  # The user has access to this project?
+  def has_user?(user)
+    self.users.include?(user)
   end
 end

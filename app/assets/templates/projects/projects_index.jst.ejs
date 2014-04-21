@@ -4,24 +4,20 @@
 		<form class="form-horizontal style-form" method="get">
 			<div class="row">
 				<div class="col-md-3">
-					<label class="control-label">Customer</label>
-					<select class="form-control input-medium" id="customer" name="customer">
+					<label class="control-label">Client</label>
+					<select class="form-control input-medium" id="clients_select" name="clients_select">
 						<option></option>
-						<option>Nike</option>
-						<option>Gobierno de la Ciudad</option>
 					</select>
 				</div>
 				<div class="col-md-3">
 					<label class="control-label">Project Name</label>
-					<input type="text" class="form-control input-medium" />
+					<input type="text" id="project_name" class="form-control input-medium" />
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-4">
+					<!--
 					<label class="control-label">Date from</label>
 					<input type="text" class="form-control input-medium date-picker" />
-				</div>
-				<div class="col-md-2">
-					<label class="control-label">Date to</label>
-					<input type="text" class="form-control input-medium date-picker" />
+					-->
 				</div>
 				<div class="col-md-2">
 					<div class="control-label">&nbsp;</div>
@@ -32,37 +28,16 @@
 		<table class="table table-bordered table-striped table-condensed mt">
 			<thead>
 				<tr>
-						<th>Nombre</th>
-						<th>Codigo</th>
-						<th>Cliente</th>
-						<th>Inicio</th>
-						<th>Fin</th>
-						<th>Horas</th>
-						<th>Rendimiento</th>
-						<th>Estado</th>
+						<th>Name</th>
+						<th>Client</th>
+						<th>Start</th>
+						<th>Deadline</th>
+						<th>Budget</th>
+						<th>Spent</th>
+						<th>Status</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-						<td><a href="#" data-model-id="1" class="project-link">Nike Tecnopolis 2014</a></td>
-						<td>NIKE2014</td>
-						<td>Gobierno de la Ciudad</td>
-						<td>01-Mar-2014</td>
-						<td>30-Mar-2014</td>
-						<td>200</td>
-						<td>90%</td>
-						<td><span class="label label-success">Cerrado</span></td>
-				</tr>
-				<tr>
-						<td><a href="#" data-model-id="2" class="project-link">Luchetti Showmatch</a></td>
-						<td>LUCHSHOW</td>
-						<td>Molinos Rio de la Plata</td>
-						<td>01-Abr-2014</td>
-						<td>30-Abr-2014</td>
-						<td>160</td>
-						<td>110%</td>
-						<td><span class="label label-success">Cerrado</span></td>
-				</tr>
+			<tbody id="projects_tbody">
 			</tbody>
 		</table>
 	</section>

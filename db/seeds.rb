@@ -7,7 +7,7 @@ include FactoryGirl::Syntax::Methods
 # a users array with available users to employ for
 # entering inputs
 ########################################################
-def create_project(name, description, client)
+def create_project(name, description, client, closed)
 
 	project = create(:project,
 	name: name,
@@ -15,6 +15,9 @@ def create_project(name, description, client)
 	deadline: Date.today + rand(30..60), 
 	description: description,
 	client: client)
+
+	# Assign all three users to the project
+	project.users << User.all
 
 	# Tasks
 	get_tasks.each do |task|

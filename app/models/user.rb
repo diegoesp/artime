@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   validates :role_code, presence: true
   validates :role_code, inclusion: { in: Role.role_codes }
 
+  has_and_belongs_to_many :projects
+
   # Arranges the complete name for the user
   def name
     return "#{first_name} #{last_name}"

@@ -1,7 +1,7 @@
 # To be used by any controller that exposes an API in the application
 class ApiApplicationController < ApplicationController
 
-  around_filter :api_error_filter
+  # around_filter :api_error_filter
 
   # 
   # Do not include header while serializing to JSON
@@ -31,6 +31,7 @@ class ApiApplicationController < ApplicationController
   end
 
   def is_manager_filter
+    raise "user is not logged in" if current_user.nil?
     raise "Cannot access this method if user is not manager" unless current_user.manager?
   end
 end

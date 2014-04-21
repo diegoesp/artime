@@ -1,0 +1,9 @@
+<tr>
+		<td><a href="#" data-project-id="<%= project.id %>" class="project-link"><%= project.attributes.name %></a></td>
+		<td><%= project.attributes.client_name %></td>
+		<td><%= project.attributes.start_date %></td>
+		<td><%= project.attributes.deadline %></td>
+		<td><%= project.attributes.hours_planned %></td>
+		<td><%= project.hours_spent_percentage_string() %></td>
+		<td><span class="label <%= project.label() %>"><%= project.completed() %></span></td>
+</tr>

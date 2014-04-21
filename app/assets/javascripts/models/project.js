@@ -1,5 +1,12 @@
 CresponApp.Models.Project = Backbone.Model.extend({
-	urlRoot: '/api/projects',
+	
+	url: function()
+	{
+		var id = this.id;
+		if (id === undefined || id === null) id = "";
+
+		return "/api/projects/" + id;
+	},
 
 	weeks_left: function()
 	{
@@ -30,5 +37,25 @@ CresponApp.Models.Project = Backbone.Model.extend({
 	hours_spent_percentage: function()
 	{
 		return Math.round(this.attributes.hours_spent_percentage * 100);
+	},
+
+	hours_spent_percentage_string: function()
+	{
+		return this.hours_spent_percentage() + " %";
+	},
+
+	// Returns the status display
+	completed: function()
+	{
+		if (this.attributes.completed) return "Closed";
+		return "Open";
+	},
+
+	// Returns the name of the CSS label to be used for this project
+	// depending on his state
+	label: function()
+	{
+		if (this.attributes.completed) return "label-success";
+		return "label-danger";
 	}
 });

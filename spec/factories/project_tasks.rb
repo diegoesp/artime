@@ -6,7 +6,11 @@ FactoryGirl.define do
     deadline "2020-04-18"
     completed false
     billable true
-    task
     project
+
+		after(:build) do |project_task|
+      project_task.task  = FactoryGirl.create(:task, company: project_task.project.client.company) if project_task.task.nil?
+    end
+
   end
 end

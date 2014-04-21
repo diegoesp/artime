@@ -24,5 +24,15 @@ describe Company do
   	@company.name = "c" * 51
   	@company.should_not be_valid
   end
-  
+
+  it "should say when a user belongs to a company" do
+    user = create(:user, company: @company)
+    @company.has_user?(user).should be_true
+  end
+
+    it "should say when a user does not belong to a company" do
+    user = create(:user)
+    @company.has_user?(user).should_not be_true
+  end
+
 end

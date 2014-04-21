@@ -24,4 +24,42 @@ describe ProjectsController do
 
   end
 
+  describe "POST 'create'" do
+
+    it "creates a project" do
+      Project.all.length.should eq 2
+
+      data = FactoryGirl.build(:project, client: Client.first).serializable_hash(except: [:created_at, :updated_at, :id] )
+      data[:project] = data.clone
+
+      post :create, data
+
+      Project.all.length.should eq 3
+    end
+
+  end
+
+  describe "PUT 'update'" do
+
+    it "updates a project" do
+
+      project = Project.first
+      put :update, id: project.id, project: { name: "New name" }
+      project.reload.name.should eq "New name"
+    end
+    
+  end
+
+  describe "DELETE 'destroy'" do
+
+    it "deletes a project" do
+      Project.all.length.should eq 2
+
+      delete :destroy, id: Project.all.first.id
+
+      Project.all.length.should eq 1
+    end
+
+  end
+
 end

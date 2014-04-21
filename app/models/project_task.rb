@@ -10,7 +10,9 @@ class ProjectTask < ActiveRecord::Base
   validates :hours_planned, presence: true
   validates :hours_planned, inclusion: 1..1024
 
-  attr_accessible :completed, :deadline, :hours_planned, :billable
+  validate :company_task_consistent
+
+  attr_accessible :completed, :deadline, :hours_planned, :billable, :project_id, :task_id
 
   has_many :inputs
 
@@ -23,4 +25,15 @@ class ProjectTask < ActiveRecord::Base
   	hours_spent
   end
 
+  # Returns percentage of hours spent against estimation
+  def hours_spent_percentage
+    return 1 if hours_planned == 0
+    (hours_spent.to_f / hours_planned).round(2)
+  end
+
+  # The task must belong to the stated company
+  def company_task_consistent
+    return if self.project.client.company.tasks.include?(self.task)
+    errors.add(:task, "must belong to the stated company")
+  end
 end
