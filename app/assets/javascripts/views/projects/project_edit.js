@@ -8,7 +8,8 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 		"click #newTask": "newTask",
 		"click .task-name": "showTask",
 		"click #saveButton": "saveButton",
-		"click #cancelButton": "cancelButton"
+		"click #cancelButton": "cancelButton",
+		"change #users": "usersChange"
 	},
 
 	project: null,
@@ -41,22 +42,41 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 
 		this.$("#users").populateSelect("/api/users");
 
+		// Fill tasks empty (since this is a new project)
+		this.$("#tasks").html(this.template_project_task_list({ projectTasksCollection: [] }));
+		
+		// Show the users combo as a bootstrap chosen
 		this.$("#users").chosen({
 			placeholder_text_multiple: "Select one or more members...",
 			width: "100%"}
 		);
 
-		// Fill tasks empty (since this is a new project)
-		this.$("#tasks").html(this.template_project_task_list({ projectTasksCollection: [] }));
-
 		// It it is an update, fill the necessary info
-		if (this.project.id !== null)
-		{			
-			this.project.fetch({ async: true })
-			this.projectTasksCollection.fetch({ async: true })
-		}
+		if (this.project.id !== null) this.fill_form();
 
 		return this;
+	},
+
+	// Fills the form with pre-existing data
+	fill_form: function()
+	{
+		var self = this;
+
+		this.project.fetch({ async: true })
+		this.projectTasksCollection.fetch({ async: true })
+		// Gather list of selected users
+		$.ajax(
+		{
+			url: "/api/projects/" + this.project.id + "/project_users",
+			type: "GET",
+			dataType:'JSON',
+			async: true,
+			success: function(response)
+			{
+				user_id_array = response.split(",")
+				self.$("#users").val(user_id_array).trigger("chosen:updated");
+			}
+		});
 	},
 
 	refreshProject: function()
@@ -111,5 +131,37 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 	cancelButton: function()
 	{
 		Backbone.history.navigate("/projects", true);
+	},
+
+	usersChange: function(event)
+	{
+		event.preventDefault();
+
+		if (this.project.id === null)
+		{
+			AlertMessage.show_warning("Please save the project before adding users");
+			// Clean the combo
+			$("#users").val('').trigger("chosen:updated");
+			return;
+		}
+
+		var user_id_csv = $("#users").val();
+		$.ajax(
+		{
+			url: "/api/projects/" + this.project.id + "/project_users/" + this.project.id,
+			data: { user_id_csv: user_id_csv },
+			type: "PUT",
+			dataType:'JSON',
+			async: true,
+			success:function(data)
+			{
+				AlertMessage.show_success("User was added to the project");
+			},
+			error:function(request, status, error)
+			{
+				AlertMessage.show_error(error);
+			}
+		});
+
 	}
 });

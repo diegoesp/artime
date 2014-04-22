@@ -28,7 +28,7 @@ class ProjectsController < ApiApplicationController
   def show
   	render json: Project.find(params[:id]);
   end
-
+  
 	private
 
 	def can_user_see_client

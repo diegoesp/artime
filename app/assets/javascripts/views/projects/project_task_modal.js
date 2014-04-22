@@ -24,8 +24,6 @@ CresponApp.Views.ProjectTaskModal = Backbone.View.extend ({
 		this.projectTask = new CresponApp.Models.ProjectTask();
 		this.projectTask.attributes.project_id = this.projectTasksCollection.projectId;
 
-console.log(this.projectTasksCollection);
-
 		var id = hash.id;
 		if (id !== null) this.projectTask = this.projectTasksCollection.get(id);
 	},
@@ -64,7 +62,7 @@ console.log(this.projectTasksCollection);
 		event.preventDefault();
 
 		var self = this;
-		var data = $("#projectTaskForm").serializeObject();		
+		var data = $("#projectTaskForm").serializeObject();
 
 		this.projectTask.save(data, { wait: true, success: function() {
 			AlertMessage.show_info("Task was saved successfully");

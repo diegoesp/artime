@@ -5,6 +5,7 @@ Greentime::Application.routes.draw do
 	scope "api" do
 		resources :projects do
 			resources :project_tasks
+			resources :project_users
 		end
 		resources :clients
 		resources :tasks

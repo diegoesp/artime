@@ -4,3 +4,4 @@
 - Client / User: should we use scoped models per mother model or children model ?
 - Projects search screen: I took out the date from and date to parameters
 - We're missing a client management screen
+- Huge list of CSS on vendor => Have to include them in the application.rb
