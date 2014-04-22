@@ -3,7 +3,7 @@ class CreateProjectTasks < ActiveRecord::Migration
     create_table :project_tasks do |t|
       t.integer :hours_planned
       t.date :deadline
-      t.boolean :completed, default: true, null: false
+      t.boolean :completed, default: false, null: false
       t.boolean :billable, default: true, null: false
       t.references :task
       t.references :project

@@ -1,20 +1,19 @@
 CresponApp.Models.ProjectTask = Backbone.Model.extend({
 	
-	projectId: null,
   id: null,
 
   url: function() 
   {
-  	if (this.projectId === null) throw new Error("Must set projectId property first");
+  	if (this.attributes.project_id === null) throw new Error("Must set projectId property first");
   	
   	var id = this.id;
   	if (id === null) id = "";
-    return "/api/projects/" + this.projectId + "/project_tasks/" + id;
+    return "/api/projects/" + this.attributes.project_id + "/project_tasks/" + id;
   },
 
   initialize: function(hash)
   {
-  	if (hash.projectId !== undefined) this.projectId = hash.projectId;
+  	if (hash === undefined) return;
     if (hash.id !== undefined) this.id = hash.id;
   },
 

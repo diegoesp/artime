@@ -9,11 +9,8 @@ class ProjectTasksController < ApiApplicationController
 
 	def create
 		project_task = ProjectTask.new(params[:project_task])
-		
-		project = Project.find(params[:project_id])
-		project.project_tasks << project_task
-    project.save!
-
+		project_task.project_id = params[:project_id]
+    project_task.save!
     render json: project_task
 	end
 

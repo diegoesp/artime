@@ -20,8 +20,14 @@ describe Task do
   end
 
   it "should give me average spent hours" do
+    client = create(:client, company: @task.company)
+    project = create(:project, client: client)
+
+    # Have to save so project task company and task company can be checked to be the same
+    @task.save!
+
     3.times do
-      project_task = create(:project_task, task: @task)
+      project_task = create(:project_task, project: project, task: @task)
       project_task.inputs << create(:input, project_task: project_task, hours: 4)
     end
 
@@ -29,8 +35,14 @@ describe Task do
   end
 
   it "should give me average estimated hours" do
+    client = create(:client, company: @task.company)
+    project = create(:project, client: client)
+
+    # Have to save so project task company and task company can be checked to be the same
+    @task.save!
+
     3.times do
-      project_task = create(:project_task, task: @task, hours_planned: 8)
+      project_task = create(:project_task, project: project, task: @task, hours_planned: 8)
     end
 
     @task.average_planned_hours.should eq 8

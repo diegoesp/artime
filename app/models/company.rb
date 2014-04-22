@@ -8,7 +8,8 @@ class Company < ActiveRecord::Base
 
   has_many :users
 	has_many :tasks
-	
+  has_many :clients
+  	
   def has_user?(user)
   	self.users.include?(user)
   end

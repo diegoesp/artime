@@ -25,11 +25,6 @@ describe ProjectTask do
   	@project_task.should_not be_valid
   end
 
-  it "should require deadline" do
-  	@project_task.deadline = nil
-  	@project_task.should_not be_valid
-  end
-
   it "should require hours_planned" do
   	@project_task.hours_planned = nil
   	@project_task.should_not be_valid

@@ -19,22 +19,18 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 		this.project = new CresponApp.Models.Project({ id: hash.id });
 		this.projectTasksCollection = new CresponApp.Collections.ProjectTasks({ projectId: hash.id });
 
-		if (hash.id !== undefined)
-		{
-			// It's an update, fill the necessary info
-			this.project.fetch({ async: false })
-			this.projectTasksCollection.fetch({ async: false })
-		}
+		this.listenTo(this.project, "sync", this.refreshProject);
+		this.listenTo(this.project, "destroy", this.refreshProject);
+
+		this.listenTo(this.projectTasksCollection, "sync", this.refreshProjectTasks);
+		this.listenTo(this.projectTasksCollection, "destroy", this.refreshProjectTasks);
 	},
 
 	render: function()
 	{
 		$(this.el).html(this.template_project_edit());
 		this.$("[data-toggle='switch']").bootstrapSwitch();
-		this.$("#member_ids").chosen({
-			placeholder_text_multiple: "Select one or more members...",
-			width: "100%"}
-		);
+
 		this.$('.date-picker').datepicker({ 
 			format: 'yyyy-mm-dd',
 			autoclose: true,
@@ -43,18 +39,34 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 
 		this.$("#client_id").populateSelect("/api/clients");
 
-		// If it is an update I have to fill the form with the project info
+		this.$("#users").populateSelect("/api/users");
+
+		this.$("#users").chosen({
+			placeholder_text_multiple: "Select one or more members...",
+			width: "100%"}
+		);
+
+		// Fill tasks empty (since this is a new project)
+		this.$("#tasks").html(this.template_project_task_list({ projectTasksCollection: [] }));
+
+		// It it is an update, fill the necessary info
 		if (this.project.id !== null)
-		{
-			this.$("#project_form").populateForm(this.project);
-			this.$("#tasks").html(this.template_project_task_list({ projectTasksCollection: this.projectTasksCollection }));
+		{			
+			this.project.fetch({ async: true })
+			this.projectTasksCollection.fetch({ async: true })
 		}
-		else
-		{
-			// Fill tasks empty (since this is a new project)
-			this.$("#tasks").html(this.template_project_task_list({ tasks: [] }));
-		}
+
 		return this;
+	},
+
+	refreshProject: function()
+	{
+		this.$("#project_form").populateForm(this.project);
+	},
+
+	refreshProjectTasks: function()
+	{
+		this.$("#tasks").html(this.template_project_task_list({ projectTasksCollection: this.projectTasksCollection }));
 	},
 
 	newTask: function(event)
@@ -63,13 +75,11 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 
 		if (this.project.id === null)
 		{
-			AlertMessage.show_warning("Plase save the project before adding new tasks");
+			AlertMessage.show_warning("Please save the project before adding new tasks");
 			return;
 		}
 
-		var projectTask = new CresponApp.Models.ProjectTask();
-
-		var view = new CresponApp.Views.ProjectTaskModal({ projectTask: projectTask });
+		var view = new CresponApp.Views.ProjectTaskModal({ projectTasksCollection: this.projectTasksCollection, id: null });
 		$("#modals").html(view.render().el);
 
 		return this;
@@ -80,9 +90,7 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 		event.preventDefault();
 		var taskId = $(event.currentTarget).data("task-id");
 
-		var projectTask = this.projectTasksCollection.models[i];
-
-		var view = new CresponApp.Views.ProjectTaskModal({ projectTask: projectTask });
+		var view = new CresponApp.Views.ProjectTaskModal({ projectTasksCollection: this.projectTasksCollection, id: taskId });
 		$("#modals").html(view.render().el);
 
 		return this;
@@ -92,8 +100,11 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 	{
 		var data = $("#project_form").serializeObject();
 
-		this.project.save(data, { wait: true, success: function() {
+		var self = this;
+
+		this.project.save(data, { wait: true, success: function(project) {
 			AlertMessage.show_info("Project was saved successfully");
+			self.projectTasksCollection.projectId = project.id;
 		}});
 	},
 

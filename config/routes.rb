@@ -8,6 +8,7 @@ Greentime::Application.routes.draw do
 		end
 		resources :clients
 		resources :tasks
+		resources :users
 	end
 
 	devise_for :users

@@ -7,7 +7,7 @@ include FactoryGirl::Syntax::Methods
 # a users array with available users to employ for
 # entering inputs
 ########################################################
-def create_project(name, description, client, closed)
+def create_project(name, description, client)
 
 	project = create(:project,
 	name: name,

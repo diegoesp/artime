@@ -1,7 +1,7 @@
 # To be used by any controller that exposes an API in the application
 class ApiApplicationController < ApplicationController
 
-  # around_filter :api_error_filter
+  around_filter :api_error_filter
 
   # 
   # Do not include header while serializing to JSON

@@ -6,7 +6,6 @@ class ProjectTask < ActiveRecord::Base
 	validates :completed, inclusion: { in: [true, false] }
 	validates :billable, inclusion: { in: [true, false] }
 	validates :project, presence: true
-  validates :deadline, presence: true
   validates :hours_planned, presence: true
   validates :hours_planned, inclusion: 1..1024
 
@@ -33,6 +32,7 @@ class ProjectTask < ActiveRecord::Base
 
   # The task must belong to the stated company
   def company_task_consistent
+    return if self.project.nil?
     return if self.project.client.company.tasks.include?(self.task)
     errors.add(:task, "must belong to the stated company")
   end
