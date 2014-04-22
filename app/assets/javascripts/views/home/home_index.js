@@ -57,9 +57,10 @@ CresponApp.Views.HomeIndex = Backbone.View.extend ({
 		return this;
 	},
 
-	editProject: function()
+	editProject: function(event)
 	{
-		Backbone.history.navigate("projects/1", true);
+		var projectId = $(event.currentTarget).data("project-id");
+		Backbone.history.navigate("projects/" + projectId, true);
 	},
 
 	newProject: function()

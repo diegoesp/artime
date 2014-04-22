@@ -8,7 +8,7 @@
 	{
 		var project = projectsCollection.models[i];
 		%>
-		<li>
+		<li data-project-id="<%= project.id %>">
 			<div class="grey-panel pn donut-chart">
 				<div class="grey-header">
 					 <h5><%= project.attributes.name %></h5>
