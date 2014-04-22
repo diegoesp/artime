@@ -5,3 +5,4 @@
 - Projects search screen: I took out the date from and date to parameters
 - We're missing a client management screen
 - Huge list of CSS on vendor => Have to include them in the application.rb
+- Project: Dashboard + active + others fields... maybe too complex ?
