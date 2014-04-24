@@ -45,17 +45,17 @@ CresponApp.Models.Project = Backbone.Model.extend({
 	},
 
 	// Returns the status display
-	completed: function()
+	active: function()
 	{
-		if (this.attributes.completed) return "Closed";
-		return "Open";
+		if (this.attributes.active) return "Open";
+		return "Closed";
 	},
 
 	// Returns the name of the CSS label to be used for this project
 	// depending on his state
 	label: function()
 	{
-		if (this.attributes.completed) return "label-success";
-		return "label-danger";
+		if (this.attributes.active) return "label-danger";
+		return "label-success";
 	}
 });

@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
 
   validates :client, presence: true
 	validates :name, presence: true
+  validates :name, length: { maximum: 30 }
 	validates :description, presence: true
   validates :active, inclusion: { in: [true, false] }
   validates :start_date, presence:true
@@ -70,14 +71,6 @@ class Project < ActiveRecord::Base
   def hours_spent_percentage
     return 1 if hours_planned == 0
     (hours_spent.to_f / hours_planned).round(2)
-  end
-
-  # Is the project completed ?
-  def completed?
-    project_tasks.each do |project_task|
-      return false unless project_task.completed
-    end
-    true
   end
 
   # Allows to search by pre-defined params. All are optional.

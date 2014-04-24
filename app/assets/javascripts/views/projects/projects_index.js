@@ -29,8 +29,8 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 		this.$('.date-picker').datepicker({ 
 			format: 'mm-dd-yyyy',
 			autoclose: true,
-    		todayHighlight: true
-        });
+    	todayHighlight: true
+		});
 
 		// Populate client select
 		this.$("#clients_select").populateSelect("/api/clients");

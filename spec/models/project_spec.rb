@@ -35,6 +35,11 @@ describe Project do
   	@project.should_not be_valid
   end
 
+  it "should limit the length of a name to 20 characters" do
+    @project.name = "A" * 31
+    @project.should_not be_valid
+  end
+
   it "should require a description" do
   	@project.description = nil
   	@project.should_not be_valid
@@ -111,15 +116,6 @@ describe Project do
 
     it "should return hours spent as a percentage" do
       @project.hours_spent_percentage.should eq (8.to_f / 30).round(2)
-    end
-
-    it "should tell me if the project is not completed" do
-      @project.completed?.should_not be_true
-    end
-
-    it "should tell me if the project is completed" do
-      @project.project_tasks.each { |project_task|  project_task.completed = true }        
-      @project.completed?.should be_true
     end
   end
 

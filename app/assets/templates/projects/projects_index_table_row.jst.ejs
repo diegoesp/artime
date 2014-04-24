@@ -5,5 +5,5 @@
 		<td><%= project.attributes.deadline %></td>
 		<td><%= project.attributes.hours_planned %></td>
 		<td><%= project.hours_spent_percentage_string() %></td>
-		<td><span class="label <%= project.label() %>"><%= project.completed() %></span></td>
+		<td><span class="label <%= project.label() %>"><%= project.active() %></span></td>
 </tr>
