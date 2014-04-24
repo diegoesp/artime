@@ -100,6 +100,11 @@ class Project < ActiveRecord::Base
       arguments[:name] = "%#{params[:name]}%"
     end
 
+    unless params[:date].blank?
+      conditions << "(start_date <= :date AND deadline >= :date)"
+      arguments[:date] = params[:date]
+    end
+
     conditions_joined = conditions.join(" AND ")
     Project.joins(:client).joins(client: :company).find(:all, conditions: [conditions_joined, arguments])
   end

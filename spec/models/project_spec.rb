@@ -91,6 +91,13 @@ describe Project do
       # Should still return only one (for the client requested)
       Project.search_by(params, @user).length.should eq 1
     end
+
+    it "should allow me to search for an approx date" do
+      params = Hash.new
+      params[:date] = Date.today + 1
+
+      Project.search_by(params, @user).length.should eq 1
+    end
   end
 
   describe "tasks management" do

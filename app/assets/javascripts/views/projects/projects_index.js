@@ -8,7 +8,9 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 		"click #new": "new",
 		"click .project-link": "edit",
 		"change #clients_select": "refreshProjectsCollection",
-		"keyup #project_name": "refreshProjectsCollection"
+		"keyup #project_name": "refreshProjectsCollection",
+		"keyup #date": "refreshProjectsCollection",
+		"change #date": "refreshProjectsCollection"
 	},
 
 	// Caches the project collection
@@ -27,7 +29,7 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 		
 		this.$("#customer").chosen({width: "100%"});
 		this.$('.date-picker').datepicker({ 
-			format: 'mm-dd-yyyy',
+			format: 'yyyy-mm-dd',
 			autoclose: true,
     	todayHighlight: true
 		});
@@ -48,11 +50,16 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 		var project_name = this.$("#project_name").val();
 		if (project_name.length < 3) project_name = null;
 
+		var date = this.$("#date").val();
+
+		if (moment(date, "YYYY-MM-DD", true).isValid() === false) date = null;
+
 		this.projectsCollection.fetch({
 			data: 
 			{
 				client: this.$("#clients_select").val(),
-				name: project_name
+				name: project_name,
+				date: date
 			},
 			async: true 
 		});
