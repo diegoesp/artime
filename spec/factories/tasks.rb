@@ -1,9 +1,7 @@
 FactoryGirl.define do
   factory :task do
-  	name "Illumination"
+  	sequence(:name) { |n| "Task #{n}" }
   	billable true
-    project
-    hours_planned 40
-    deadline "2014-04-16"
+		company
   end
 end

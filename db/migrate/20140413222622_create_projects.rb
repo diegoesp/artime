@@ -4,8 +4,11 @@ class CreateProjects < ActiveRecord::Migration
       t.boolean :active
       t.date :deadline
       t.string :description
+      t.references :client
 
       t.timestamps
     end
+    
+    add_index :projects, :client_id
   end
 end

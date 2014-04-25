@@ -1,28 +1,61 @@
 class Task < ActiveRecord::Base
-  belongs_to :project
-  attr_accessible :name, :deadline, :hours_planned, :billable
+  
+  attr_accessible :name, :billable
 
+  belongs_to :company
+
+  validates :company, presence: true
 	validates :name, presence: true
+  validates :name, uniqueness: true
 	validates :billable, inclusion: { in: [true, false] }
-	validates :project, presence: true
-  validates :deadline, presence: true
-  validates :hours_planned, presence: true
-  validates :hours_planned, inclusion: 1..1024
 
-  has_many :inputs
+  has_many :project_tasks, dependent: :restrict
 
-  # Returns hours already spent on this task
-  def hours_spent
-  	hours_spent = 0
-  	inputs.each do |input|
-  		hours_spent += input.hours
-  	end
-  	hours_spent
+  def average_planned_hours
+    hours_planned = 0
+    project_tasks.each do |project_task|
+      hours_planned += project_task.hours_planned
+    end
+    hours_planned / project_tasks.length
   end
 
-  # Given a name for a task it find similar tasks for the company
-  # and returns them so the GUI can show statistics
-  def self.find_similar(name)
-  	Task.where("name LIKE ?", "%#{name}%")
+  def average_spent_hours
+    hours_spent = 0
+    project_tasks.each do |project_task|
+      project_task.inputs.each do |input|
+        hours_spent += input.hours
+      end
+    end
+    hours_spent / project_tasks.length
+  end
+
+  # Returns a structure reporting how much time was estimated for
+  # this task in the last 5 projects and how much time was really
+  # spent
+  def last_projects_report
+    last_projects_report = []
+
+    # Get last projects tasks
+    project_tasks = ProjectTask.where("project_tasks.task_id = #{self.id}").order("project_id DESC").limit(5)
+    project_tasks.each do |project_task|
+      # Now extract the info for the report
+      row = LastProjectsReportRow.new
+      row.project_id = project_task.project.id
+      row.project_name = project_task.project.name
+      row.hours_planned = project_task.hours_planned
+      row.hours_spent = project_task.hours_spent
+
+      last_projects_report << row
+    end
+
+    last_projects_report
+  end
+
+  # Used for generating the report in last_projects_report
+  class LastProjectsReportRow
+    attr_accessor :project_id
+    attr_accessor :project_name
+    attr_accessor :hours_planned
+    attr_accessor :hours_spent
   end
 end

@@ -21,7 +21,6 @@ gem 'devise'
 # gem 'thin', "1.5.1"                                         # Simple server used by private_pub
 # gem 'delayed_job_active_record', "4.0.0"                    # Schedules job to an internal queue
 # gem 'clockwork', '0.7.3'                                    # cron-like gem to schedule repetitive tasks
-# gem 'unicorn', '4.7.0'                                      # Powerful ruby - rails server
 
 # Javascript components
 gem 'jquery-rails', "2.3.0"                                 # Provides JQuery
@@ -30,10 +29,9 @@ gem 'bootstrap-sass', '~> 3.1.0'                            # Twitter Bootstrap 
 gem 'bootstrap-datepicker-rails'                            # powerful datepicker feature for jquery
 gem 'momentjs-rails', '2.5.1'                               # Moment.js library for managing dates (better than Date)
 gem "font-awesome-rails", "4.0.3.1"                         # Complementary icons for bootstrap
-
 # Additional Javascript features
-# gem "jquery-fileupload-rails", "0.4.1"                      # JQuery File Upload plugin for Rails
-# gem 'bootstrap3-datetimepicker-rails', '2.1.30'             # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
+# gem "jquery-fileupload-rails", "0.4.1"                    # JQuery File Upload plugin for Rails
+# gem 'bootstrap3-datetimepicker-rails', '2.1.30'           # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
 
 # Gems exclusively used for development and test. Not needed @ prod environment
 group :development, :test do
@@ -46,7 +44,11 @@ group :development, :test do
   gem 'selenium-webdriver', "2.40.0"                        # Driver for Capybara that allows to test using a full browser
   gem "poltergeist", "1.5.0"                                # Integrates phantomjs to Capybara
   gem 'rails-erd', "1.1.0"                                  # Generates a domain model graphic for easy documentation
-  gem 'faker', "1.1.2"                                      # Generates fake data for your factories
+  gem 'faker', "1.3.0"                                      # Generates fake data for your factories
   gem 'awesome_print'                                       # Prints objects in a pretty way in the console using the ap command
   gem "connection_pool", "1.2.0"                            # Custom connection pool. We use it to manage test connection pools
+end
+
+group :production do
+  gem 'unicorn', '4.7.0'                                    # Powerful ruby - rails server
 end

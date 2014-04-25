@@ -30,7 +30,9 @@ $.fn.serializeObject = function()
 
 /**
  * Populates the form plugged using the model given as a parameter
- * @param model: Model to be used as data source
+ * model: Model to be used as data source
+ * prefix: Optional. If specified it is used to generate names for the controls
+ *  following a two dimensional array, i.e. param[user] (param would be the prefix)
  */
 $.fn.populateForm = function(model, prefix)
 {
@@ -91,6 +93,13 @@ $.fn.selectCollection = function(collection)
 	})
 };
 
+// Populates a given select tag with a remote REST call
+//
+// url: REST call URL
+// key: Optional. Field to be used as id. Default is "id"
+// value: Optional. Field to be used as value. Default "name"
+// prefix: Optional. If provided, it is assumed that the call returns a two 
+// dimensional array and this is used as the first dimension
 $.fn.populateSelect = function(url, key, value, prefix)
 {
 		

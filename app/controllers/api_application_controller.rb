@@ -30,4 +30,8 @@ class ApiApplicationController < ApplicationController
     str
   end
 
+  def is_manager_filter
+    raise "user is not logged in" if current_user.nil?
+    raise "Cannot access this method if user is not manager" unless current_user.manager?
+  end
 end

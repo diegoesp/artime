@@ -46,7 +46,7 @@ Greentime::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( bootstrap-switch.js bootstrap-tokenfield.js Chart.min.js jquery.chosen.js active_admin.css.scss bootstrap-chosen.scss bootstrap-switch.css bootstrap-tokenfield.css dashio_color.css.scss dashio_dashboard_theme.css dashio_frontend_color.css dashio_frontend_theme.css dashio_landing.css.scss dashio_responsive.css jquery.chosen.css application_full.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

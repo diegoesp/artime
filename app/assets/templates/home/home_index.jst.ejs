@@ -1,34 +1,33 @@
-<!--CUSTOM CHART START -->
 <div class="border-head mt">
-	<h3>Dashboard de proyectos</h3>
+	<h3>Project Dashboard</h3>
 </div>
 <ul class="list-unstyled list-inline" id="project_charts">
 <!-- SERVER STATUS PANELS -->
 <%
-	for(var i=0; i <10; i++)
+	for(var i = 0; i < projectsCollection.length; i++)
 	{
-%>
-	
-	<li>
-		<div class="grey-panel pn donut-chart">
-			<div class="grey-header">
-				 <h5>NIKE COMERCIAL 2014</h5>
-			</div>
-			<div class="donut-chart-indicator">70%</div>
-			<canvas id="serverstatus" height="120" width="120"></canvas>
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div style="padding:6px">Restan 4 semanas</div>
-					<div class="progress" style="height:16px">
-						<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%; background-color:#4ECDC4">
-							<span class="sr-only">40% Complete (success)</span>
+		var project = projectsCollection.models[i];
+		%>
+		<li data-project-id="<%= project.id %>">
+			<div class="grey-panel pn donut-chart">
+				<div class="grey-header">
+					 <h5><%= project.attributes.name %></h5>
+				</div>
+				<div class="donut-chart-indicator"><%= project.hours_spent_percentage() %></div>
+				<canvas name="project_status" height="120" width="120"></canvas>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<div style="padding:6px"><%= project.weeks_left() %></div>
+						<div class="progress" style="height:16px">
+							<div data-project-id="<%= project.id %>" name="progress_bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%; background-color:#4ECDC4">
+								<span class="sr-only">0 %</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div><!-- /grey-panel -->
-	</li><!-- /col-md-4-->
-<%
+		</li>
+	<%
 	}
 %>	
 </ul>
@@ -51,5 +50,6 @@
 		color: #FF6B6B;
 		font-size: 20px;
 		width: 100%;
+		right: 0px;
 	}
 </style>

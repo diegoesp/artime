@@ -1,8 +1,9 @@
 FactoryGirl.define do
   factory :project do
-  	name "Nike e-lastishoes"
+  	client
+  	name "Wall-E"
     active true
     deadline "2024-04-13"
-    description "A new commercial for the fantastic elastic running shoes"
+    description "A new movie feature from the studios"
   end
 end

@@ -9,8 +9,8 @@ describe Input do
   	@input.should be_valid
   end
 
-  it "should require a task" do
-  	@input.task = nil
+  it "should require a project_task" do
+  	@input.project_task = nil
   	@input.should_not be_valid
   end
 

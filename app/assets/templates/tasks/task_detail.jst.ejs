@@ -1,27 +1,47 @@
-<form class="form-horizontal" role="form">
+<form id="task_form" class="form-horizontal" role="form">	
 	<div class="form-group">
 		<label class="col-md-3 control-label">Name:</label>
 		<div class="col-md-9">
-			<input type="text" class="form-control" value="Task Name" />
+			<input type="text" id="name" name="name" class="form-control" value="<%= task.attributes.name %>" />
 	    </div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-3 control-label">Billable:</label>
 		<div class="col-md-9">
-			<input type="checkbox" class="switch" id="billable" name="billable" />
+			<input type="checkbox" class="switch" id="billable" name="billable" <%= task.attributes.billable ? "checked" : "" %> />
 	    </div>
 	</div>
 	<div class="form-group">
-		<label class="col-md-3 control-label">
-			Lastest projects:
-			<br/>
-			<br/>
-			<div><i class="fa fa-square fa-fw" style="color: rgb(220,220,220)"></i>Estimated hours</div>
-			<div><i class="fa fa-square fa-fw" style="color: rgb(151,187,205)"></i>Used hours</div>
-		</label>
-		<div class="col-md-9">
-			<canvas id="bar" height="300" width="540"></canvas>
-	    </div>
+		<div class="col-md-12">
+			<button data-task-id="<%= task.id %>" id="saveTask" class="btn btn-theme" style="position: relative; float:right">Save</button>
+			<%
+			if (task.id !== undefined)
+			{
+				%>
+				<button data-task-id="<%= task.id %>" id="deleteTask" class="btn btn-danger" style="position: relative; float:right; margin-right: 10px">Delete</button>
+				<%
+			}
+			%>
+	  </div>
 	</div>
+	<%
+	if (task.id !== undefined)
+	{
+		%>
+		<div class="form-group">
+			<label class="col-md-3 control-label">
+				Latest projects:
+				<br/>
+				<br/>
+				<div><i class="fa fa-square fa-fw" style="color: rgb(220,220,220)"></i>Estimated hours</div>
+				<div><i class="fa fa-square fa-fw" style="color: rgb(151,187,205)"></i>Spent hours</div>
+			</label>
+			<div class="col-md-9">
+				<canvas id="bar" height="300" width="540"></canvas>
+		    </div>
+		</div>
+		<%
+	}
+	%>
 
 </form>

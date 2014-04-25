@@ -22,29 +22,40 @@
 						</tr>
 					</thead>
 					<tbody>
-		<%			
-					var colors = ["#F7464A","#E2EAE9","#D4CCC5","#949FB1","#4D5360"];
-					for(var i=0; i < 5; i++) 
-					{ 
-
-		%>			
+						<%
+						var colors = ["#F7464A","#E2EAE9","#D4CCC5","#949FB1","#4D5360"];
+						for(var i=0; i < 5; i++) 
+						{ 
+						%>
 						<tr>
 							<td>
 								<i class="fa fa-square fa-fw" style="color:<%=colors[i]%>"></i>
 								<strong>Nike</strong> ·
 								Task <%=i%>
 							</td>
-		<%					for(var d=0; d < 7; d++) { %>
+							<%					
+								for(var d=0; d < 7; d++) 
+								{
+								%>
 								<td><input type="text" class="form-control input-hours" value="0.00"/></td>
-		<% 					} %>	
+								<% 					
+								} 
+								%>	
 							<td class="task-total">10.00</td>			
 						</tr>
-		<%			} %>	
+					<%			
+					} 
+					%>	
 						<tr>			
 							<td class="day-total">Totals</td>
-		<%					for(var d=0; d < 7; d++) { %>
+							<%					
+							for (var d=0; d < 7; d++) 
+							{ 
+								%>
 								<td class="day-total">10.00</td>
-		<% 					} %>	
+								<% 					
+							} 
+						%>	
 							<td class="week-total">100.00</td>				
 						</tr>
 					</tbody>
@@ -53,6 +64,7 @@
 
 		</div>
 	</div>
+
 	<div class="col-lg-3">
 		<div class="green-panel mt pn" style="margin-bottom: 10px">
 			<div class="green-header">
@@ -81,6 +93,7 @@
 		</div>
 	</div>
 </div>
+
 <style>
 .input-hours {
 	text-align: right;
