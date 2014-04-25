@@ -1,6 +1,13 @@
 <div class="content-panel mt">
-	<h4>Tasks</h4>
 	<div style="padding:10px">
+		<div class="row" style="margin-bottom:2px">
+			<div class="col-md-3">
+				<h4>Tasks</h4>
+			</div>
+			<div class="col-md-1">
+				<button id="newTask" class="btn btn-theme" style="float:right">+</button>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<ul class="list-unstyled tasks-list">
@@ -8,39 +15,39 @@
 						<strong>Task name</strong>
 						<span class="pull-right"><strong>Billable</strong></span>
 					</li>
-	<%
-					for(var i=0; i < 10; i++)
+					<%
+					for(var i = 0; i < tasksCollection.length; i++)
 					{
-						var billable = (Math.random() < 0.5);
-	%>
-					<li data-model-id="<%=i%>" class="task-link">
-						Tarea <%=i%>
-	<%
-						if(billable) {
-	%>
-							<i class="fa fa-check pull-right"></i>
-	<%
-						}
-	%>			
-					</li>
-	<%
+						var task = tasksCollection.models[i];
+						%>
+						<li data-task-id="<%= task.id %>" class="task-link"><%= task.attributes.name %>
+							<%
+							if (task.attributes.billable) 
+							{
+							%>
+								<i class="fa fa-check pull-right"></i>
+							<%
+							}
+							%>
+						</li>
+					<%
 					}	
-	%>
+					%>
 				</ul>
 			</div>
 			<div class="col-md-8">
 				<ul class="list-unstyled tasks-list">
 					<li class="text-center">
-						<strong>Task detail</strong>
 					</li>
 				</ul>
-				<div id="task-detail">
-					<p class="text-center">Select a task ...</p>
+				<div id="task_detail">
+					<p class="text-center"></p>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <style>
 .tasks-list > li {
 	border-bottom: 1px solid whitesmoke;

@@ -44,7 +44,7 @@ group :development, :test do
   gem 'selenium-webdriver', "2.40.0"                        # Driver for Capybara that allows to test using a full browser
   gem "poltergeist", "1.5.0"                                # Integrates phantomjs to Capybara
   gem 'rails-erd', "1.1.0"                                  # Generates a domain model graphic for easy documentation
-  gem 'faker', "1.1.2"                                      # Generates fake data for your factories
+  gem 'faker', "1.3.0"                                      # Generates fake data for your factories
   gem 'awesome_print'                                       # Prints objects in a pretty way in the console using the ap command
   gem "connection_pool", "1.2.0"                            # Custom connection pool. We use it to manage test connection pools
 end

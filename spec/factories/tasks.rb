@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :task do
-  	name "Illumination"
+  	sequence(:name) { |n| "Task #{n}" }
   	billable true
 		company
   end

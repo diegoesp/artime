@@ -16,7 +16,7 @@ class Project < ActiveRecord::Base
   validates :deadline, presence: true
   validate :deadline_valid?
 
-  has_many :project_tasks
+  has_many :project_tasks, dependent: :restrict
 
   has_and_belongs_to_many :users
 

@@ -13,7 +13,7 @@ class ProjectTask < ActiveRecord::Base
 
   attr_accessible :completed, :deadline, :hours_planned, :billable, :project_id, :task_id
 
-  has_many :inputs
+  has_many :inputs, dependent: :restrict
 
 	# Returns hours already spent on this task
   def hours_spent

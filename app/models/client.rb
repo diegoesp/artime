@@ -1,7 +1,7 @@
 # A client for the company
 class Client < ActiveRecord::Base
   belongs_to :company
-  has_many :projects
+  has_many :projects, dependent: :restrict
 
   attr_accessible :name
 

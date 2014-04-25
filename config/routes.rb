@@ -8,7 +8,12 @@ Greentime::Application.routes.draw do
 			resources :project_users
 		end
 		resources :clients
-		resources :tasks
+		resources :tasks do
+			collection do
+				get :last_projects_report
+			end
+
+		end
 		resources :users
 	end
 
