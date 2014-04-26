@@ -1,0 +1,28 @@
+<ul class="list-unstyled users-list">
+<%
+for(var i=0; i < collection.models.length; i++)
+{
+	var model = collection.models[i];
+%>
+	<li>
+		<span class="glyphicon glyphicon-user" style="margin-right:10px"></span>
+		<span class="user-name"><%=model.attributes.name%></span> 
+		<span class="label label-default"><%=model.getRole()%></span> 
+		<div class="pull-right">
+			<a href="#" data-model-id="<%=model.id%>" class="edit-link"><i class="fa fa-pencil fa-fw"></i></a>
+		</div>
+	</li>
+<%
+}
+%>
+
+</ul>
+<style>
+.users-list > li {
+	border-bottom: 1px solid whitesmoke;
+	padding: 10px;
+}
+span.user-name {
+	font-size: 16px;
+}
+</style>
