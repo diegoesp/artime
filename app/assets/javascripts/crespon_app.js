@@ -79,7 +79,8 @@ window.CresponApp =
 			homeRouter: new CresponApp.Routers.Home(),
 			projectsRouter: new CresponApp.Routers.Projects(),
 			tasksRouter: new CresponApp.Routers.Tasks(),
-			inputsRouter: new CresponApp.Routers.Inputs()
+			inputsRouter: new CresponApp.Routers.Inputs(),
+			clientsRouter: new CresponApp.Routers.Clients()
 		};
 
 		// You can link all routers to an action whenever they route something
