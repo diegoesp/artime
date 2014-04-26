@@ -17,12 +17,57 @@ window.CresponApp =
 
 		this.initializeBackbone();		
 		this.initializeAjaxErrorManagement();
+		this.initializeSidebar();
+
+		$(".go-top").click(function(event)
+		{ 
+			event.preventDefault();
+			$("html, body").animate({ scrollTop: $("#main-content").offset().top }, 500);
+		});
 
 		// If you want to use this plugin 
 		// this.initializeTimeAgoPlugin();
 
 		// If you want to use the chat
 		// Chat.initialize();
+
+	},
+
+	initializeSidebar: function()
+	{
+	    $(function() {
+	        function responsiveView() {
+	            var wSize = $(window).width();
+	            if (wSize <= 768) {
+	                $('#container').addClass('sidebar-close');
+	                $('#sidebar > ul').hide();
+	            }
+
+	            if (wSize > 768) {
+	                $('#container').removeClass('sidebar-close');
+	                $('#sidebar > ul').show();
+	            }
+	        }
+	        $(window).on('load', responsiveView);
+	        $(window).on('resize', responsiveView);
+	    });
+
+	    $('.fa-bars').click(function () {
+	        if ($('#sidebar > ul').is(":visible") === true) 
+	        {
+	            $('#main-content').animate({'margin-left': '0px'},500);
+	            $('#sidebar').animate({'margin-left': '-210px'},500);
+	            $('#sidebar > ul').hide();
+	            $("#container").addClass("sidebar-closed");
+	        } 
+	        else 
+	        {
+	            $('#main-content').animate({'margin-left': '210px'},500);
+	            $('#sidebar > ul').show();
+	            $('#sidebar').animate({'margin-left': '0'},500);
+	            $("#container").removeClass("sidebar-closed");
+	        }
+	    });
 
 	},
 

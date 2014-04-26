@@ -1,8 +1,29 @@
-- Project: Hours planned should be different to hours budgeted
-- Project: why do we need a code for the project ? there's already a numeric id
 - Client: should we use default scopes ?
 - Client / User: should we use scoped models per mother model or children model ?
-- Projects search screen: I took out the date from and date to parameters
-- We're missing a client management screen
 - Huge list of CSS on vendor => Have to include them in the application.rb
-- Project: Dashboard + active + others fields... maybe too complex ?
+
+- Project: Dashboard + active + others fields... maybe too complex ? --> Martin va a hacer unos bocetos
+- Project: why do we need a code for the project ? there's already a numeric id --> queda eliminado x ahora
+- Project: Hours planned should be different to hours budgeted --> no lo agregamos x ahora
+- Projects search screen: I took out the date from and date to parameters --> moverlo a fecha + desplazamiento
+- We're missing a client management screen --> yes, just do it mother fucker
+- armar abm de usuarios con feature para volver manager
+- sacar el show in dashboard, y mostrar solo los activos
+- no importan las horas budget a nivel proyecto, solo x tarea (para despada)
+- mostrar status de proyecto en función del status, no del avance de tareas
+- corregir lo de la barra del footer
+
+- barra al costado con:
+	+ lista de gente que tenga dias sin cargar ningún registro los ultimos 30 días (de Lunes a Viernes)
+	+ indicador de carga = cantidad de dias cargados (sumado individual) / cantidad de dias laborales * nro empleados
+
+			count() group by user, date
+
+				nrossi 20/04 2hs Nike
+				nrossi 20/04 6hs Luccheti
+				despada 20/04
+
+- home de usuario -> directamente el abm de horas, agregar panel de warning si hay dias sin carga
+- cambiar grafico de distribución por listado de dias sin cargar o cartel de felicitación
+
+- armado de landing
