@@ -25,11 +25,4 @@ class ProjectTasksController < ApiApplicationController
     render json: project_task.destroy
   end
 
-	private
-
-	def can_user_see_project
-		project = Project.find(params[:project_id])
-		raise "Project does not exist" if project.nil?
-		raise "User has no access to this project" unless project.has_user?(current_user) or current_user.manager?
-	end
 end

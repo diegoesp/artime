@@ -6,45 +6,34 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 	{
 	},
 
+	projectTaskInputsCollection: null,
+
+	current_moment: null,
+
 	initialize: function()
 	{
+		this.projectTaskInputsCollection = new CresponApp.Collections.ProjectTaskInputs();
 
+		// Last sunday as first day
+		this.current_moment = moment().subtract("day", moment().day);
 	},
 
 	render: function()
 	{
-		$(this.el).html(this.template());
+		var self = this;
 
-		var taskData = [
-			{
-				value: 30,
-				color:"#F7464A"
-			},
-			{
-				value : 50,
-				color : "#E2EAE9"
-			},
-			{
-				value : 100,
-				color : "#D4CCC5"
-			},
-			{
-				value : 40,
-				color : "#949FB1"
-			},
-			{
-				value : 120,
-				color : "#4D5360"
-			}
-		];
-		new Chart(this.$("#taskschart")[0].getContext("2d")).Doughnut(taskData);
+		var date_from = this.current_moment.format("YYYY-MM-DD");
 
+		this.projectTaskInputsCollection.fetch({ data: { date_from: date_from }, async: true, success: function(projectTaskInputsCollection)
+		{
+			$(self.el).html(self.template({ current_moment: self.current_moment, projectTaskInputsCollection: self.projectTaskInputsCollection} ));
 
-		var billableData = [
-			{value: 70, color:"#FF6B6B"},
-			{value: 30, color : "#E2EAE9"}
-		];
-		new Chart(this.$("#billablechart")[0].getContext("2d")).Doughnut(billableData);
+			var billableData = [
+				{value: 70, color:"#FF6B6B"},
+				{value: 30, color : "#E2EAE9"}
+			];
+			new Chart(this.$("#billablechart")[0].getContext("2d")).Doughnut(billableData);
+		}});
 
 		return this;
 	}

@@ -36,4 +36,18 @@ class ProjectTask < ActiveRecord::Base
     return if self.project.client.company.tasks.include?(self.task)
     errors.add(:task, "must belong to the stated company")
   end
+
+  # Returns the list of project tasks for a given user
+  def self.for_user(user)
+    project_tasks = []
+
+    user.projects.where("active = true").each do |project|
+      project.project_tasks.each do |project_task|
+        project_tasks << project_task
+      end
+    end
+
+    project_tasks
+  end
+
 end

@@ -38,4 +38,13 @@ describe ProjectTask do
   	@project_task.hours_spent.should eq 13
   end
 
+  it "should give the tasks where the user can enter input" do
+    # Create a user...
+    user = create(:user, company: @project_task.task.company)
+    # ...and add it to the project
+    @project_task.project.users << user
+    @project_task.save!
+    # ... and try !
+    ProjectTask.for_user(user).length.should eq 1
+  end
 end

@@ -34,4 +34,10 @@ class ApiApplicationController < ApplicationController
     raise "user is not logged in" if current_user.nil?
     raise "Cannot access this method if user is not manager" unless current_user.manager?
   end
+
+  def can_user_see_project
+    project = Project.find(params[:project_id])
+    raise "Project does not exist" if project.nil?
+    raise "User has no access to this project" unless project.has_user?(current_user) or current_user.manager?
+  end
 end

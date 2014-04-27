@@ -120,8 +120,36 @@ window.CresponApp =
 			}
 		}
 		return options;
-	}
+	},
 
+	// Gets the user session. See example here http://localhost:3000/api/user_sessions/me
+	session: function()
+	{
+		// By default, session is expired
+		var expired = true;
+
+		// If it was updated in the last 60 seconds, then it is not expired
+		if (this.cachedSessionUpdatedAt !== null)
+		{
+			var lastSessionUpdate = ((new Date().getTime() - this.cachedSessionUpdatedAt) / 1000);
+			if (lastSessionUpdate < 60) expired = true;
+		}
+
+		if (expired)
+		{
+			var response = $.ajax({
+				url: "/api/user_sessions/me",
+				type: "GET",
+				dataType:'JSON',
+				async: false
+			});
+
+			this.cachedSession = response.responseJSON;
+			this.cachedSessionUpdatedAt = new Date().getTime();
+		}
+
+		return this.cachedSession;
+	}
 };
 
 window.onerror = function(errorMessage, url, lineNumber)

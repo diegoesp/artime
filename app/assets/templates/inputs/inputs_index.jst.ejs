@@ -1,62 +1,74 @@
 <div class="row">
 	<div class="col-md-9">
 		<div class="content-panel mt" style="min-height: 460px">
-			<div class="pull-right" style="padding:4px 10px">
-				<button class="btn btn-theme04">New task</button>
-			</div>
-			<h4>Week time for: <strong>Nicolas Rossi</strong></h4>
+			<h4 style="padding-left: 10px">Week time for: <strong><%= CresponApp.session().name %></strong></h4>
 			<div style="padding:10px">
 
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Task</th>
-							<th class="col-md-1">Sunday</th>
-							<th class="col-md-1">Monday</th>
-							<th class="col-md-1">Tuesday</th>
-							<th class="col-md-1">Wednesday</th>
-							<th class="col-md-1">Thrusday</th>
-							<th class="col-md-1">Friday</th>
-							<th class="col-md-1">Saturday</th>
+							<th class="col-md-1">Sun</th>
+							<th class="col-md-1">Mon</th>
+							<th class="col-md-1">Tue</th>
+							<th class="col-md-1">Wed</th>
+							<th class="col-md-1">Thu</th>
+							<th class="col-md-1">Fri</th>
+							<th class="col-md-1">Sa</th>
 							<th class="col-md-1">Totals</th>
 						</tr>
 					</thead>
 					<tbody>
-						<%
-						var colors = ["#F7464A","#E2EAE9","#D4CCC5","#949FB1","#4D5360"];
-						for(var i=0; i < 5; i++) 
-						{ 
-						%>
-						<tr>
-							<td>
-								<i class="fa fa-square fa-fw" style="color:<%=colors[i]%>"></i>
-								<strong>Nike</strong> ·
-								Task <%=i%>
-							</td>
-							<%					
-								for(var d=0; d < 7; d++) 
+					<%
+					  var color_index = 0
+						for(var i = 0; i < projectTaskInputsCollection.length; i++) 
+						{
+							var projectTaskInput = projectTaskInputsCollection.models[i];
+
+							// List of colors to differentiate projects
+  						var colors = ["#0099FF","#33CC33", "#F7464A", "#949FB1","#990033", "#666699", "#FFFFFF", "#003366", "#000000"];
+
+  						// Switch to next color if needed
+							if (i > 0)
+							{
+								var previousProjectTaskInput = projectTaskInputsCollection.models[i - 1]
+								if (projectTaskInput.attributes.project_name !== previousProjectTaskInput.attributes.project_name)
 								{
-								%>
-								<td><input type="text" class="form-control input-hours" value="0.00"/></td>
-								<% 					
-								} 
-								%>	
-							<td class="task-total">10.00</td>			
-						</tr>
-					<%			
-					} 
-					%>	
+									color_index++;
+									if (color_index > colors.length) color_index = 0;
+								}								
+							}
+							var color = colors[color_index];
+							%>
+							<tr>
+								<td>
+									<i class="fa fa-square fa-fw" style="color: <%= color %>"></i>
+									<strong><%= projectTaskInput.attributes.project_name %></strong> ·
+									<%= projectTaskInput.attributes.task_name %>
+								</td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.sun %>"/></td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.mon %>"/></td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.tue %>"/></td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.wed %>"/></td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.thu %>"/></td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.fri %>"/></td>
+								<td><input type="text" class="form-control input-hours" value="<%= projectTaskInput.attributes.sat %>"/></td>
+								<td class="task-total">TBC</td>
+							</tr>
+							<%
+						} 
+						%>	
 						<tr>			
 							<td class="day-total">Totals</td>
 							<%					
-							for (var d=0; d < 7; d++) 
+							for (var i = 0; i < 7; i++)
 							{ 
 								%>
-								<td class="day-total">10.00</td>
+								<td class="day-total">TBC</td>
 								<% 					
 							} 
 						%>	
-							<td class="week-total">100.00</td>				
+							<td class="week-total">TBC</td>				
 						</tr>
 					</tbody>
 				</table>
@@ -70,20 +82,23 @@
 			<div class="green-header">
 				<h5>Week range</h5>
 			</div>
-			<h2><p>4 Apr to 11 Apr</p></h2>
+			<h2><p><%= current_moment.format("DD MMMM") %> to <%= current_moment.add("day", 6).format("DD MMMM") %></p></h2>
 			<div style="padding-bottom:10px">
 				<div class="btn-group">
-				  <button type="button" class="btn btn-theme04">Prev</button>
-				  <button type="button" class="btn btn-theme04">Go to</button>
-				  <button type="button" class="btn btn-theme04">Next</button>
+				  <button type="button" id="previous_week" class="btn btn-theme04">Prev</button>
+				  <button type="button" id="this_week" class="btn btn-theme04">This week</button>
+				  <button type="button" id="next_week" class="btn btn-theme04">Next</button>
 				</div>
 			</div>
 		</div>
 		<div class="darkblue-panel pn" style="margin-bottom: 10px">
 			<div class="darkblue-header" style="margin-bottom:0px">
-				<h5>Distribution by task</h5>
+				<h5>How is your input ?</h5>
+				<div style="color:white; margin-top: 15px; margin-bottom: 15px; margin-left: 15px; margin-right: 20px">
+					Your input is just fine ! You have completed your week. Keep up with the good stuff :)
+				</div>
 			</div>
-			<canvas id="taskschart" height="100" width="100"></canvas>
+			<div></div>
 		</div>
 		<div class="darkblue-panel pn">
 			<div class="darkblue-header" style="margin-bottom:0px">
@@ -105,5 +120,8 @@
 }
 .pn {
 	height: auto;
+}
+th {
+	text-align: center;
 }
 </style>
