@@ -3203,6 +3203,7 @@ ul.chat-available-user li a:hover {
     background: #4ECDC4;
     color: #fff;
     padding: 10px 0;
+    z-index: 0;
 }
 
 
