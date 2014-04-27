@@ -1,13 +1,16 @@
 /*	################################################################
 	1. GENERAL STRUCTURES
 ################################################################# */
+
+/* Import fonts */
+@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+
 	* { 
 		margin: 0;
 		padding: 0px;
 		font-family: 'Ruda', sans-serif;
 	} 
 	body { 
-		background: #f8f8f8; 
 		margin: 0; 
 		height: 100%; 
 		z-index: 1000;
@@ -590,9 +593,8 @@
 		font-weight:400;
 	}
 	.header	{
-		background:#ffffff;
+		background-color: rgb(43,46,49);
 		display:block;
-		border-bottom:1px solid #DCDBD7;
 		position:relative;
 		z-index: 99;
 	}
@@ -612,7 +614,7 @@
 	
 	.site-title h4 {
 		font-weight: 900;
-		color: #2f2f2f;
+		color: #fff;
 	}
 		
 	.callus span {
@@ -2292,7 +2294,6 @@
 	margin: 0;
 	position: relative;
 	list-style: none;
-	background: #ffffff;
 }
 .jetmenu li{
 	display: inline-block;
@@ -2309,7 +2310,7 @@
 }
 
 .jetmenu > li > a {
-    border-top: 3px solid #FFFFFF;
+    border-top: 3px solid transparent;
     color: #777777;
     display: inline-block;
     font-size: 12px;
@@ -2337,8 +2338,6 @@
     position: absolute;
     z-index: 110;
 	width: 180px;
-	background: #ffffff;
-    background: rgba(255,255,255,1);
 }
 .jetmenu ul.dropdown{
 }
@@ -2656,7 +2655,6 @@
 	}
 	.jetmenu a{
 		width: 100%;
-		background: #ffffff;
 		box-sizing:border-box;
 		-moz-box-sizing:border-box; 
 		-webkit-box-sizing:border-box; 
@@ -2672,7 +2670,6 @@
 		-webkit-box-sizing:border-box; 
 	}
 	.jetmenu ul.dropdown li {
-		background: #fff !important;
 		border: none;
 	}
 	.jetmenu ul.dropdown > li > a{
