@@ -102,19 +102,12 @@ class Input < ActiveRecord::Base
   # Gets the % of billable hours were entered for a week (40 hours)
   #
   def self.billable_hours(date_from, user)
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-
     date_to = date_from + 6
     conditions = "tasks.billable = true AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND user_id = #{user.id}"
     hours = Input.joins(:project_task).joins(project_task: :task).sum(:hours, conditions: conditions)
     
-    puts "----------------------------------------"
-    puts hours
-    puts "----------------------------------------"
-    
     percentage = (hours / 40.0).round(2)
     percentage = 1 if (percentage > 1)
     percentage
-
   end
 end

@@ -61,7 +61,7 @@ describe Input do
     create(:input, project_task: project.project_tasks.last, user: user)
 
     # Get the date_from
-    date_from = @input.input_date = Date.today - Date.today.wday
+    date_from = @input.input_date  - @input.input_date.wday
     # Calculate
     Input.billable_hours(date_from, user).should eq 0.2
   end
