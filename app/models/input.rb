@@ -10,6 +10,9 @@ class Input < ActiveRecord::Base
   validates :hours, inclusion: 1..24
   validates :input_date, presence: true
 
+  #
+  # Allows to search by input_date, project_task_id and user
+  #
   def self.search_by(params, project_task_id, user)
     conditions = []
     arguments = Hash.new
@@ -33,7 +36,7 @@ class Input < ActiveRecord::Base
   # to input hours per day for an specific project task.
   #
   # Returns an array of UserInputRow. Each position of the array
-  # should be shown in a timetable. 
+  # should be shown in a timetable.
   #
   # Method asks for a user (to get the grid for him) and a date_from that must
   # be always Sunday. Period is always 7 days (a whole week) so no date_to is needed.
@@ -93,5 +96,25 @@ class Input < ActiveRecord::Base
   		self.fri += hours if day == 5
   		self.sat += hours if day == 6
   	end
+  end
+
+  #
+  # Gets the % of billable hours were entered for a week (40 hours)
+  #
+  def self.billable_hours(date_from, user)
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+    date_to = date_from + 6
+    conditions = "tasks.billable = true AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND user_id = #{user.id}"
+    hours = Input.joins(:project_task).joins(project_task: :task).sum(:hours, conditions: conditions)
+    
+    puts "----------------------------------------"
+    puts hours
+    puts "----------------------------------------"
+    
+    percentage = (hours / 40.0).round(2)
+    percentage = 1 if (percentage > 1)
+    percentage
+
   end
 end
