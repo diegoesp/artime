@@ -2,70 +2,33 @@ CresponApp.Views.HomeIndex = Backbone.View.extend ({
 
   template: JST["home/home_index"],
 
-	events:
-	{
-		"click li": "editProject",
-		"click #new": "newProject"
-	},
+  events:
+  {
+  },
 
-	projectsCollection: null,
+  initialize: function()
+  {
+  },
 
-	initialize: function()
-	{
-		this.projectsCollection = new CresponApp.Collections.Projects();
-	},
+  render: function()
+  {
+    $(this.el).html(this.template());
+    this.renderWidgets();
+    return this;
+  },
 
-	render: function()
-	{
-		self = this;
+  renderWidgets: function()
+  {
+    var projectsView  = new CresponApp.Views.HomeProjects();
+    this.$("#projects_chart_div").html(projectsView.render().el);
 
-		this.projectsCollection.fetch({ data: { active: true }, success: function(projectsCollection) {
-		
-			$(self.el).html(self.template({ projectsCollection: projectsCollection }));
+    var usersView  = new CresponApp.Views.HomeUsers();
+    this.$("#pending_users_div").html(usersView.render().el);
 
-			for(var i = 0; i < projectsCollection.length; i++)
-			{
-				var project = projectsCollection.models[i];
+    var inputsView  = new CresponApp.Views.HomeInputs();
+    this.$("#inputs_chart_div").html(inputsView.render().el);
 
-				var hours_left_percentage	= 0;
-				if (project.hours_spent_percentage() < 100)
-				{
-					var hours_left_percentage = (100 - project.hours_spent_percentage());
-				}
+    return this;
+  }
 
-				var selector = sprintf("[name='progress_bar'][data-project-id='%s']", project.id);
-				$(selector).css("width", project.weeks_spent_percentage() + "%").attr('aria-valuenow', project.weeks_spent_percentage());
-
-				// The donut graph
-				var doughnutData = 
-				[
-					{
-						value: project.hours_spent_percentage(),
-						color:"#FF6B6B"
-					},
-					{
-						value: hours_left_percentage,
-						color: "#fdfdfd"
-					}
-				];
-
-				var doughnut = new Chart(this.$("[name='project_status']")[i].getContext("2d")).Doughnut(doughnutData);
-			}
-
-		}});
-		
-		return this;
-	},
-
-	editProject: function(event)
-	{
-		var projectId = $(event.currentTarget).data("project-id");
-		Backbone.history.navigate("projects/" + projectId, true);
-	},
-
-	newProject: function()
-	{
-		Backbone.history.navigate("projects/new", true);
-	}
-	
 });

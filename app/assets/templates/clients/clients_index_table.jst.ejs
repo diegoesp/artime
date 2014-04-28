@@ -1,0 +1,27 @@
+<ul class="list-unstyled clients-list">
+<%
+for(var i=0; i < clients.models.length; i++)
+{
+	var client = clients.models[i];
+%>
+	<li>
+		<span class="client-name"><%=client.attributes.name%></span>
+		<div class="pull-right">
+			<a href="#" data-client-id="<%=client.id%>" class="edit-link"><i class="fa fa-pencil fa-fw"></i></a> ·
+			<a href="#" data-client-id="<%=client.id%>" class="delete-link"><i class="fa fa-trash-o fa-fw"></i></a>
+		</div>
+	</li>
+<%
+}
+%>
+
+</ul>
+<style>
+.clients-list > li {
+	border-bottom: 1px solid whitesmoke;
+	padding: 10px;
+}
+span.client-name {
+	font-size: 16px;
+}
+</style>
