@@ -10,7 +10,7 @@
 				<div class="grey-header">
 					 <h5><%= project.attributes.name %></h5>
 				</div>
-				<div class="donut-chart-indicator"><%= project.hours_spent_percentage() %></div>
+				<div class="donut-chart-indicator"><%= project.hours_spent_percentage() %>%</div>
 				<canvas name="project_status" height="120" width="120"></canvas>
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
@@ -33,7 +33,7 @@
 		cursor: pointer;
 		margin-bottom: 10px;
 		position:relative;
-		width:220px;
+		width:24.5%;
 	}
 	.progress-bar {
 		-webkit-box-shadow: none;
