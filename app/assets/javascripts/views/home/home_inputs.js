@@ -24,7 +24,7 @@ CresponApp.Views.HomeInputs = Backbone.View.extend ({
 			}
 		];
 		$(this.el).html(this.template());
-		var inputChart = new Chart(this.$("#inputchart")[0].getContext("2d")).Doughnut(inputData);	
+		var inputChart = new Chart(this.$("#inputchart")[0].getContext("2d")).Doughnut(inputData, {animation: false});	
 		return this;
 	}
 	

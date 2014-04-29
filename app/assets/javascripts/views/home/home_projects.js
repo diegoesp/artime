@@ -49,7 +49,7 @@ CresponApp.Views.HomeProjects = Backbone.View.extend ({
 					}
 				];
 
-				var doughnut = new Chart(this.$("[name='project_status']")[i].getContext("2d")).Doughnut(doughnutData);
+				var doughnut = new Chart(this.$("[name='project_status']")[i].getContext("2d")).Doughnut(doughnutData, {animation: false});
 			}
 
 		}});		
