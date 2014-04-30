@@ -175,7 +175,7 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 					{value: percentage, color:"#FF6B6B"},
 					{value: 100 - percentage, color : "#E2EAE9"}
 				];
-				new Chart(self.$("#billablechart")[0].getContext("2d")).Doughnut(billableData);
+				new Chart(self.$("#billablechart")[0].getContext("2d")).Doughnut(billableData, {animation: false});
 			}
 		});
 	}

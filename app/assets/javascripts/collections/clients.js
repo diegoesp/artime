@@ -4,6 +4,6 @@ CresponApp.Collections.Clients = Backbone.Collection.extend({
 
 	comparator: "name",
 
-  	model: CresponApp.Models.Client
+  model: CresponApp.Models.Client
 
 });
