@@ -2,7 +2,6 @@
 .landing-main {
 	background: #fff;
 	min-height: 500px;
-	text-align: center;
 	padding-bottom: 20px;
 	width: 100%;
 }
@@ -21,36 +20,83 @@
 .landing-text {
 	font-size: 20px;
 	line-height: 40px;
-	min-height: 400px;
-	padding-top: 40px;
+	padding: 40px 10px;
 }
-.cosetti_video {
+.cosetti-video {
 	bottom:0px;
 	height:300px;
-	margin-left:-20px;
+	margin-left:-52px;
 	position:absolute;
 }
 .main-title {
-	font-family: "Loved by the King";
-	font-size: 40px;
+	font-size: 32px;
 	padding: 30px;
+	text-align: center;
 }
 .price-month {
 	color: #fff;
 	position: relative;
 	top:-46px;
 }
+.embed-container { 
+	position: relative; 
+	padding-bottom: 56.25%; 
+	padding-top: 30px; 
+	overflow: hidden;
+	height: auto; 
+} 
+.embed-container iframe, 
+.embed-container object, 
+.embed-container embed { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 100%; 
+	height: 100%; 
+	max-height: 440px;
+}
 </style>
 <section class="container landing-main">
 	<div class="main-title">The only project tracking tool for creative companies</div>
-	<div class="text-center" style="position:relative">
-		<iframe src="//player.vimeo.com/video/93361853?title=0&amp;byline=0&amp;portrait=0&amp;color=ed5565" 
-				width="790" 
-				height="444" 
-				frameborder="0" 
-				webkitallowfullscreen mozallowfullscreen allowfullscreen>
-		</iframe>
-		<img src="/assets/landing_video.png" class="cosetti_video" />
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class='embed-container'>
+				<iframe src='//player.vimeo.com/video/93361853?title=0&amp;byline=0&amp;portrait=0&amp;color=ed5565' 
+					frameborder='0' 
+					webkitAllowFullScreen 
+					mozallowfullscreen 
+					allowFullScreen>
+				</iframe>
+			</div>
+		</div>
+		<div class="col-md-2 visible-lg" style="height: 440px">
+			<img src="/assets/landing_video.png" class="cosetti-video" />
+		</div>
+	</div>
+</section>
+		
+<section>
+	<a name="features"></a>
+	<div class="landing-separator">
+		<div class="container text-right">
+			<div class="landing-title">WE KEEP IT SIMPLE</div>
+			<div class="landing-subtitle">It is easy to enter data, and even easier to assess projects with it !</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 hidden-xs hidden-sm text-center" style="padding: 20px 0">
+				<img src="/assets/landing_cosetti_easy.png" />
+			</div>
+			<div class="col-md-6 landing-text text-right">
+				<div>
+					Artime gives you the chance to assess project performance. <b>NOW</b>. And
+					whenever you want to. It is always available when you need it.
+					Just create a project (takes about one minute) and your team can start
+					to input effort hours to it.
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -64,26 +110,16 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6" style="padding-top: 20px">
-				<img src="/assets/landing_devices.png" />
-			</div>
-			<div class="col-md-6 landing-text text-right">
+			<div class="col-md-6 landing-text">
 				<div>
-					Artime gives you the chance to assess project performance. <b>NOW</b>. And
-					whenever you want to. It is always available when you need it.
-				</div>
-				<div style="padding-top:5px">
-					Just create a project (takes about one minute) and your team can start
-					to input effort hours to it.
-				</div>
-				<div style="padding-top:5px">
 					Artime works on your Mac, PC, tablet or smartphone. You can reach your
 					information whenever you want and in any possible way.
-				</div>
-				<div style="padding-top:5px">
 					No setup is needed. No software to install. Just create your new project
 					and start using Artime now !
 				</div>
+			</div>
+			<div class="col-md-6 hidden-xs hidden-sm" style="padding: 20px 0">
+				<img src="/assets/landing_devices.png" />
 			</div>
 		</div>
 	</div>
@@ -98,7 +134,10 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-7 landing-text">
+			<div class="col-md-5 hidden-xs hidden-sm text-center" style="padding: 20px 0">
+				<img src="/assets/landing_market.png" style="height:300px" />
+			</div>		
+			<div class="col-md-7 landing-text text-right">
 				Artime is specifically designed for creative companies where projects
 				require an agile and dynamic follow up. Unlike traditional 
 				hour tracking systems, Artime focuses on doing a smart analysis
@@ -108,36 +147,9 @@
 				Imagine how much time and money you will save by taking
 				advantage of what you already know !
 			</div>
-			<div class="col-md-5 text-center" style="padding-top: 20px">
-				<img src="/assets/landing_market.png" style="height:300px" />
-			</div>
 		</div>
 	</div>
 </section>
-
-<!--
-<div class="landing-separator">
-	<div class="container text-right">
-		<div class="landing-title">WE KNOW WHAT YOU NEED</div>
-		<div class="landing-subtitle">There is so much information you can use</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-6" style="padding-top: 20px">
-			<img src="/assets/cosetti_landing_focus.png" style="height:300px" />
-		</div>
-		<div class="col-md-6 landing-text text-right">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</div>
-	</div>
-</div>
--->
 
 <section>
 	<a name="prices"></a>
