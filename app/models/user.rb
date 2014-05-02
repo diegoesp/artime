@@ -18,7 +18,7 @@
 #  admin                  :boolean          default(FALSE), not null
 #
 
-# A Greentime user
+# A user for our SASS
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

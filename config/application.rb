@@ -12,7 +12,7 @@ end
 # @diegoesp (load our custom extensions in lib/extensions)
 require "#{File.expand_path('../../', __FILE__)}/lib/extensions/object"
 
-module Greentime
+module Artime
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

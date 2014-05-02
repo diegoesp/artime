@@ -1,4 +1,4 @@
-Greentime::Application.routes.draw do
+Artime::Application.routes.draw do
 	
 	root :to => "home#index"
 

@@ -10,7 +10,7 @@ window.CresponApp =
 
 	initialize: function()
 	{
-		window.document.title = "Greentime";
+		window.document.title = "Artime";
 
 		// Set client-side locale. Server side locale is set at application_controller.rb
 		I18n.locale = "en";

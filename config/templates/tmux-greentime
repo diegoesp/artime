@@ -23,7 +23,7 @@ if [ "$tmux_window_2" != "" ]; then
 	exit 1
 fi
 
-cd ~/Github/greentime
+cd ~/Github/artime
 
 # Create the windows
 tmux new-window -n "zeus" 			-t 8 "zeus start"

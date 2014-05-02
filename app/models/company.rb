@@ -1,4 +1,4 @@
-# A paying customer for Greentime
+# A paying customer for the SASS
 class Company < ActiveRecord::Base
   attr_accessible :active, :name
 

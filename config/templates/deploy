@@ -37,7 +37,7 @@ colored_echo "Deployer v0.1 will start deploying now..."
 current_dir=$(pwd)
 
 # Relocate to application
-cd /home/deployer/apps/greentime
+cd /home/deployer/apps/artime
 
 # Pull last changes from the HEAD
 colored_echo "Pulling last changes from master branch"
@@ -69,7 +69,7 @@ sudo service nginx start
 
 # Start unicorn
 colored_echo "Starting unicorn"
-RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/greentime/config/unicorn.rb -E production
+RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/artime/config/unicorn.rb -E production
 
 # Restart Faye
 # kill_process private_pub

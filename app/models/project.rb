@@ -1,4 +1,4 @@
-# A project that the paying company is executing inside Greentime
+# A project that the paying company is executing inside our SASS
 class Project < ActiveRecord::Base
 
   belongs_to :client
