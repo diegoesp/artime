@@ -22,11 +22,16 @@ CresponApp.Views.HomeIndex = Backbone.View.extend ({
     var projectsView  = new CresponApp.Views.HomeProjects();
     this.$("#projects_chart_div").html(projectsView.render().el);
 
-    var usersView  = new CresponApp.Views.HomeUsers();
-    this.$("#pending_users_div").html(usersView.render().el);
+    var company = new CresponApp.Models.Company({ id: "mine" });
+    var self = this;
+    company.fetch({ async: true, success: function() 
+    {
+      var usersView  = new CresponApp.Views.HomeUsers({ company: company });
+      self.$("#pending_users_div").html(usersView.render().el);
 
-    var inputsView  = new CresponApp.Views.HomeInputs();
-    this.$("#inputs_chart_div").html(inputsView.render().el);
+      var inputsView  = new CresponApp.Views.HomeInputs({ company: company });
+      self.$("#inputs_chart_div").html(inputsView.render().el);
+    }});
 
     return this;
   }

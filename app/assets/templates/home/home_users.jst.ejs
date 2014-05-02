@@ -3,10 +3,22 @@
 		<h5>PENDING HOURS FROM</h5>
 	</div>
 	<ul class="list-unstyled" id="pending">
-		<li>Diego Espada</li>
-		<li>Nicolás Rossi</li>
-		<li>Martin Dasnoy</li>
-
+	<%
+	if (users_with_pending_input.length == 0)
+	{
+		%>There are no pending inputs on part of users ! yippie ki-yay ! :)<%
+	}
+	else
+	{
+		for (var i = 0; i < users_with_pending_input.length; i++)
+		{
+			var user_with_pending_input = users_with_pending_input[i];
+			%>
+				<li><%= user_with_pending_input.name %></li>
+			<%
+		}
+	}
+	%>
 	</ul>
 </div>
 <style>

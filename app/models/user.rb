@@ -52,11 +52,13 @@ class User < ActiveRecord::Base
 
   # If true, user has pending days
   def pending_input?
-    self.pending_input > 0
+    self.pending_input[0] > 0
   end
 
-  # Returns pending input days for the user. Can be zero, in which case
-  # user has no pending days
+  # Returns two values using standard Ruby double return (array style)
+  # 1) pending input days for the user 
+  # 2) total input days (userful for calculating percentages)
+  # First return value can be zero, in which case user has no pending days
   def pending_input
     date_to = Date.today
     date_from = Date.today - 4.weeks
@@ -82,12 +84,14 @@ class User < ActiveRecord::Base
     excluded_dates_joined = excluded_dates.join(",")
 
     # How many days the user has filled ?
-    input_days = Input.where("user_id = #{self.id} AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND input_date NOT IN (#{excluded_dates_joined})").count
-    
+    input_days_hash = Input.where("user_id = #{self.id} AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND input_date NOT IN (#{excluded_dates_joined})").group("input_date").count
+    # Take into account more than one input for the same day (that still counts as only one input for this analysis)
+    input_days = input_days_hash.keys.length
+
     # How many days the user should have filled ?
     days = (date_to - date_from).to_i - excluded_dates.length
 
-    days - input_days
+    [days - input_days, days]
   end
 
 end

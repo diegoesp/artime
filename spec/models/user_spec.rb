@@ -43,7 +43,7 @@ describe User do
   it "should tell me how many pending inputs the user has" do
     @user.save!
 
-    pending_input = @user.pending_input
+    pending_input, total = @user.pending_input
     pending_input.should > 15
 
     # Input something on Monday. Now I should get one day less
@@ -54,7 +54,7 @@ describe User do
     # Input something
     create(:input, input_date: date, user: @user)
     # Check again. I should get one less day needed for input
-    @user.pending_input.should == (pending_input - 1)
+    @user.pending_input[0].should == (pending_input - 1)
   end
 
 end

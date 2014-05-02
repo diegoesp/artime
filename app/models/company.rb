@@ -15,20 +15,26 @@ class Company < ActiveRecord::Base
   end
 
   # Gets the list of users with pending input for the last four weeks
-  def users_with_pending_days
-
+  def users_with_pending_input
     users_with_pending_days = []
-
-    company.users.each do |user|
+    self.users.each do |user|
       users_with_pending_days << user if user.pending_input?
     end
-
     users_with_pending_days
   end
 
-  # Gets how many hours are pending (total) for users
+  # Gets how many hours were completed by users
   # against the total hours in the last four weeks
-  def pending_days_percentage
-    
+  def input_completed_percentage
+    total_input_days = 0
+    total_pending_input = 0
+    self.users.each do |user|
+      pending_input, input_days = user.pending_input
+      total_pending_input += pending_input
+      total_input_days += input_days
+    end
+    # If no users, then input is OK
+    return 1 if total_input_days == 0
+    ((total_input_days - total_pending_input) / total_input_days.to_f).round(2)
   end
 end
