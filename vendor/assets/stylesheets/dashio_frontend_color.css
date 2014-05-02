@@ -154,6 +154,7 @@
 	#bbpress-forums li.bbp-body ul.forum li.bbp-forum-reply-count,
 	.dmtop {
 		background-color:#1abc9c;
+		border:none;
 	}
 	
 	.services_lists_boxes_icon_none i:hover,
