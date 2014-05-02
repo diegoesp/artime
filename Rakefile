@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Greentime::Application.load_tasks
+Artime::Application.load_tasks

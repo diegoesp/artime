@@ -14,6 +14,8 @@
  *= require_self
  */
 
+$grid-float-breakpoint: 790px;
+
 @import "bootstrap";
 @import "bootstrap_and_overrides";
 @import "bootstrap-chosen";

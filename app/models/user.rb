@@ -18,7 +18,7 @@
 #  admin                  :boolean          default(FALSE), not null
 #
 
-# A Greentime user
+# A user for our SASS
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -48,6 +48,50 @@ class User < ActiveRecord::Base
   # sensitive information
   def manager?
     role_code >= Role::MANAGER
+  end
+
+  # If true, user has pending days
+  def pending_input?
+    self.pending_input[0] > 0
+  end
+
+  # Returns two values using standard Ruby double return (array style)
+  # 1) pending input days for the user 
+  # 2) total input days (userful for calculating percentages)
+  # First return value can be zero, in which case user has no pending days
+  def pending_input
+    date_to = Date.today
+    date_from = Date.today - 4.weeks
+
+    # Backtrack to count how many days we have and how many Sundays and
+    # Saturdays we have to exclude    
+    date = date_to
+
+    days = 0
+    excluded_dates = []
+    date = date_to
+    while date >= date_from do
+      if (date.wday == 0 or date.wday == 6) then
+        excluded_dates << date
+      else
+        days += 1
+      end
+      date = date - 1
+    end
+
+    # Format the excluded dates to fit them in the query
+    excluded_dates = excluded_dates.map { |excluded_date| "'#{excluded_date}'"}
+    excluded_dates_joined = excluded_dates.join(",")
+
+    # How many days the user has filled ?
+    input_days_hash = Input.where("user_id = #{self.id} AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND input_date NOT IN (#{excluded_dates_joined})").group("input_date").count
+    # Take into account more than one input for the same day (that still counts as only one input for this analysis)
+    input_days = input_days_hash.keys.length
+
+    # How many days the user should have filled ?
+    days = (date_to - date_from).to_i - excluded_dates.length
+
+    [days - input_days, days]
   end
 
 end

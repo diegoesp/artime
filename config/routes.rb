@@ -1,4 +1,4 @@
-Greentime::Application.routes.draw do
+Artime::Application.routes.draw do
 	
 	root :to => "home#index"
 
@@ -7,6 +7,7 @@ Greentime::Application.routes.draw do
 
 	scope "api" do
 		resources :clients
+		resources :companies
 		resources :project_task_inputs do
 			collection do
 				get :billable_hours

@@ -1,34 +1,23 @@
-<section class="section1">
-	<div class="container clearfix">
-		<div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
-			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4 class="title">
-					<span>Welcome Back!</span>
-				</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s.</p>
-				<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-
+<div class="container">
+	<div class="col-md-6 col-md-offset-3 col-xs-12" style="padding: 10% 0">
+		<h4 class="title">
+			<span>Forgot your password?</span>
+		</h4>
+		<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+			<%= devise_error_messages! %>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					 <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4 class="title">
-					<span>Forgot your password?</span>
-				</h4>
-				<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-					<%= devise_error_messages! %>
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							 <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
-						</div>
-					</div>
-					<div class="form-group">
-						<%= f.submit "Send me reset password instructions", class:"button" %>
-					</div>
-				<% end %>
-			</div><!-- end login -->
-		</div><!-- end content -->
-	</div><!-- end container -->
-</section><!-- end section -->
+			<div class="form-group">
+				<%= f.submit "Send me reset password instructions", class:"button" %>
+			</div>
+		<% end %>
+	</div><!-- end login -->
+
+</div><!-- end container -->
 <script>
 	$("#jetmenu>li").removeClass("active");
 	$("li#sign_in").addClass("active");

@@ -54,7 +54,8 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 
 		if (moment(date, "YYYY-MM-DD", true).isValid() === false) date = null;
 
-		this.projectsCollection.fetch({
+		this.projectsCollection.fetch(
+		{
 			data: 
 			{
 				client: this.$("#clients_select").val(),

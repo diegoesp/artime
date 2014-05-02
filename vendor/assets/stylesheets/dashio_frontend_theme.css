@@ -2325,6 +2325,7 @@
 .jetmenu > li:focus > a {
 	color: #fff;
 	background-color: rgb(43, 46, 49);
+	border-top-color: #1abc9c;
 }
 
 /* DROPDOWN CONFIGURATION
