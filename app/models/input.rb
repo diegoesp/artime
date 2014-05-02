@@ -110,4 +110,5 @@ class Input < ActiveRecord::Base
     percentage = 1 if (percentage > 1)
     percentage
   end
+  
 end

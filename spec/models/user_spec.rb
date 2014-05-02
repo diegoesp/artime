@@ -35,4 +35,26 @@ describe User do
     @user.should_not be_valid
   end
 
+  it "should tell me if the user has pending input" do
+    @user.save!
+    @user.pending_input?.should be_true
+  end
+
+  it "should tell me how many pending inputs the user has" do
+    @user.save!
+
+    pending_input = @user.pending_input
+    pending_input.should > 15
+
+    # Input something on Monday. Now I should get one day less
+    # I have to go 7 days back. If not, test case fails if today is Sunday
+    date = Date.today - 7
+    # Pick monday
+    date = (date - date.wday) + 1
+    # Input something
+    create(:input, input_date: date, user: @user)
+    # Check again. I should get one less day needed for input
+    @user.pending_input.should == (pending_input - 1)
+  end
+
 end

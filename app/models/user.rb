@@ -50,4 +50,44 @@ class User < ActiveRecord::Base
     role_code >= Role::MANAGER
   end
 
+  # If true, user has pending days
+  def pending_input?
+    self.pending_input > 0
+  end
+
+  # Returns pending input days for the user. Can be zero, in which case
+  # user has no pending days
+  def pending_input
+    date_to = Date.today
+    date_from = Date.today - 4.weeks
+
+    # Backtrack to count how many days we have and how many Sundays and
+    # Saturdays we have to exclude    
+    date = date_to
+
+    days = 0
+    excluded_dates = []
+    date = date_to
+    while date >= date_from do
+      if (date.wday == 0 or date.wday == 6) then
+        excluded_dates << date
+      else
+        days += 1
+      end
+      date = date - 1
+    end
+
+    # Format the excluded dates to fit them in the query
+    excluded_dates = excluded_dates.map { |excluded_date| "'#{excluded_date}'"}
+    excluded_dates_joined = excluded_dates.join(",")
+
+    # How many days the user has filled ?
+    input_days = Input.where("user_id = #{self.id} AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND input_date NOT IN (#{excluded_dates_joined})").count
+    
+    # How many days the user should have filled ?
+    days = (date_to - date_from).to_i - excluded_dates.length
+
+    days - input_days
+  end
+
 end
