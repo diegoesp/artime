@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Greentime</title>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-  <![endif]-->
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= stylesheet_link_tag    "dashio_frontend_theme", :media => "all" %>
-  <%= stylesheet_link_tag    "dashio_frontend_color", :media => "all" %>
-  <link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Greentime</title>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+	<![endif]-->
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= stylesheet_link_tag    "dashio_frontend_theme", :media => "all" %>
+	<%= stylesheet_link_tag    "dashio_frontend_color", :media => "all" %>
+	<link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-    <header class="header">
-    	<div class="container">
-        	<div class="site-header clearfix">
-                <div class="col-lg-3 col-md-3 col-sm-12 title-area">
-                    <div class="site-title" id="title">
-                        <a href="index.html" title="">
-                            <h4>GREEN<span>TIME</span></h4>	
-                        </a>
-                    </div>
-                </div><!-- title area -->
-                <div class="col-lg-9 col-md-12 col-sm-12">
-                   <div id="nav" class="right">
-                        <div class="clearfix">
-	                        <ul id="jetmenu" class="jetmenu blue">
-	                            <li class="active"><a href="/">Home</a></li>
-                                <li><a href="/#features">Features</a></li>
-	                            <li><a href="/#prices">Prices</a></li>
-	                            <li><a href="#footer">Contact us</a></li>
-	                            <li id="sign_up"><a href="/users/sign_up">Register</a></li>
-	                            <li id="sign_in"><a href="/users/sign_in">Sign in</a></li>
-	                        </ul>
-                        </div>
-                    </div><!-- nav -->   
-                </div><!-- title area -->
-            </div><!-- site header -->
-    	</div><!-- end container -->
-    </header><!-- end header -->
+	<nav class="navbar header" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-menu-bar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" style="padding-right: 60px">
+					<h4 style="margin-top:0px">GREEN<span>TIME</span></h4>	
+				</a>
+
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="top-menu-bar">
+				<ul id="jetmenu" class="nav navbar-nav jetmenu blue">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/#features">Features</a></li>
+					<li><a href="/#prices">Prices</a></li>
+					<li><a href="#footer">Contact us</a></li>
+					<li id="sign_up"><a href="/users/sign_up">Register</a></li>
+					<li id="sign_in"><a href="/users/sign_in">Sign in</a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
 
 	<div id="ajax-loading-indicator" class="ajax-loading-indicator">
 		<img src="/assets/ajax-loader.gif"/>
@@ -72,33 +74,33 @@
 		<%= yield %>
 	</div>
 
-    <a name="footer"></a>
+		<a name="footer"></a>
 	<footer class="footer">
-        <div class="container">
-            <div class="widget col-lg-3 col-md-3 col-sm-12">
-            	<h4 class="title">About us</h4>
-                <p>
-                    Greentime is the first project performance analizer for creatives companies, based on time tracking records. 
-                    It is simple, focused and low-priced !</p>
-            </div><!-- end widget -->
-            <div class="widget col-lg-3 col-md-3 col-sm-12">
-           		<h4 class="title">Get In Touch</h4>
-                <ul class="contact_details">
-                	<li><i class="fa fa-envelope-o fa-fw"></i> info@greentime.com</li>
-                	<li><i class="fa fa-home fa-fw"></i> Villa Crespo, Buenos Aires, Argentina</li>
-                	<li><a href="https://goo.gl/maps/LnzKK"><i class="fa fa-map-marker fa-fw"></i> View large map</a></li>
-                </ul><!-- contact_details -->
-            </div><!-- end widget -->  
-            <div class="widget col-lg-6 col-md-6 col-sm-12">
-           
-            </div><!-- end widget -->  
-        </div><!-- end container -->
-        
-        <div class="copyrights">
-            <div class="container">
-                 <p>Copyright © 2014 - All rights reserved.</p>
-            </div><!-- end container -->
-        </div><!-- end copyrights -->
-    </footer><!-- end footer -->
+				<div class="container">
+						<div class="widget col-lg-3 col-md-3 col-sm-12">
+							<h4 class="title">About us</h4>
+								<p>
+										Greentime is the first project performance analizer for creatives companies, based on time tracking records. 
+										It is simple, focused and low-priced !</p>
+						</div><!-- end widget -->
+						<div class="widget col-lg-3 col-md-3 col-sm-12">
+							<h4 class="title">Get In Touch</h4>
+								<ul class="contact_details">
+									<li><i class="fa fa-envelope-o fa-fw"></i> info@greentime.com</li>
+									<li><i class="fa fa-home fa-fw"></i> Villa Crespo, Buenos Aires, Argentina</li>
+									<li><a href="https://goo.gl/maps/LnzKK"><i class="fa fa-map-marker fa-fw"></i> View large map</a></li>
+								</ul><!-- contact_details -->
+						</div><!-- end widget -->  
+						<div class="widget col-lg-6 col-md-6 col-sm-12">
+					 
+						</div><!-- end widget -->  
+				</div><!-- end container -->
+				
+				<div class="copyrights">
+						<div class="container">
+								 <p>Copyright © 2014 - All rights reserved.</p>
+						</div><!-- end container -->
+				</div><!-- end copyrights -->
+		</footer><!-- end footer -->
 </body>
 </html>

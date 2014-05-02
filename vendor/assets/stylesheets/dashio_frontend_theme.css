@@ -594,8 +594,9 @@
 	}
 	.header	{
 		background-color: rgb(43,46,49);
-		display:block;
-		position:relative;
+		border-radius: 0px;
+		padding-top: 20px;
+		padding-bottom: 10px;
 		z-index: 99;
 	}
 	.site-header{
@@ -2288,7 +2289,6 @@
 /* MENU CONFIGURATION
 **********************************************************/
 .jetmenu{
-	width: 100%;
 	padding:0;
 	margin: 0;
 	position: relative;
@@ -2321,8 +2321,10 @@
 }
 
 .jetmenu > li:hover > a,
-.jetmenu > li.active > a{
-	color: #777777;
+.jetmenu > li.active > a, 
+.jetmenu > li:focus > a {
+	color: #fff;
+	background-color: rgb(43, 46, 49);
 }
 
 /* DROPDOWN CONFIGURATION
@@ -2698,4 +2700,12 @@
 	.jetmenu > li > ul.dropdown > li > a{ padding-left: 40px !important; }
 	.jetmenu > li > ul.dropdown > li > ul.dropdown > li > a{ padding-left: 60px !important; }
 	.jetmenu > li > ul.dropdown > li > ul.dropdown > li > ul.dropdown > li > a{ padding-left: 80px !important; }
+}
+
+button.navbar-toggle {
+	border-color: #777;
+}
+
+button.navbar-toggle > .icon-bar {
+	background-color: #777;
 }
