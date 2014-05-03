@@ -95,6 +95,7 @@ window.CresponApp =
 				$(".sidebar-menu a").removeClass("active");
 				var selector = sprintf(".sidebar-menu a[href$='%s']", window.location.hash);
 				$(selector).addClass("active");
+				window.document.title = CresponApp.getPageTitle();
 			});
 		}
 
@@ -198,6 +199,15 @@ window.CresponApp =
 		}
 
 		return this.cachedSession;
+	},
+
+	getPageTitle: function()
+	{
+		//remove hash
+		title = window.location.hash.replace(/^#(\w*)/,"$1");
+		title = title.split("/")[0];
+		if(title === "") title = "Home"; 
+		return "Artime :: " + title.capitalize();
 	}
 };
 
