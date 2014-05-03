@@ -15,3 +15,11 @@ $iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
 .datepicker-days {
 	padding: 4px;
 }
+
+.nav-pills > li > a { 
+    color: rgb(121, 121, 121);
+}
+.nav-pills > li > a:hover, .nav-pills > li > a:focus, .nav-pills > li.active > a {
+	color: #fff;
+	background-color: rgb(78, 205, 196) !important;
+}

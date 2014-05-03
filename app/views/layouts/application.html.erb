@@ -59,39 +59,34 @@
 	<aside>
 		<div id="sidebar"  class="nav-collapse ">
 
+			<p class="centered">
+				<a href="/#users/me">
+					<%= image_tag current_user.avatar, class: "img-circle", width: "80", height: "80", id: "user-avatar" %>
+				</a>
+			</p>
+			<h5 class="centered"><%= current_user.name %></h5>
+
 			<!-- sidebar menu start-->
 			<ul class="sidebar-menu" id="nav-accordion">
 
-				<p class="centered">
-					<a href="/profile.html"><img src="/assets/ui-sam.jpg" class="img-circle" width="80"></a>
-				</p>
-				<h5 class="centered"><%= current_user.name %></h5>
+			<% if (current_user.manager?) %>
 
-				<li class="mt">
+				<li>
 					<a class="active" href="#home">
 						<i class="fa fa-dashboard"></i>
 						<span>Dashboard</span>
 					</a>
 				</li>
-
 				<li>
 					<a href="#projects">
 						<i class="fa fa-film"></i>
 						<span>Projects</span>
 					</a>
 				</li>
-
 				<li>
 					<a href="#tasks">
 						<i class="fa fa-tasks"></i>
 						<span>Tasks</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="#inputs">
-						<i class="fa fa-clock-o"></i>
-						<span>Hours</span>
 					</a>
 				</li>
 				<li>
@@ -104,6 +99,13 @@
 					<a href="#users">
 						<i class="fa fa-users"></i>
 						<span>Users</span>
+					</a>
+				</li>
+			<% end %>
+				<li>
+					<a href="#inputs">
+						<i class="fa fa-clock-o"></i>
+						<span>Hours</span>
 					</a>
 				</li>
 			</ul>

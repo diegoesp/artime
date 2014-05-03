@@ -21,6 +21,7 @@
 //= require bootstrap-switch
 //= require bootstrap-tokenfield
 //= require jquery.chosen
+//= require jquery-fileupload/basic
 //= require moment
 //= require Chart.min
 //= require crespon_app

@@ -1,0 +1,14 @@
+<form id="avatarForm" role="form" method="POST" enctype="multipart/form-data" action="/api/users_avatar/me">
+	<input type="hidden" id="_method" name="_method" value="put" />
+	<input type="hidden" id="authenticity_token" name="authenticity_token" />
+	<div class="thumbnail">
+		<img src="<%=model.attributes.avatar%>" id="avatar-preview" />
+		<div class="caption text-center">
+			<input type="file" id="avatar" name="avatar" class="hide" /> 
+			<div class="btn-group">
+				<div class="btn btn-theme" id="browseAvatar">Edit</div>
+				<div class="btn btn-theme" id="removeAvatar">Remove</div>
+			</div>
+		</div>
+	</div>
+</form>

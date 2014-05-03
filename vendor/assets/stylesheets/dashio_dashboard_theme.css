@@ -229,6 +229,7 @@ ul.top-menu > li > .logout {
     height: 100%;
     position: fixed;
     background: #2f323a;
+    padding-top: 90px;
 }
 
 #sidebar h5 {
@@ -279,7 +280,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 }
 
 ul.sidebar-menu {
-    margin-top: 75px;
+    margin-top: 20px;
 }
 
 #sidebar > ul > li > ul.sub {

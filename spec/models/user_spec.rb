@@ -22,39 +22,51 @@ require 'spec_helper'
 
 describe User do
 
-  before (:each) do
-    @user = build(:user)
-  end
+	before (:each) do
+		@user = build(:user)
+	end
 
-  it "should be a valid object" do
-    @user.should be_valid
-  end
+	it "should be a valid object" do
+		@user.should be_valid
+	end
 
-  it "should require an email" do
-    @user.email = ""
-    @user.should_not be_valid
-  end
+	it "should require an email" do
+		@user.email = ""
+		@user.should_not be_valid
+	end
 
-  it "should tell me if the user has pending input" do
-    @user.save!
-    @user.pending_input?.should be_true
-  end
+	it "should tell me if the user has pending input" do
+		@user.save!
+		@user.pending_input?.should be_true
+	end
 
-  it "should tell me how many pending inputs the user has" do
-    @user.save!
+	it "should tell me how many pending inputs the user has" do
+		@user.save!
 
-    pending_input, total = @user.pending_input
-    pending_input.should > 15
+		pending_input, total = @user.pending_input
+		pending_input.should > 15
 
-    # Input something on Monday. Now I should get one day less
-    # I have to go 7 days back. If not, test case fails if today is Sunday
-    date = Date.today - 7
-    # Pick monday
-    date = (date - date.wday) + 1
-    # Input something
-    create(:input, input_date: date, user: @user)
-    # Check again. I should get one less day needed for input
-    @user.pending_input[0].should == (pending_input - 1)
-  end
+		# Input something on Monday. Now I should get one day less
+		# I have to go 7 days back. If not, test case fails if today is Sunday
+		date = Date.today - 7
+		# Pick monday
+		date = (date - date.wday) + 1
+		# Input something
+		create(:input, input_date: date, user: @user)
+		# Check again. I should get one less day needed for input
+		@user.pending_input[0].should == (pending_input - 1)
+	end
+
+	it "should allow me to upload an avatar" do
+		file_name = "rails.png"
+		@user.avatar = File.open("#{Rails.root}/app/assets/images/#{file_name}", "r")
+		@user.save!
+		@user.avatar_file_name.should eq file_name
+		@user.avatar.url.should include(file_name) 
+	end
+
+	it "should return the missing avatar image if no avatar was uploaded" do
+		@user.avatar.url.should include "missing_avatar.png"
+	end
 
 end

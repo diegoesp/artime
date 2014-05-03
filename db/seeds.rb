@@ -59,9 +59,9 @@ end
 company = create(:company)
 
 # Users and their roles
-create(:user, first_name: "Martin", last_name: "Dasnoy", email: "martindasnoy@gmail.com", company: company, role_code: Role::COMPANY)
-create(:user, first_name: "Nicolas", last_name: "Rossi", email: "nrossi@gmail.com", company: company, role_code: Role::MANAGER)
-create(:user, first_name: "Diego", last_name: "Espada", email: "diegoesp@gmail.com", company: company, role_code: Role::DEVELOPER)
+create(:user, first_name: "Martin", last_name: "Dasnoy", email: "martindasnoy@gmail.com", company: company, role_code: Role::COMPANY, avatar: File.open("#{Rails.root}/app/assets/images/mdasnoy.jpg", "r"))
+create(:user, first_name: "Nicolas", last_name: "Rossi", email: "nrossi@gmail.com", company: company, role_code: Role::MANAGER, avatar: File.open("#{Rails.root}/app/assets/images/nrossi.jpg", "r"))
+create(:user, first_name: "Diego", last_name: "Espada", email: "diegoesp@gmail.com", company: company, role_code: Role::DEVELOPER, avatar: File.open("#{Rails.root}/app/assets/images/nrossi.jpg", "r"))
 
 # Tasks
 task_names = [
