@@ -65,15 +65,15 @@ CresponApp.Views.TasksIndex = Backbone.View.extend ({
 
 		var self = this;
 
-		promise.done(function (last_projects_report)
+		promise.done(function (lastProjectsReport)
 		{
 			labels = [];
 			dataPlanned = [];
 			dataSpent = [];
 
-			for (var i = 0; i < last_projects_report.length; i++)
+			for (var i = 0; i < lastProjectsReport.length; i++)
 			{
-				var row = last_projects_report[i];
+				var row = lastProjectsReport[i];
 				labels.push(row.project_name);
 				dataPlanned.push(row.hours_planned);
 				dataSpent.push(row.hours_spent);

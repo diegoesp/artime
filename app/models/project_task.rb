@@ -38,13 +38,15 @@ class ProjectTask < ActiveRecord::Base
   end
 
   # Returns the list of project tasks for a given user
-  def self.for_user(user)
+  def self.for_user(user, date_from)
     project_tasks = []
 
-    user.projects.where("active = true").each do |project|
-      project.project_tasks.each do |project_task|
-        project_tasks << project_task
-      end
+    date_to = date_from + 6.days
+
+    # Return only those where the user has already input hours
+    where = "projects.active = true AND (inputs.user_id = #{user.id} AND inputs.input_date >= '#{date_from}' AND inputs.input_date <= '#{date_to}')"
+    ProjectTask.joins(:inputs).joins(:project).where(where).uniq.each do |project_task|
+      project_tasks << project_task
     end
 
     project_tasks

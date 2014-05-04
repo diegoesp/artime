@@ -29,7 +29,7 @@ def create_project(name, description, client)
 	inputs_count.times do
 		project_task = project.project_tasks.all.sample
 		user = User.all.sample
-		input_date = Date.today - rand(1..20)
+		input_date = Date.today - rand(-2..20)
 		hours = rand(1..24)
 
 		create(:input, project_task: project_task, user: user , input_date: input_date, hours: hours)

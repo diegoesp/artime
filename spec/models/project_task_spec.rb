@@ -41,10 +41,13 @@ describe ProjectTask do
   it "should give the tasks where the user can enter input" do
     # Create a user...
     user = create(:user, company: @project_task.task.company)
-    # ...and add it to the project
+    # ...add it to the project...
     @project_task.project.users << user
     @project_task.save!
+    # ...input something to ensure the task appears...
+    date_from = Date.today - Date.today.wday
+    create(:input, user: user, project_task: @project_task, input_date: date_from)
     # ... and try !
-    ProjectTask.for_user(user).length.should eq 1
+    ProjectTask.for_user(user, date_from).length.should eq 1
   end
 end

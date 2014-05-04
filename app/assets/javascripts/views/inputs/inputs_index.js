@@ -4,20 +4,20 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 
 	events:
 	{
-		"keyup .input-hours": "inputHoursKeyUp",
+		"blur .input-hours": "updateTotals",
 		"click #previous_week": "previousWeekClick",
 		"click #this_week": "thisWeekClick",
-		"click #next_week": "nextWeekClick"
+		"click #next_week": "nextWeekClick",
+		"click #save_timesheet": "saveTimesheet",
+		"click #add_task": "addTask"
 	},
 
-	projectTaskInputsCollection: null,
+	timesheet: null,
 
 	currentMoment: null,
 
 	initialize: function()
 	{
-		this.projectTaskInputsCollection = new CresponApp.Collections.ProjectTaskInputs();
-
 		// Last sunday as first day
 		this.currentMoment = moment().subtract("day", moment().weekday());
 	},
@@ -28,39 +28,60 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 
 		var date_from = this.currentMoment.format("YYYY-MM-DD");
 
-		this.projectTaskInputsCollection.fetch({ data: { date_from: date_from }, async: true, success: function(projectTaskInputsCollection)
+		$.ajax(
 		{
-			$(self.el).html(self.template({ current_moment: self.currentMoment, projectTaskInputsCollection: self.projectTaskInputsCollection} ));
-
-			self.updateMetrics();
-		}});
+			url: "api/timesheets",
+			type: "GET",
+			dataType:'JSON',
+			async: true,
+			data: { date_from: date_from },
+			success: function(timesheet)
+			{
+				self.timesheet = timesheet;
+				$(self.el).html(self.template({ current_moment: self.currentMoment, timesheet: timesheet }));
+				self.updateMetrics();
+			}
+		});
 
 		return this;
 	},
 
-	inputHoursKeyUp: function(event)
+	saveTimesheet: function(event)
 	{
 		event.preventDefault();
 
-		var textbox = $(event.currentTarget);
+		// Get all inputs...
+		var timesheetTasks = $("[name='timesheet_task']");
+		// ...iterate each one, saving the results...
+		for (var i = 0; i < timesheetTasks.length; i++)
+		{	
+			var timesheetTask = timesheetTasks[i];
+			var hours = timesheetTask.value;
+			var weekDay = timesheetTask.getAttribute("data-weekday");
+			var index = timesheetTask.getAttribute("data-index");
+			this.timesheet[index].week_input[weekDay] = hours;
+		}
 
-		var hours = textbox.val().toString().trim();
-		if (hours === "" || hours.isNumeric() === false) return;
+		// ... and the, send all the data back to the server for updating
+		var data = { timesheet: this.timesheet, date_from: this.currentMoment.format("YYYY-MM-DD") };
 
-		this.updateMetrics();
-
-		// Save the record at the database
-		var id = textbox.data("project-task-id");
-		// Get the date
-		var weekday = textbox.data("weekday").toString().toInteger();
-		var inputDate = this.currentMoment.clone().add("day", weekday).format("YYYY-MM-DD")
+		// Note that I serialize the data manually to JSON. This is because JQuery has a faulty
+		// JSON serialization for arrays => it includes the index in the serialization. That breaks
+		// the controller. I could handle it on the controller but the tidiest option is to
+		// create syntactically correct JSON. For that purpose I use contentType + JSON.stringify
+		var self = this;
 		$.ajax(
 		{
-			url: "/api/project_task_inputs/" + id,
+			url: "api/timesheets/mine",
 			type: "PUT",
-			dataType:'JSON',
+			contentType: "application/json",
 			async: true,
-			data: { input_date: inputDate, hours: hours }
+			data: JSON.stringify(data),
+			success: function()
+			{
+				self.updateMetrics();
+				AlertMessage.show_success("Timesheet was updated successfully");
+			}
 		});
 	},
 
@@ -85,7 +106,14 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 			for (var j = 0; j < textboxArray.length; j++)
 			{
 				var textbox = textboxArray[j];
-				hoursWeekdays += $(textbox).val().toInteger();
+				hours = $(textbox).val();
+				// Fix any invalid values
+				if (hours.toString().isNumeric() === false)
+				{
+					$(textbox).val("0");
+					hours = 0;
+				}
+				hoursWeekdays += hours.toString().toInteger();
 			}
 			selector = sprintf(".day-total[data-weekday='%s']", i);
 			$(selector).text(hoursWeekdays);
@@ -93,9 +121,9 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 		}
 
 		// Update totals per line (task)
-		for (var i = 0; i < this.projectTaskInputsCollection.length; i++)
+		for (var i = 0; i < this.timesheet.length; i++)
 		{
-			var selector = sprintf(".input-hours[data-line='%s']", i);
+			var selector = sprintf(".input-hours[data-index='%s']", i);
 			var textboxArray = $(selector);
 			var hoursLine = 0;
 			for (var j = 0; j < textboxArray.length; j++)
@@ -103,7 +131,7 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 				var textbox = textboxArray[j];
 				hoursLine += $(textbox).val().toInteger();
 			}
-			selector = sprintf(".task-total[data-line='%s']", i);
+			selector = sprintf(".task-total[data-index='%s']", i);
 			$(selector).text(hoursLine);
 		}
 
@@ -161,7 +189,7 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 
 		$.ajax(
 		{
-			url: "api/project_task_inputs/billable_hours",
+			url: "api/timesheets/billable_hours",
 			type: "GET",
 			dataType:'JSON',
 			async: true,

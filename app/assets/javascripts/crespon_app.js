@@ -131,7 +131,10 @@ window.CresponApp =
 					message += "y no le permite operar contactenos para que podamos asistirlo."
 
 					AlertMessage.show_error(message);
+					console.log(event);
 					console.log(jqxhr);
+					console.log(settings);
+					console.log(exception);
 				}
 			}
 		});
