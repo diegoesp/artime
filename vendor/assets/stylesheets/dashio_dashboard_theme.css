@@ -1090,6 +1090,9 @@ PANELS CONFIGURATIONS
     line-height: 32px;
 	padding: 10px;
 }
+.content-panel > .content-body {
+    padding: 10px;
+}
 
 /*WEATHER PANELS*/
 

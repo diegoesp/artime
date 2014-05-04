@@ -5,11 +5,18 @@ for(var i=0; i < collection.models.length; i++)
 	var model = collection.models[i];
 %>
 	<li>
-		<span class="glyphicon glyphicon-user" style="margin-right:10px"></span>
-		<span class="user-name"><%=model.attributes.name%></span> 
-		<span class="label label-default"><%=model.getRole()%></span> 
-		<div class="pull-right">
-			<a href="#" data-model-id="<%=model.id%>" class="edit-link"><i class="fa fa-pencil fa-fw"></i></a>
+		<div class="media">
+			<a class="pull-left" href="#">
+				<img class="media-object avatar" src="<%=model.attributes.avatar%>">
+			</a>
+			<div class="media-body">
+				<div class="pull-right">
+					<a href="#" data-model-id="<%=model.id%>" class="edit-link"><i class="fa fa-pencil fa-fw"></i></a>
+				</div>
+				<div class="user-name"><%=model.attributes.name%></div> 
+				<%=model.getRole()%> · 
+				<%=model.attributes.email%>
+			</div>
 		</div>
 	</li>
 <%
@@ -22,7 +29,16 @@ for(var i=0; i < collection.models.length; i++)
 	border-bottom: 1px solid whitesmoke;
 	padding: 10px;
 }
-span.user-name {
+.users-list > li:hover {
+	background-color: whitesmoke;
+}
+div.user-name {
 	font-size: 16px;
+}
+.avatar {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
 }
 </style>

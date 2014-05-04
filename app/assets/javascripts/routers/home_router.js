@@ -2,7 +2,6 @@ CresponApp.Routers.Home = Backbone.Router.extend ({
 
 	routes:
 	{
-		"": "index",
 		"home": "index"
 	},
 
