@@ -26,8 +26,6 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 	render: function()
 	{
 		$(this.el).html(this.project_index_template());
-		
-		this.$("#customer").chosen({width: "100%"});
 		this.$('.date-picker').datepicker({ 
 			format: 'yyyy-mm-dd',
 			autoclose: true,
@@ -36,6 +34,7 @@ CresponApp.Views.ProjectsIndex = Backbone.View.extend ({
 
 		// Populate client select
 		this.$("#clients_select").populateSelect("/api/clients");
+		this.$("#clients_select").chosen({width: "100%"});
 
 		// Populate projects table
 		this.projectsCollection.fetch({ async: true });

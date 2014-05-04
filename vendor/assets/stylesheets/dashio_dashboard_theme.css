@@ -1081,11 +1081,14 @@ PANELS CONFIGURATIONS
 .content-panel {
 	background: #ffffff;
 	box-shadow: 0px 3px 2px #aab2bd;
-	padding-top: 15px;
+	margin-top: 15px;
 	padding-bottom: 5px;
 }
-.content-panel h4 {
-	margin-left: 10px;
+.content-panel > .content-header {
+    background-color: whitesmoke;
+    font-size: 18px;
+    line-height: 32px;
+	padding: 10px;
 }
 
 /*WEATHER PANELS*/

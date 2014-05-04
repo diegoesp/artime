@@ -1,7 +1,10 @@
 <div class="row">
 	<div class="col-md-9">
-		<div class="content-panel mt" style="min-height: 460px">
-			<h4 style="padding-left: 10px">Week time for: <strong><%= CresponApp.session().name %></strong></h4>
+		<div class="content-panel" style="min-height: 460px">
+			<div class="content-header">
+				Week time for: <strong><%= CresponApp.session().name %></strong>
+				<button class="pull-right btn btn-theme04" id="newTask">Add task</button>
+			</div>
 			<div style="padding:10px">
 
 				<table class="table table-striped">
