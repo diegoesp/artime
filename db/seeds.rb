@@ -56,7 +56,11 @@ end
 # Seeding
 #########################################################################################
 
-company = create(:company)
+plan_free = create(:plan, name: "Free", description: "Freelancer (free / 1 user)")
+plan_startup = create(:plan, name: "Startup", description: "Startup team ($ 25 / month / up to 5 user)")
+plan_rocket = create(:plan, name: "Rocket", description: "Rocket team ($ 49 / month / unlimited users)")
+
+company = create(:company, plan: plan_rocket)
 
 # Users and their roles
 create(:user, first_name: "Martin", last_name: "Dasnoy", email: "martindasnoy@gmail.com", company: company, role_code: Role::COMPANY, avatar: File.open("#{Rails.root}/app/assets/images/mdasnoy.jpg", "r"))

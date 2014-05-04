@@ -2,12 +2,13 @@ Artime::Application.routes.draw do
 	
 	root :to => "home#index"
 
-	devise_for :users
+	devise_for :users, controllers: { registrations: "registrations" }
 	ActiveAdmin.routes(self)
 
 	scope "api" do
 		resources :clients
 		resources :companies
+		resources :plans
 		resources :project_task_inputs do
 			collection do
 				get :billable_hours
