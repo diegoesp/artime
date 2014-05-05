@@ -1,10 +1,12 @@
 # A paying customer for the SASS
 class Company < ActiveRecord::Base
-  attr_accessible :active, :name
+  attr_accessible :active, :name, :plan, :plan_id
 
   validates :active, inclusion: { in: [true, false] }
   validates :name, presence: true
   validates :name, length: { maximum: 50 }
+
+  belongs_to :plan
 
   has_many :users, dependent: :restrict
 	has_many :tasks, dependent: :restrict

@@ -5,7 +5,8 @@ CresponApp.Views.UsersIndex = Backbone.View.extend ({
 
 	events:
 	{
-		"click .edit-link": "editEntry"
+		"click .edit-link": "editEntry",
+		"click #newUser": "newEntry"
 	},
 
 	collection: null,
@@ -35,7 +36,14 @@ CresponApp.Views.UsersIndex = Backbone.View.extend ({
 	{
 		event.preventDefault();		
 		var id = $(event.currentTarget).data("model-id");
-		view = new CresponApp.Views.UsersEdit( { id: id, collection: this.collection });
+		view = new CresponApp.Views.UserManagerEdit( { id: id, collection: this.collection });
+		$("#modals").html(view.render().el);
+		return this;
+	},
+
+	newEntry: function(event)
+	{
+		view = new CresponApp.Views.UserManagerEdit( { id: null, collection: this.collection });
 		$("#modals").html(view.render().el);
 		return this;
 	}

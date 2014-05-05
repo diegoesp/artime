@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_code, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_code, :first_name, :last_name, :avatar, :company_attributes
 
   belongs_to :company
 
@@ -38,6 +38,11 @@ class User < ActiveRecord::Base
   validates :role_code, inclusion: { in: Role.role_codes }
 
   has_and_belongs_to_many :projects
+
+  # PaperClip attachment
+  has_attached_file :avatar, :styles => { :thumb => "60x60>" }, :default_url => "/assets/missing_avatar.png"
+
+  accepts_nested_attributes_for :company
 
   # Arranges the complete name for the user
   def name

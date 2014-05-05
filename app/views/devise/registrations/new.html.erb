@@ -21,13 +21,15 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1" style="padding: 10px">
+		<div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1" style="padding: 40px 0">
 			<h4 class="title" style="position:relative">
 				<img src="/assets/landing_cosetti_signup.png" class="cosetti_form" />
 				<span>Register Form</span>
 			</h4>
 			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-					<%= devise_error_messages! %>
+				
+				<%= f.hidden_field :role_code, value: Role::COMPANY %>
+				<%= devise_error_messages! %>
 				<div class="form-group">
 					<%= f.text_field :first_name, placeholder: "First name", class: "form-control" %>
 				</div>
@@ -43,14 +45,14 @@
 				<div class="form-group">
 					<%= f.password_field :password_confirmation, autocomplete: "off",placeholder: "Re-enter password", class:"form-control" %>
 				</div>
+				<%=f.fields_for :company do |company_form| %>
 				<div class="form-group">
-					<select name="plan" id="plan" class="form-control">
-						<option value="" disabled="disabled">Choose your plan...</option>
-						<option value="freelancer">Freelancer (free / 1 user)</option>
-						<option value="startup">Startup team ($ 25 / month / up to 5 users)</option>
-						<option value="rocket">Rocket team ($ 49 / month / unlimited users)</option>
-					</select>
+					<%= company_form.text_field :name, placeholder: "Company name", class: "form-control" %></p>
 				</div>
+				<div class="form-group">
+					<%= company_form.select :plan_id, @plans.map{ |p| [p.description, p.id] } %>
+				</div>
+				<% end %>
 				<div class="form-group text-center">
 					<%= f.submit "Register an account", class: "button", style: "width:200px" %>
 				</div>
@@ -62,5 +64,6 @@
 <script>
 	$("#jetmenu>li").removeClass("active");
 	$("li#sign_up").addClass("active");
-	$("#plan").val("<%=params[:plan]%>");
+	$("select").addClass("form-control");
+	$("#user_company_attributes_plan_id").val(<%= params["plan"] %>);
 </script>

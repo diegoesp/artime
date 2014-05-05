@@ -229,6 +229,7 @@ ul.top-menu > li > .logout {
     height: 100%;
     position: fixed;
     background: #2f323a;
+    padding-top: 90px;
 }
 
 #sidebar h5 {
@@ -279,7 +280,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 }
 
 ul.sidebar-menu {
-    margin-top: 75px;
+    margin-top: 20px;
 }
 
 #sidebar > ul > li > ul.sub {
@@ -1080,11 +1081,17 @@ PANELS CONFIGURATIONS
 .content-panel {
 	background: #ffffff;
 	box-shadow: 0px 3px 2px #aab2bd;
-	padding-top: 15px;
+	margin-top: 15px;
 	padding-bottom: 5px;
 }
-.content-panel h4 {
-	margin-left: 10px;
+.content-panel > .content-header {
+    background-color: whitesmoke;
+    font-size: 18px;
+    line-height: 32px;
+	padding: 10px;
+}
+.content-panel > .content-body {
+    padding: 10px;
 }
 
 /*WEATHER PANELS*/

@@ -2,13 +2,20 @@ CresponApp.Routers.Home = Backbone.Router.extend ({
 
 	routes:
 	{
-		"": "index",
 		"home": "index"
 	},
 
 	index: function()
 	{
-		var view  = new CresponApp.Views.HomeIndex();
+		var view = null;
+		if(CresponApp.session().manager)
+		{
+			view  = new CresponApp.Views.HomeIndex();
+		}
+		else
+		{
+			view = new CresponApp.Views.InputsIndex();
+		}
 		$("#template").html(view.render().el);
 	}
 

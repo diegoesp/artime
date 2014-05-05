@@ -10,24 +10,24 @@ class ProjectsController < ApiApplicationController
 
 	def create
 		project = Project.new(params[:project])
-    project.save!
-    render json: project
+		project.save!
+		render json: project
 	end
 
 	def update
-    project = Project.find(params[:id])
-    project.update_attributes!(params[:project])
-    render json: project
-  end
+		project = Project.find(params[:id])
+		project.update_attributes!(params[:project])
+		render json: project
+	end
 
-  def destroy
-    project = Project.find(params[:id])
-    render json: project.destroy
-  end
+	def destroy
+		project = Project.find(params[:id])
+		render json: project.destroy
+	end
 
-  def show
-  	render json: Project.find(params[:id]);
-  end
+	def show
+		render json: Project.find(params[:id]);
+	end
   
 	private
 

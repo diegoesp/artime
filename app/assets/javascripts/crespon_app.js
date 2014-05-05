@@ -35,39 +35,41 @@ window.CresponApp =
 
 	initializeSidebar: function()
 	{
-	    $(function() {
-	        function responsiveView() {
-	            var wSize = $(window).width();
-	            if (wSize <= 768) {
-	                $('#container').addClass('sidebar-close');
-	                $('#sidebar > ul').hide();
-	            }
+		$(function() 
+		{
+			function responsiveView() 
+			{
+				if ($(window).width() <= 768) 
+				{
+					$('#sidebar').hide();
+					$('#container').addClass('sidebar-closed');
+				}
+				else 
+				{
+					$('#sidebar').show();
+					$('#container').removeClass('sidebar-closed');
+				}
+			}
+			$(window).on('load', responsiveView);
+			$(window).on('resize', responsiveView);
+		});
 
-	            if (wSize > 768) {
-	                $('#container').removeClass('sidebar-close');
-	                $('#sidebar > ul').show();
-	            }
-	        }
-	        $(window).on('load', responsiveView);
-	        $(window).on('resize', responsiveView);
-	    });
-
-	    $('.fa-bars').click(function () {
-	        if ($('#sidebar > ul').is(":visible") === true) 
-	        {
-	            $('#main-content').animate({'margin-left': '0px'},500);
-	            $('#sidebar').animate({'margin-left': '-210px'},500);
-	            $('#sidebar > ul').hide();
-	            $("#container").addClass("sidebar-closed");
-	        } 
-	        else 
-	        {
-	            $('#main-content').animate({'margin-left': '210px'},500);
-	            $('#sidebar > ul').show();
-	            $('#sidebar').animate({'margin-left': '0'},500);
-	            $("#container").removeClass("sidebar-closed");
-	        }
-	    });
+		$('.fa-bars').click(function () 
+		{
+			if ($('#container').hasClass("sidebar-closed")) 
+			{
+				$('#sidebar').show();
+				$('#main-content').animate({'margin-left': '210px'},500);
+				$('#sidebar').animate({'margin-left': '0'},500);
+				$("#container").removeClass("sidebar-closed");
+			} 
+			else 
+			{
+				$('#main-content').animate({'margin-left': '0px'},500);
+				$('#sidebar').animate({'margin-left': '-210px'},500, function(){$(this).hide()});
+				$("#container").addClass("sidebar-closed");
+			}
+		});
 
 	},
 
@@ -93,6 +95,7 @@ window.CresponApp =
 				$(".sidebar-menu a").removeClass("active");
 				var selector = sprintf(".sidebar-menu a[href$='%s']", window.location.hash);
 				$(selector).addClass("active");
+				window.document.title = CresponApp.getPageTitle();
 			});
 		}
 
@@ -199,6 +202,15 @@ window.CresponApp =
 		}
 
 		return this.cachedSession;
+	},
+
+	getPageTitle: function()
+	{
+		//remove hash
+		title = window.location.hash.replace(/^#(\w*)/,"$1");
+		title = title.split("/")[0];
+		if(title === "") title = "Home"; 
+		return "Artime :: " + title.capitalize();
 	}
 };
 

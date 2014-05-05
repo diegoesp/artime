@@ -16,7 +16,7 @@ gem "coffee-rails", "3.2.2"                                 # Required by tests 
 gem 'devise'
 
 # Optional gems for additional features
-# gem "paperclip", "3.5.0"                                    # Easy file attachment library for Active Record
+gem "paperclip", "3.5.0"                                    # Easy file attachment library for Active Record
 # gem 'private_pub', "1.0.3"                                  # Push technology (using Faye) for the chat feature
 # gem 'thin', "1.5.1"                                         # Simple server used by private_pub
 # gem 'delayed_job_active_record', "4.0.0"                    # Schedules job to an internal queue
@@ -29,8 +29,9 @@ gem 'bootstrap-sass', '~> 3.1.0'                            # Twitter Bootstrap 
 gem 'bootstrap-datepicker-rails'                            # powerful datepicker feature for jquery
 gem 'momentjs-rails', '2.5.1'                               # Moment.js library for managing dates (better than Date)
 gem "font-awesome-rails", "4.0.3.1"                         # Complementary icons for bootstrap
+gem "jquery-fileupload-rails", "0.4.1"                    # JQuery File Upload plugin for Rails
 # Additional Javascript features
-# gem "jquery-fileupload-rails", "0.4.1"                    # JQuery File Upload plugin for Rails
+# 
 # gem 'bootstrap3-datetimepicker-rails', '2.1.30'           # Timepicker. Overlaps on datepicker functionality with bootstrap-datepicker. See http://eonasdan.github.io/bootstrap-datetimepicker/
 
 # Gems exclusively used for development and test. Not needed @ prod environment

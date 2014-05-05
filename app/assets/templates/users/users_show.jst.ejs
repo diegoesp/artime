@@ -1,0 +1,23 @@
+<div class="content-panel mt">
+	<div class="content-header">User profile</div>
+	<section id="unseen" style="padding:10px">
+		<div class="row">
+			<div class="col-md-2">       
+				<img class="img-thumbnail img-responsive" src="<%= model.attributes.avatar %>"/>
+			</div>
+			<div class="col-md-10 user-attributes">
+				<h3><%=model.attributes.name%></h3>
+				<ul class="list-unstyled">
+					<li>
+						<i class="fa fa-envelope-o"></i>
+						<%=model.attributes.email%>
+					</li>
+				</ul>
+				<div id="user_actions" class="hide">
+					<a href="/#users/me/edit" class="btn btn-theme" id="modify">Edit profile</a>
+					<a href="/users/edit" class="btn btn-theme" id="changePassword">Change password</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
