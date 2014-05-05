@@ -8,8 +8,8 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 		"click #previous_week": "previousWeekClick",
 		"click #this_week": "thisWeekClick",
 		"click #next_week": "nextWeekClick",
-		"click #save_timesheet": "saveTimesheet",
-		"click #add_task": "addTask"
+		"click #save_timesheet": "saveTimesheetClick",
+		"click #add_task": "addTaskClick"
 	},
 
 	timesheet: null,
@@ -38,15 +38,43 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 			success: function(timesheet)
 			{
 				self.timesheet = timesheet;
-				$(self.el).html(self.template({ current_moment: self.currentMoment, timesheet: timesheet }));
-				self.updateMetrics();
+				self.updateTimesheet();
 			}
 		});
 
 		return this;
 	},
 
-	saveTimesheet: function(event)
+	// Updates the timesheet table + metrics using the state of the view
+	updateTimesheet: function()
+	{
+		window.tmp = this.timesheet;
+		// Ensure that the timesheet is sort
+		this.timesheet.sort(function(a, b)
+		{
+			name1 = a.project_name + " " + a.task_name;
+			name2 = b.project_name + " " + b.task_name;
+
+			return name1.localeCompare(name2);
+		});
+
+		// Prevent duplicates
+		for (var i = 0; i < this.timesheet.length; i++)
+		{
+			if (i === 0) continue;
+
+			if (this.timesheet[i].id === this.timesheet[i - 1].id)
+			{
+				this.timesheet.splice(i, 1);
+				i--;
+			}
+		}
+
+		$(this.el).html(this.template({ current_moment: this.currentMoment, timesheet: this.timesheet }));
+		this.updateMetrics();
+	},
+
+	saveTimesheetClick: function(event)
 	{
 		event.preventDefault();
 
@@ -206,5 +234,15 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 				new Chart(self.$("#billablechart")[0].getContext("2d")).Doughnut(billableData, {animation: false});
 			}
 		});
+	},
+
+	addTaskClick: function(event)
+	{
+		event.preventDefault();	
+		var view = new CresponApp.Views.InputsEdit({ caller: this });
+		$("#modals").html(view.render().el);
+		// Set focus on the chosen
+		$(".chosen-search")[0].children[0].focus();
+		return this;
 	}
 });

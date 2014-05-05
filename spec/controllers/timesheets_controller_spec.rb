@@ -22,13 +22,24 @@ describe TimesheetsController do
 
   end
 
+  describe "GET 'show'" do
+
+    it "returns a single line of timesheet" do
+      get :show, { id: ProjectTask.first.id }
+      response.should be_success
+      parsed_json = JSON.parse(response.body)
+      parsed_json.length.should > 1
+    end
+
+  end
+
   describe "PUT 'update'" do
 
     it "update the input grid" do
       
       timesheet = 
       [
-        project_task_id: Input.first.project_task.id,
+        id: Input.first.project_task.id,
         week_input: 
         {
           0 => 0,
@@ -46,6 +57,26 @@ describe TimesheetsController do
       put :update, { id: "mine", date_from: date_from, timesheet: timesheet }
       response.should be_success
       Input.first.hours.should eq 8
+    end
+
+  end
+
+  describe "GET 'billable_hours'" do
+
+    it "returns how many billable hours I have in my week" do
+      get :billable_hours, { date_from: Date.today - Date.today.wday }
+      response.should be_success
+      response.body.to_f.should > 0
+    end
+
+  end
+
+  describe "GET 'timesheet_tasks'" do
+
+    it "returns my tasks for inputing" do
+      get :tasks
+      response.should be_success
+      JSON.parse(response.body).length.should > 0
     end
 
   end

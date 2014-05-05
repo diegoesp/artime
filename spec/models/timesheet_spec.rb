@@ -6,7 +6,7 @@ describe Timesheet do
     # Input 8 hours for Monday...
     @input = create(:input, input_date: Date.today - Date.today.wday + 1)
     # ... and get the timesheet
-    @timesheet = Timesheet.get(@input.user, Date.today - Date.today.wday)
+    @timesheet = Timesheet.all(@input.user, Date.today - Date.today.wday)
   end
 
   it "should give me my table to input hours on it" do

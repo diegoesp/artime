@@ -23,6 +23,7 @@ Artime::Application.routes.draw do
 		resources :timesheets do
 			collection do
 				get :billable_hours
+				get :tasks
 			end
 		end
 

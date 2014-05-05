@@ -9,7 +9,14 @@ class TimesheetsController < ApiApplicationController
 	# Expects date_from as an input
 	#
 	def index
-		render json: Timesheet.get(current_user, Date.parse(params[:date_from]))
+		render json: Timesheet.all(current_user, Date.parse(params[:date_from]))
+	end
+
+	#
+	# Gets a single line for the timesheet
+	# 
+	def show
+		render json: Timesheet.get(params[:id])
 	end
 
 	# Updates the timetable
@@ -35,4 +42,9 @@ class TimesheetsController < ApiApplicationController
 		render json: Timesheet.billable_hours(date_from, current_user)
 	end
 
+	# Returns the list of tasks than the user can pick
+	def tasks
+		render json: Timesheet.tasks(current_user), each_serializer: TimesheetTaskSerializer
+	end
+	
 end

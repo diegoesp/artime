@@ -15,7 +15,7 @@ class Timesheet
   #
   # Method asks for a user (to get the grid for him) and a date_from that must
   # be always Sunday. Period is always 7 days (a whole week) so no date_to is needed.
-  def self.get(user, date_from)
+  def self.all(user, date_from)
   	
     raise "date_from must be sunday" unless date_from.wday == 0
   	
@@ -78,6 +78,11 @@ class Timesheet
     end # timesheet.each
   end
 
+  # Gets a sigle line of timesheet. Expects the project task id
+  def self.get(id)
+    ProjectTaskWeekInput.new(ProjectTask.find(id))
+  end
+
   #
   # Gets the % of billable hours were entered for a week (40 hours)
   #
@@ -110,6 +115,11 @@ class Timesheet
       raise "day #{day} is not correct. Must be between 0 and 6" if day < 0 or day > 6
   		self.week_input[day.to_s] += hours
   	end
+  end
+
+  # Project tasks available to fill in the timesheet
+  def self.tasks(user)
+    ProjectTask.joins(:project).joins(project: :users).includes(:project).includes(:task).uniq.where("user_id = #{user.id} AND projects.active = true").order("projects.name, tasks.name")
   end
 
 end
