@@ -1,7 +1,7 @@
 # Manages Tasks
 class TasksController < ApiApplicationController
 
-	before_filter :is_manager_filter
+	before_filter :is_manager!
 
 	def index
 		render json: current_user.company.tasks.order("name")

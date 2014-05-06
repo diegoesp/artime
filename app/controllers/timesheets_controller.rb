@@ -9,7 +9,7 @@ class TimesheetsController < ApiApplicationController
 	# Expects date_from as an input
 	#
 	def index
-		render json: Timesheet.all(current_user, Date.parse(params[:date_from]))
+		render json: Timesheet.all(timesheet_user, Date.parse(params[:date_from]))
 	end
 
 	#
@@ -28,7 +28,7 @@ class TimesheetsController < ApiApplicationController
 	#
 	# Parameters expected are :date_from and :timesheet
 	def update
-		render json: Timesheet.update(current_user, params[:date_from], params[:timesheet])
+		render json: Timesheet.update(timesheet_user, params[:date_from], params[:timesheet])
 	end
 
 	# Specifies what is the proportion of billable hours for the asked week by
@@ -39,12 +39,24 @@ class TimesheetsController < ApiApplicationController
 	def billable_hours
 		date_from = Date.parse(params[:date_from])
 		raise "date_from must be a sunday" unless date_from.wday == 0
-		render json: Timesheet.billable_hours(date_from, current_user)
+		render json: Timesheet.billable_hours(date_from, timesheet_user)
 	end
 
 	# Returns the list of tasks than the user can pick
 	def tasks
-		render json: Timesheet.tasks(current_user), each_serializer: TimesheetTaskSerializer
+		render json: Timesheet.tasks(timesheet_user), each_serializer: TimesheetTaskSerializer
 	end
+
+	private
 	
+	# Gets the user whose timesheet is being requested
+	def timesheet_user
+		if params[:user_id].blank? then
+			current_user
+		else
+			is_manager!
+			current_user.company.users.find(params[:user_id])
+		end
+	end
+
 end

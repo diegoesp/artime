@@ -1,7 +1,7 @@
 # Manages clients
 class ClientsController < ApiApplicationController
 	
-	before_filter :is_manager_filter, except: [:index] 
+	before_filter :is_manager!, except: [:index] 
 
 	def index		
 		render json: Client.mine(current_user)

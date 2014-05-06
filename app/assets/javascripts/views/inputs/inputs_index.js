@@ -9,12 +9,18 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 		"click #this_week": "thisWeekClick",
 		"click #next_week": "nextWeekClick",
 		"click #save_timesheet": "saveTimesheetClick",
-		"click #add_task": "addTaskClick"
+		"click #add_task": "addTaskClick",
+		"click #pick_user": "pickUserClick"
 	},
 
+	// The timesheet being shown right now
 	timesheet: null,
 
+	// The date that is being shown right now
 	currentMoment: null,
+
+	// If specified then the timesheet for this user is shown (only managers)
+	user_id: null,
 
 	initialize: function()
 	{
@@ -34,7 +40,7 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 			type: "GET",
 			dataType:'JSON',
 			async: true,
-			data: { date_from: date_from },
+			data: { user_id: this.user_id, date_from: date_from },
 			success: function(timesheet)
 			{
 				self.timesheet = timesheet;
@@ -45,10 +51,48 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 		return this;
 	},
 
+	saveTimesheetClick: function(event)
+	{
+		event.preventDefault();
+
+		// Get all inputs...
+		var timesheetTasks = $("[name='timesheet_task']");
+		// ...iterate each one, saving the results...
+		for (var i = 0; i < timesheetTasks.length; i++)
+		{	
+			var timesheetTask = timesheetTasks[i];
+			var hours = timesheetTask.value;
+			var weekDay = timesheetTask.getAttribute("data-weekday");
+			var index = timesheetTask.getAttribute("data-index");
+			this.timesheet[index].week_input[weekDay] = hours;
+		}
+
+		// ... and the, send all the data back to the server for updating
+		var data = { user_id: this.user_id, timesheet: this.timesheet, date_from: this.currentMoment.format("YYYY-MM-DD") };
+
+		// Note that I serialize the data manually to JSON. This is because JQuery has a faulty
+		// JSON serialization for arrays => it includes the index in the serialization. That breaks
+		// the controller. I could handle it on the controller but the tidiest option is to
+		// create syntactically correct JSON. For that purpose I use contentType + JSON.stringify
+		var self = this;
+		$.ajax(
+		{
+			url: "api/timesheets/none",
+			type: "PUT",
+			contentType: "application/json",
+			async: true,
+			data: JSON.stringify(data),
+			success: function()
+			{
+				self.updateMetrics();
+				AlertMessage.show_success("Timesheet was updated successfully");
+			}
+		});
+	},
+
 	// Updates the timesheet table + metrics using the state of the view
 	updateTimesheet: function()
 	{
-		window.tmp = this.timesheet;
 		// Ensure that the timesheet is sort
 		this.timesheet.sort(function(a, b)
 		{
@@ -69,48 +113,29 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 				i--;
 			}
 		}
+		
+		// Update the timesheet
+		$(this.el).html(this.template({ user_id: this.user_id, current_moment: this.currentMoment, timesheet: this.timesheet }));
 
-		$(this.el).html(this.template({ current_moment: this.currentMoment, timesheet: this.timesheet }));
+		this.updateTimesheetUsername();
 		this.updateMetrics();
 	},
 
-	saveTimesheetClick: function(event)
+	// Updates the timesheet username using the user_id field
+	updateTimesheetUsername: function()
 	{
-		event.preventDefault();
-
-		// Get all inputs...
-		var timesheetTasks = $("[name='timesheet_task']");
-		// ...iterate each one, saving the results...
-		for (var i = 0; i < timesheetTasks.length; i++)
-		{	
-			var timesheetTask = timesheetTasks[i];
-			var hours = timesheetTask.value;
-			var weekDay = timesheetTask.getAttribute("data-weekday");
-			var index = timesheetTask.getAttribute("data-index");
-			this.timesheet[index].week_input[weekDay] = hours;
-		}
-
-		// ... and the, send all the data back to the server for updating
-		var data = { timesheet: this.timesheet, date_from: this.currentMoment.format("YYYY-MM-DD") };
-
-		// Note that I serialize the data manually to JSON. This is because JQuery has a faulty
-		// JSON serialization for arrays => it includes the index in the serialization. That breaks
-		// the controller. I could handle it on the controller but the tidiest option is to
-		// create syntactically correct JSON. For that purpose I use contentType + JSON.stringify
-		var self = this;
-		$.ajax(
+		// Update the timesheet user name
+		if (this.user_id === null)
 		{
-			url: "api/timesheets/mine",
-			type: "PUT",
-			contentType: "application/json",
-			async: true,
-			data: JSON.stringify(data),
-			success: function()
-			{
-				self.updateMetrics();
-				AlertMessage.show_success("Timesheet was updated successfully");
-			}
-		});
+			$("#timesheetUsername").text(CresponApp.session().name);
+		}
+		else
+		{
+			var user = new CresponApp.Models.User({ id: this.user_id });
+			user.fetch({ async: true, success: function(user) {
+				$("#timesheetUsername").text(user.attributes.name);
+			}});
+		}
 	},
 
 	updateMetrics: function()
@@ -221,7 +246,7 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 			type: "GET",
 			dataType:'JSON',
 			async: true,
-			data: { date_from: this.currentMoment.format("YYYY-MM-DD") },
+			data: { user_id: this.user_id, date_from: this.currentMoment.format("YYYY-MM-DD") },
 			success: function(percentage)
 			{
 				percentage = percentage * 100;
@@ -240,6 +265,16 @@ CresponApp.Views.InputsIndex = Backbone.View.extend ({
 	{
 		event.preventDefault();	
 		var view = new CresponApp.Views.InputsEdit({ caller: this });
+		$("#modals").html(view.render().el);
+		// Set focus on the chosen
+		$(".chosen-search")[0].children[0].focus();
+		return this;
+	},
+
+	pickUserClick: function(event)
+	{
+		event.preventDefault();	
+		var view = new CresponApp.Views.SelectTimesheet({ caller: this });
 		$("#modals").html(view.render().el);
 		// Set focus on the chosen
 		$(".chosen-search")[0].children[0].focus();

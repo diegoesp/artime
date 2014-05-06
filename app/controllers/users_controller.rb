@@ -2,7 +2,7 @@
 class UsersController < ApiApplicationController
 
 	before_filter :authenticate_user! 
-	before_filter :is_manager_filter, only: [:new] 
+	before_filter :is_manager!, only: [:new] 
 	before_filter :can_user_see_user, except: [:index, :create]
 
 	def index

@@ -1,7 +1,7 @@
 # Manages projects
 class ProjectsController < ApiApplicationController
 
-	before_filter :is_manager_filter
+	before_filter :is_manager!
 	before_filter :can_user_see_client, except: [:index, :destroy]
 
 	def index

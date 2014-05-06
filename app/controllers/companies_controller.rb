@@ -1,7 +1,7 @@
 # Manages companies
 class CompaniesController < ApiApplicationController
 	
-	before_filter :is_manager_filter
+	before_filter :is_manager!
 
 	def index		
 		raise "Cannot return all companies"

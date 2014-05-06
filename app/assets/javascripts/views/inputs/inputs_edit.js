@@ -13,7 +13,8 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 	// Expects a "caller" member that includes the following:
 	//
 	// 1: timesheet, containing all timesheet lines
-	// 2: updateTimesheet(), called when the timesheet needs updating
+	// 2: user_id, containing the user whose tasks must be searched
+	// 3: updateTimesheet(), called when the timesheet needs updating
 	initialize: function(hash)
 	{
 		this.caller = hash.caller;
@@ -22,7 +23,10 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 	render: function()
 	{
 		$(this.el).html(this.template());
-		this.$("#tasks").populateSelect("/api/timesheets/tasks")
+
+		var user_id = this.caller.user_id;
+		if (user_id === null) user_id = "";
+		this.$("#tasks").populateSelect("/api/timesheets/tasks?user_id=" + user_id);
 		this.$("#tasks").chosen({ width: "100%" });
 		this.$("#inputsEditModal").modal("show");
 		return this;

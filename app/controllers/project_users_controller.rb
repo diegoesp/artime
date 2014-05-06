@@ -1,7 +1,7 @@
 # Manages assignments of users to projects
 class ProjectUsersController < ApiApplicationController
 
-	before_filter :is_manager_filter
+	before_filter :is_manager!
 
 	# Returns a CSV of the selected users for the project
 	#
