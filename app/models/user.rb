@@ -23,19 +23,26 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  #
+  # We cannot use validatable because we're not using the email as the login
+  # key so it is not unique.
+  #
+  # :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_code, :first_name, :last_name, :avatar, :company_attributes
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_code, :first_name, :last_name, :avatar, :company_attributes
 
   belongs_to :company
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true
+  validates :username, presence: true
   validates :company, presence: true
   validates :role_code, presence: true
   validates :role_code, inclusion: { in: Role.role_codes }
+  validates_uniqueness_of :email, :scope => :company_id
 
   has_and_belongs_to_many :projects
 

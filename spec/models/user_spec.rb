@@ -30,9 +30,28 @@ describe User do
 		@user.should be_valid
 	end
 
+	it "should require the username" do
+		@user.username = ""
+		@user.should_not be_valid
+	end
+
 	it "should require an email" do
 		@user.email = ""
 		@user.should_not be_valid
+	end
+
+	it "should require email to be unique in the context of a company" do
+		@user.save!
+
+		user_2 = build(:user, email: @user.email, company: @user.company)
+		user_2.should_not be_valid
+	end
+
+	it "should not require email to be unique between companies" do
+		@user.save!
+
+		user_2 = build(:user, email: @user.email)
+		user_2.should be_valid
 	end
 
 	it "should tell me if the user has pending input" do

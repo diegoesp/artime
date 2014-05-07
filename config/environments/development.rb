@@ -49,14 +49,13 @@ Artime::Application.configure do
 
   # config.action_mailer.delivery_method = :smtp
 
-  # config.action_mailer.smtp_settings = 
-  # {
-  #   address: "smtp.live.com",
-  #   port: 587,
-  #   enable_starttls_auto: true,
-  #   user_name: "contacto@octavo-piso.com.ar",
-  #   password: "bPAca-mzAdZCQJrC",
-  #   domain: "octavo-piso.com.ar",
-  #   authentication: "plain"
-  # }
+  config.action_mailer.smtp_settings = 
+  {
+    address: "smtp.gmail.com",
+    port: 587,
+    enable_starttls_auto: true,
+    user_name: "carlospacheco9912@gmail.com",
+    password: "m5pUmeRnEc6Tvvua",
+    authentication: "plain"
+  }
 end
