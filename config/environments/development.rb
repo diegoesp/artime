@@ -34,4 +34,29 @@ Artime::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Needed by devise (specially for changing passwords)
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  ###################################################################
+  # Mailing
+  ###################################################################
+  
+  # config.email = "contacto@octavo-piso.com.ar"
+
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = true
+
+  # config.action_mailer.delivery_method = :smtp
+
+  # config.action_mailer.smtp_settings = 
+  # {
+  #   address: "smtp.live.com",
+  #   port: 587,
+  #   enable_starttls_auto: true,
+  #   user_name: "contacto@octavo-piso.com.ar",
+  #   password: "bPAca-mzAdZCQJrC",
+  #   domain: "octavo-piso.com.ar",
+  #   authentication: "plain"
+  # }
 end

@@ -5,7 +5,14 @@
 				Week time for: <strong><span id="timesheetUsername"></span></strong>
 				<button class="pull-right btn btn-theme04" id="save_timesheet" style="margin-left:10px">Save</button>
 				<button class="pull-right btn btn-theme04" id="add_task" style="margin-left:10px">Add task</button>
-				<button class="pull-right btn btn-theme04" id="pick_user">Another user</button>
+				<%
+				if (CresponApp.session().manager)
+				{
+					%>
+					<button class="pull-right btn btn-theme04" id="pick_user">Another user</button>
+					<%
+				}
+				%>
 			</div>
 			<div style="padding:10px">
 
