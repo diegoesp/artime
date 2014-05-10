@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :email, presence: true
   validates :username, presence: true
+  validates :username, uniqueness: true
   validates :company, presence: true
   validates :role_code, presence: true
   validates :role_code, inclusion: { in: Role.role_codes }
