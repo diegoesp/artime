@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
       else
         days += 1
       end
-      date = date - 1
+      date = date - 1.day
     end
 
     # Format the excluded dates to fit them in the query
@@ -97,12 +97,9 @@ class User < ActiveRecord::Base
     excluded_dates_joined = excluded_dates.join(",")
 
     # How many days the user has filled ?
-    input_days_hash = Input.where("user_id = #{self.id} AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND input_date NOT IN (#{excluded_dates_joined})").group("input_date").count
-    # Take into account more than one input for the same day (that still counts as only one input for this analysis)
-    input_days = input_days_hash.keys.length
+    input_days_hash = Input.where("user_id = #{self.id} AND input_date >= '#{date_from}' AND input_date <= '#{date_to}' AND input_date NOT IN (#{excluded_dates_joined})").order("input_date").group("input_date").count
 
-    # How many days the user should have filled ?
-    days = (date_to - date_from).to_i - excluded_dates.length
+    input_days = input_days_hash.keys.length
 
     [days - input_days, days]
   end

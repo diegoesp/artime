@@ -76,6 +76,21 @@ describe User do
 		@user.pending_input[0].should == (pending_input - 1)
 	end
 
+	it "should detect if a user has missing input on last Friday" do
+		@user.save!
+		# Get last sunday
+		date = Date.today - Date.today.wday
+		# go back...
+		date = date - 4.weeks
+		# ... and input 4 hours for every day, EXCEPT last friday
+		last_friday = Date.today - Date.today.wday - 2.day
+		while date < Date.today
+			create(:input, user: @user, input_date: date) unless (date.wday == 0 or date.wday == 6 or date == last_friday)
+			date = date + 1.day
+		end
+		@user.pending_input?.should be_true
+	end
+
 	it "should allow me to upload an avatar" do
 		file_name = "rails.png"
 		@user.avatar = File.open("#{Rails.root}/app/assets/images/#{file_name}", "r")
