@@ -5,10 +5,23 @@
 	right:20px;
 	top: -70px;
 }
+.main-title {
+	position: relative;
+	font-size: 32px;
+	padding: 30px;
+	text-align: center;
+	top: -15px;
+}
+
 </style>
 <div class="container">
+	<div class="row main-title">
+		<div class="col-md-20" style="text-align: center">
+			<span>Start using Artime now !</span>
+		</div>
+	</div>
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1" style="padding: 40px 0">
+		<div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1" style="padding: 10px">
 			<h4 class="title" style="position:relative">
 				<img src="/assets/landing_cosetti_signup.png" class="cosetti_form" />
 				<span>Register Form</span>
@@ -54,8 +67,3 @@
 	$("select").addClass("form-control");
 	$("#user_company_attributes_plan_id").val(<%=params["plan"]%>);
 </script>
-
-
-
-
-
