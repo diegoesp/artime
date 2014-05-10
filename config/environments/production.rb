@@ -67,4 +67,24 @@ Artime::Application.configure do
 
   # Needed by devise (specially for changing passwords)
   config.action_mailer.default_url_options = { :host => 'www.artimeapp.com' }
+
+  ###################################################################
+  # Mailing
+  ###################################################################
+
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = 
+  {
+    address: "smtp.zoho.com",
+    port: 465,
+    enable_starttls_auto: true,
+    user_name: "info@artimeapp.com",
+    password: "eSKumGuc9dNrvWrL",
+    authentication: "login"
+  }
+
 end

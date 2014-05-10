@@ -5,7 +5,8 @@ CresponApp.Views.UserManagerEdit = Backbone.View.extend ({
 	events:
 	{
 		"click #save": "save",
-		"click #cancel": "cancel"
+		"click #cancel": "cancel",
+		"click #delete": "delete"
 	},
 
 	model: null,
@@ -30,15 +31,36 @@ CresponApp.Views.UserManagerEdit = Backbone.View.extend ({
 	save: function()
 	{
 		event.preventDefault();
-		var options = {wait: true, success: function() { $("#userFormModal").modal("hide"); }};
+		var self = this;
+
 		var data = this.$("#userForm").serializeObject();
 		if(this.model === null)
 		{
-			this.collection.create(data, options); 
+			this.collection.create(data, { success: function() {
+				AlertMessage.show_success("User was created successfully. Default password is 'password' (without quotes). Ask the user to change it as soon as possible");
+				self.hide();
+			}});
 		}
 		else
 		{
-			this.model.save(data, options);
+			this.model.save(data, { success: function() {
+				self.hide();
+			}});
 		}
+	},
+
+	delete: function()
+	{
+		var self = this;
+
+		this.model.destroy({ wait: true, success: function() {
+			self.hide();
+		}});
+	},
+
+	// Hide the modal
+	hide: function()
+	{
+		$("#userFormModal").modal("hide");
 	}
 });

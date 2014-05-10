@@ -41,21 +41,20 @@ Artime::Application.configure do
   ###################################################################
   # Mailing
   ###################################################################
-  
-  # config.email = "contacto@octavo-piso.com.ar"
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
 
-  # config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = 
   {
-    address: "smtp.gmail.com",
-    port: 587,
+    address: "smtp.zoho.com",
+    port: 465,
     enable_starttls_auto: true,
-    user_name: "carlospacheco9912@gmail.com",
-    password: "m5pUmeRnEc6Tvvua",
-    authentication: "plain"
+    user_name: "info@artimeapp.com",
+    password: "eSKumGuc9dNrvWrL",
+    authentication: "login"
   }
+
 end

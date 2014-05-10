@@ -2,7 +2,7 @@
 class UsersController < ApiApplicationController
 
 	before_filter :authenticate_user! 
-	before_filter :is_manager!, only: [:new] 
+	before_filter :is_manager!, only: [:create, :destroy, :index]
 	before_filter :can_user_see_user, except: [:index, :create]
 
 	def index
@@ -29,6 +29,10 @@ class UsersController < ApiApplicationController
 		user.company = current_user.company
 		user.save!
 		render json: user
+	end
+
+	def destroy
+		render json: current_user.company.users.find(params[:id]).destroy
 	end
 
 end

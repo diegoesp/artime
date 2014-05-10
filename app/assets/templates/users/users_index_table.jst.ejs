@@ -14,8 +14,8 @@ for(var i=0; i < collection.models.length; i++)
 					<a href="#" data-model-id="<%=model.id%>" class="edit-link"><i class="fa fa-pencil fa-fw"></i></a>
 				</div>
 				<div class="user-name"><%=model.attributes.name%></div> 
-				<%=model.getRole()%> · 
-				<%=model.attributes.email%>
+				<%= model.getRole() %> · 
+				<%= model.attributes.username %> (<%= model.attributes.email %>)
 			</div>
 		</div>
 	</li>
