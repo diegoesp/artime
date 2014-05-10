@@ -6,11 +6,15 @@
 				<img class="img-thumbnail img-responsive" src="<%= model.attributes.avatar %>"/>
 			</div>
 			<div class="col-md-10 user-attributes">
-				<h3><%=model.attributes.name%></h3>
+				<h3><%= model.attributes.name %></h3>
 				<ul class="list-unstyled">
 					<li>
+						<i class="glyphicon glyphicon-user"></i>
+						<%= model.attributes.username %>
+					</li>
+					<li>
 						<i class="fa fa-envelope-o"></i>
-						<%=model.attributes.email%>
+						<%= model.attributes.email %>
 					</li>
 				</ul>
 				<div id="user_actions" class="hide">
