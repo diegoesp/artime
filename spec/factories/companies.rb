@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :company do
-    name "Salted Apple"
+  	sequence(:name) { |n| "Salted Apple #{n}" }
     active true
     plan
   end

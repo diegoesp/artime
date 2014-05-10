@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   validates :active, inclusion: { in: [true, false] }
   validates :name, presence: true
   validates :name, length: { maximum: 50 }
+  validates :name, uniqueness: true
 
   belongs_to :plan
 

@@ -10,6 +10,11 @@ describe Company do
   	@company.should be_valid
   end
 
+  it "should not allow duplicate names for companies" do
+    @company.save!
+    build(:company, name: @company.name).should_not be_valid
+  end
+
   it "should require the active field" do
   	@company.active = nil
   	@company.should_not be_valid
