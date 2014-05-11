@@ -84,7 +84,9 @@ Artime::Application.configure do
     enable_starttls_auto: true,
     user_name: "info@artimeapp.com",
     password: "eSKumGuc9dNrvWrL",
-    authentication: "login"
+    authentication: "login",
+    ssl: true,
+    tls: true
   }
 
 end
