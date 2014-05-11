@@ -32,7 +32,7 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 		return this;
 	},
 
-	add: function()
+	add: function(event)
 	{
 		event.preventDefault();
 		var id = $("#tasks").val();
