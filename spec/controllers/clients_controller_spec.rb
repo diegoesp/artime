@@ -28,12 +28,13 @@ describe ClientsController do
 		it "creates a client" do
 			Client.all.length.should eq 2
 
-			data = FactoryGirl.build(:client, name: 'Terrabusi', company: Client.first.company).serializable_hash(except: [:created_at, :updated_at, :id, :company_id] )
+			data = FactoryGirl.build(:client, name: 'Terrabusi', company: Client.first.company).serializable_hash(except: [:created_at, :updated_at, :id, :company_id ] )
 			data[:client] = data.clone
 
 			post :create, data
 
 			Client.all.length.should eq 3
+			Client.last.company.should_not be_nil
 		end
 
 	end

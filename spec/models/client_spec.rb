@@ -11,7 +11,7 @@ describe Client do
   end
 
   it "should return all clients for a manager" do
-  	user = create(:user, role_code: Role::MANAGER)
+  	user = create(:user, role_code: Role::MANAGER, company: @client.company)
   	Client.mine(user).length.should eq 1
   end
 
