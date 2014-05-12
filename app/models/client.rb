@@ -9,7 +9,7 @@ class Client < ActiveRecord::Base
 
   # Returns client visible for an user
   def self.mine(user)
-  	return Client.order("name ASC").all if user.manager?
+  	return Client.where("company_id = #{user.company.id}").order("name ASC").all if user.manager?
   	self.joins(:projects).joins(projects: :users).where("projects_users.user_id = #{user.id}").order("name ASC").uniq
   end
 end
