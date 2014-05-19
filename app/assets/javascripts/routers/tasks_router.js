@@ -2,22 +2,13 @@ CresponApp.Routers.Tasks = Backbone.Router.extend ({
 
 	routes:
 	{
-		"tasks": "index",
-		"tasks/:id": "edit"
+		"tasks": "index"
 	},
 
 	index: function()
 	{
-		var view  = new CresponApp.Views.TasksIndex();
+		var view  = new CresponApp.Views.TasksIndex({ type: "RegularTask"});
 		$("#template").html(view.render().el);
-	},
-
-	edit: function(id)
-	{
-		var view = new CresponApp.Views.TasksIndex();
-		$("#template").html(view.render().el);	
-		view.edit(id);
 	}
-
 
 });

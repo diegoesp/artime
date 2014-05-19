@@ -27,14 +27,14 @@ describe ProjectsController do
   describe "POST 'create'" do
 
     it "creates a project" do
-      Project.all.length.should eq 2
+      projects_count = Project.all.length
 
       data = FactoryGirl.build(:project, client: Client.first).serializable_hash(except: [:created_at, :updated_at, :id] )
       data[:project] = data.clone
 
       post :create, data
 
-      Project.all.length.should eq 3
+      Project.all.length.should eq (projects_count + 1)
     end
 
   end
@@ -53,11 +53,11 @@ describe ProjectsController do
   describe "DELETE 'destroy'" do
 
     it "deletes a project" do
-      Project.all.length.should eq 2
+      projects_count = Project.all.length
 
       delete :destroy, id: Project.all.first.id
 
-      Project.all.length.should eq 1
+      Project.all.length.should eq (projects_count - 1)
     end
 
   end

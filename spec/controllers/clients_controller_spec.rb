@@ -26,14 +26,14 @@ describe ClientsController do
 	describe "POST 'create'" do
 
 		it "creates a client" do
-			Client.all.length.should eq 2
+			clients_count = Client.all.length
 
 			data = FactoryGirl.build(:client, name: 'Terrabusi', company: Client.first.company).serializable_hash(except: [:created_at, :updated_at, :id, :company_id ] )
 			data[:client] = data.clone
 
 			post :create, data
 
-			Client.all.length.should eq 3
+			Client.all.length.should eq (clients_count + 1)
 			Client.last.company.should_not be_nil
 		end
 
@@ -52,9 +52,9 @@ describe ClientsController do
 	describe "DELETE 'destroy'" do
 
 		it "deletes a client" do
-			Client.all.length.should eq 2
-			delete :destroy, id: Client.all.first.id
-			Client.all.length.should eq 1
+			clients_count = Client.all.length
+			delete :destroy, id: Client.all.last.id
+			Client.all.length.should eq (clients_count - 1)
 		end
 
 	end

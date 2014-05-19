@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: inputs
+#
+#  id              :integer          not null, primary key
+#  project_task_id :integer
+#  user_id         :integer
+#  input_date      :date
+#  hours           :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 # Work entered by a user for a task
 class Input < ActiveRecord::Base
   

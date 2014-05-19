@@ -15,7 +15,8 @@ Artime::Application.routes.draw do
 			resources :project_users
 		end
 		
-		resources :tasks do
+		resources :tasks
+		resources :regular_tasks do
 			collection do
 				get :last_projects_report
 			end

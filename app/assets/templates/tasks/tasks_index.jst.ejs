@@ -9,25 +9,43 @@
 				<ul class="list-unstyled tasks-list">
 					<li>
 						<strong>Task name</strong>
-						<span class="pull-right"><strong>Billable</strong></span>
+						<%
+						if (tasksCollection.type === "RegularTask")
+						{
+							%>
+							<span class="pull-right"><strong>Billable</strong></span>
+							<%
+						}
+						%>
 					</li>
 					<%
-					for(var i = 0; i < tasksCollection.length; i++)
-					{
-						var task = tasksCollection.models[i];
-						%>
-						<li data-task-id="<%= task.id %>" class="task-link"><%= task.attributes.name %>
-							<%
-							if (task.attributes.billable) 
-							{
+						if (tasksCollection.length === 0)
+						{
 							%>
-								<i class="fa fa-check pull-right"></i>
+							<div style="height: 100px; text-align:center; margin-top: 50px">
+								<span style="font-size:16px;">
+									No tasks yet <i class="fa fa-smile-o"></i> Create some using the "New Task" button
+								</span>
+							</div>
 							<%
-							}
+						}
+
+						for(var i = 0; i < tasksCollection.length; i++)
+						{
+							var task = tasksCollection.models[i];
 							%>
-						</li>
-					<%
-					}	
+							<li data-task-id="<%= task.id %>" class="task-link"><%= task.attributes.name %>
+								<%
+								if (task.attributes.billable && task.attributes.type === "RegularTask") 
+								{
+								%>
+									<i class="fa fa-check pull-right"></i>
+								<%
+								}
+								%>
+							</li>
+						<%
+						}	
 					%>
 				</ul>
 			</div>

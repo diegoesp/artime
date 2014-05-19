@@ -14,6 +14,18 @@ describe Timesheet do
     Input.first.hours.should eq 8
   end
 
+  it "should get me available tasks for the timesheet" do
+    user = @input.user
+    Timesheet.tasks(user).length.should eq 1
+  end
+
+  it "should automatically add any global tasks to the timesheet" do
+    user = @input.user
+    Timesheet.tasks(user).length.should eq 1
+    create(:task, type: "GlobalTask", company: user.company)
+    Timesheet.tasks(user).length.should eq 2
+  end
+
   it "should allow me to update the timesheet" do
     # update the time
     @timesheet.first.week_input["0"] = 4

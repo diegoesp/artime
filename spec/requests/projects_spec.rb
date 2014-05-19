@@ -12,10 +12,12 @@ describe "Projects" do
   end
 
   it "should search by project", js: true do
-    # Hidden field
-    find(:xpath, "//select[@id='clients_select']", visible: false).set Project.first.id
-    fill_in "project_name", with: Project.first.name
-    fill_in "date", with: Project.first.start_date
+    project = Project.last
+
+    # Hidden field    
+    find(:xpath, "//select[@id='clients_select']", visible: false).set project.id
+    fill_in "project_name", with: project.name
+    fill_in "date", with: project.start_date
     page.first("#project_name").native.send_keys(:return)
     find(:xpath, "//tbody[@id='projects_tbody']/tr").should_not be_nil
   end

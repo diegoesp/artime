@@ -119,7 +119,25 @@ class Timesheet
 
   # Project tasks available to fill in the timesheet
   def self.tasks(user)
+    self.sync_global_tasks(user)
     ProjectTask.joins(:project).joins(project: :users).includes(:project).includes(:task).uniq.where("user_id = #{user.id} AND projects.active = true").order("projects.name, tasks.name")
   end
 
+  # Checks that all global tasks are added to the user projects.
+  # If they're not, then it adds them to the projects
+  def self.sync_global_tasks(user)
+    
+    projects = user.projects.joins(:project_tasks).includes(:project_tasks).includes(project_tasks: :task).where("projects.active = true")
+    projects.each do |project|
+      GlobalTask.all.each do |global_task|
+        unless project.has_task?(global_task) then
+          project_task = ProjectTask.new(hours_planned: 0, completed: false)
+          project_task.project = project
+          project_task.task = global_task
+          project_task.save!
+        end
+      end
+    end
+
+  end
 end

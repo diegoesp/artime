@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: companies
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  active     :boolean          default(TRUE), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  plan_id    :integer
+#
+
 require 'spec_helper'
 
 describe Company do
@@ -52,4 +64,15 @@ describe Company do
     @company.input_completed_percentage.should eq 0
   end
 
+  it "should create the internal project by default" do
+    @company.save!
+
+    @company.clients.first.name.should eq "INTERNAL"
+    @company.clients.first.projects.first.name.should eq "INTERNAL"
+  end
+
+  it "should get the internal project" do
+    @company.save!
+    @company.internal_project.name.should eq "INTERNAL"
+  end
 end

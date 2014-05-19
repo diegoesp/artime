@@ -12,7 +12,7 @@ describe "Clients Edit" do
   end
 
   it "should allow me to update a client", js: true do
-    client = Client.first 
+    client = Client.last
     page.first(:xpath, "//a[@data-client-id='#{client.id}'][@class='edit-link']").click
     fill_in "name", with: "Steve Wozniak"
     find("#save").click
@@ -29,7 +29,7 @@ describe "Clients Edit" do
   end
 
   it "should allow me to delete a client", js: true do
-    client = Client.first
+    client = Client.last
     page.first(:xpath, "//a[@data-client-id='#{client.id}'][@class='delete-link']").click
     wait_until_ajax_finishes
     page.first(:xpath, "//button[@data-bb-handler='confirm']").click
