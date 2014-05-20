@@ -1,17 +1,30 @@
+# == Schema Information
+#
+# Table name: project_tasks
+#
+#  id            :integer          not null, primary key
+#  hours_planned :integer
+#  deadline      :date
+#  completed     :boolean          default(FALSE), not null
+#  task_id       :integer
+#  project_id    :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 class ProjectTask < ActiveRecord::Base
 
 	belongs_to :project
   belongs_to :task
 
 	validates :completed, inclusion: { in: [true, false] }
-	validates :billable, inclusion: { in: [true, false] }
 	validates :project, presence: true
   validates :hours_planned, presence: true
-  validates :hours_planned, inclusion: 1..1024
+  validates :hours_planned, inclusion: 0..1024
 
   validate :company_task_consistent
 
-  attr_accessible :completed, :deadline, :hours_planned, :billable, :project_id, :task_id
+  attr_accessible :completed, :deadline, :hours_planned, :project_id, :task_id
 
   has_many :inputs, dependent: :restrict
 

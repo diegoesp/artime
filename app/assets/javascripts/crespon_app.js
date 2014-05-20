@@ -77,10 +77,10 @@ window.CresponApp =
 	{
 		this.Routers = 
 		{
-			administrationRouter: new CresponApp.Routers.Administrations(),
 			homeRouter: new CresponApp.Routers.Home(),
 			projectsRouter: new CresponApp.Routers.Projects(),
 			tasksRouter: new CresponApp.Routers.Tasks(),
+			globalTasksRouter: new CresponApp.Routers.GlobalTasks(),
 			inputsRouter: new CresponApp.Routers.Inputs(),
 			clientsRouter: new CresponApp.Routers.Clients(),
 			usersRouter: new CresponApp.Routers.Users()

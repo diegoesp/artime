@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id          :integer          not null, primary key
+#  active      :boolean
+#  deadline    :date
+#  description :string(255)
+#  client_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  name        :string(255)
+#  start_date  :date
+#
+
 # A project that the paying company is executing inside our SASS
 class Project < ActiveRecord::Base
 
@@ -112,5 +127,13 @@ class Project < ActiveRecord::Base
   # The user has access to this project?
   def has_user?(user)
     self.users.include?(user)
+  end
+
+  # Checks if this project has the task
+  def has_task?(task)
+    self.project_tasks.each do |project_task|
+      return true if project_task.task == task
+    end
+    false
   end
 end

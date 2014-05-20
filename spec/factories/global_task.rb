@@ -1,8 +1,6 @@
 FactoryGirl.define do
-  factory :task do
+  factory :global_task do
   	sequence(:name) { |n| "Task #{n}" }
-  	billable true
-  	type "RegularTask"
 		company
   end
 end

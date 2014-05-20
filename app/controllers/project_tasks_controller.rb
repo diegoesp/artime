@@ -4,7 +4,8 @@ class ProjectTasksController < ApiApplicationController
 	before_filter :can_user_see_project
 
 	def index
-		render json: Project.find(params[:project_id]).project_tasks
+    # This view does not require global tasks displayed
+		render json: Project.find(params[:project_id]).project_tasks.joins(:task).where("type <> 'GlobalTask'")
 	end
 
 	def create

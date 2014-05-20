@@ -16,7 +16,7 @@ describe "Project Edit" do
     fill_in "name", with: "Ficciones"
     # For some VERY weird reason select does not work with this combo.
     # I had to solve it this way
-    page.execute_script("$('#client_id').val('#{Client.first.id}')");
+    page.execute_script("$('#client_id').val('#{Client.last.id}')");
     fill_in "start_date", with: Date.today
     fill_in "deadline", with: Date.today + 2.month
     fill_in "description", with: "A movie about Jorge Luis Borges book"
@@ -26,7 +26,7 @@ describe "Project Edit" do
   end
 
   it "should allow me to update an existing project", js: true do
-    project = create(:project, client: Client.first)
+    project = create(:project, client: Client.last)
     visit "/#projects"
     page.first(".project-link").click
     # Update description

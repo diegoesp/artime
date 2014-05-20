@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: clients
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  company_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  active     :boolean          default(TRUE), not null
+#
+
 require 'spec_helper'
 
 describe Client do

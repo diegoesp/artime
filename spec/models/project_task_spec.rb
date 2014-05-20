@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: project_tasks
+#
+#  id            :integer          not null, primary key
+#  hours_planned :integer
+#  deadline      :date
+#  completed     :boolean          default(FALSE), not null
+#  task_id       :integer
+#  project_id    :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'spec_helper'
 
 describe ProjectTask do
@@ -12,11 +26,6 @@ describe ProjectTask do
 
 	it "should require completed" do
   	@project_task.completed = nil
-  	@project_task.should_not be_valid
-  end
-
-	it "should require billable" do
-  	@project_task.billable = nil
   	@project_task.should_not be_valid
   end
 

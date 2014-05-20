@@ -24,7 +24,7 @@ describe "Tasks Edit" do
   end
 
   it "should allow me to add a new task", js: true do
-    project_task = create(:project_task, project: Project.first)
+    project_task = create(:project_task, project: Project.last)
     wait_until_ajax_finishes
     page.all(:xpath, "//input[@name='timesheet_task']").length.should eq 7
     find("#add_task").trigger("click")

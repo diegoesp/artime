@@ -14,22 +14,7 @@ describe TasksController do
   describe "GET 'index'" do
 
     it "returns a list of tasks" do
-      get :index
-      response.should be_success
-      parsed_json = JSON.parse(response.body)
-      parsed_json.length.should eq 1
-    end
-
-  end
-
-  describe "GET 'last_projects_report'" do
-
-    it "returns a report on project tasks" do
-    	client = create(:client, company: Task.first.company)
-    	project = create(:project, client: client)
-    	project_task = create(:project_task, project: project, task: Task.first)
-
-      get :last_projects_report, id: Task.first.id
+      get :index, type: "RegularTask"
       response.should be_success
       parsed_json = JSON.parse(response.body)
       parsed_json.length.should eq 1
@@ -39,7 +24,7 @@ describe TasksController do
 
   describe "POST 'create'" do
 
-    it "creates a task" do
+    it "creates a regular task" do
       Task.all.length.should eq 1
 
       data = FactoryGirl.build(:task, company: Task.first.company).serializable_hash(except: [:created_at, :updated_at, :id] )
@@ -48,6 +33,23 @@ describe TasksController do
       response.should be_success
 
       Task.all.length.should eq 2
+    end
+
+  it "creates a global task" do
+      Task.all.length.should eq 1
+
+      data = FactoryGirl.build(:task, company: Task.first.company).serializable_hash(except: [:created_at, :updated_at, :id] )
+      data[:type] = "GlobalTask"
+
+      post :create, task: data
+      response.should be_success
+
+      Task.all.length.should eq 2
+      Task.last.type.should eq "GlobalTask"      
+      GlobalTask.find(Task.last.id).should_not be_nil
+      lambda {
+        RegularTask.find(Task.last.id)
+        }.should raise_error ActiveRecord::RecordNotFound
     end
 
   end

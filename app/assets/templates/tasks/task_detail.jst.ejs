@@ -5,12 +5,19 @@
 			<input type="text" id="name" name="name" class="form-control" value="<%= task.attributes.name %>" />
 	    </div>
 	</div>
-	<div class="form-group">
-		<label class="col-md-3 control-label">Billable:</label>
-		<div class="col-md-9">
-			<input type="checkbox" class="switch" id="billable" name="billable" <%= task.attributes.billable ? "checked" : "" %> />
-	    </div>
-	</div>
+	<%
+	if (task.attributes.type === "RegularTask")
+	{
+		%>
+		<div class="form-group">
+			<label class="col-md-3 control-label">Billable:</label>
+			<div class="col-md-9">
+				<input type="checkbox" class="switch" id="billable" name="billable" <%= task.attributes.billable ? "checked" : "" %> />
+		    </div>
+		</div>
+		<%
+	}
+	%>
 	<div class="form-group">
 		<div class="col-md-12">
 			<button data-task-id="<%= task.id %>" id="saveTask" class="btn btn-theme" style="position: relative; float:right">Save</button>
@@ -25,7 +32,7 @@
 	  </div>
 	</div>
 	<%
-	if (task.id !== undefined)
+	if (task.id !== undefined && task.attributes.type === "RegularTask")
 	{
 		%>
 		<div class="form-group">

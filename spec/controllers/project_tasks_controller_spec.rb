@@ -4,11 +4,13 @@ describe ProjectTasksController do
 
   render_views
   
-  before(:each) do  	
-    project_task_1 = create(:project_task)
-    
-    task = create(:task, company: project_task_1.project.client.company)
-    project_task_2 = create(:project_task, project: project_task_1.project, task: task)
+  before(:each) do
+    company = create(:company)
+    client = create(:client, company: company)
+    task = create(:task, company: company)
+    @project = create(:project, client: client)
+    project_task_1 = create(:project_task, project: @project, task: task)
+    project_task_2 = create(:project_task, project: @project, task: task)
 
     user = create(:user, role_code: Role::MANAGER)
   	sign_in user
@@ -17,7 +19,17 @@ describe ProjectTasksController do
   describe "GET 'index'" do
 
     it "returns a list of project tasks" do
-      get :index, project_id: Project.first.id
+      get :index, project_id: @project.id
+      response.should be_success
+      parsed_json = JSON.parse(response.body)
+      parsed_json.length.should eq 2
+    end
+
+    it "should not return any global tasks" do
+      task = create(:task, company: @project.client.company, type: "GlobalTask")
+      create(:project_task, project: @project, task: task)
+
+      get :index, project_id: @project.id
       response.should be_success
       parsed_json = JSON.parse(response.body)
       parsed_json.length.should eq 2
@@ -28,17 +40,16 @@ describe ProjectTasksController do
   describe "POST 'create'" do
 
     it "creates a project task" do
-      project = Project.first
+      @project.project_tasks.length.should eq 2
+      task = @project.client.company.tasks.last
 
-      project.project_tasks.length.should eq 2
-      task = project.client.company.tasks.last
-
-      data = FactoryGirl.build(:project_task, project: project, task: task).serializable_hash(except: [:created_at, :updated_at, :id] )
+      data = FactoryGirl.build(:project_task, project: @project, task: task).serializable_hash(except: [:created_at, :updated_at, :id] )
       data[:project_task] = data.clone
 
       post :create, data
+      response.should be_success
 
-      project.reload.project_tasks.length.should eq 3
+      @project.reload.project_tasks.length.should eq 3
     end
 
   end
@@ -59,7 +70,7 @@ describe ProjectTasksController do
     it "deletes a project task" do
       ProjectTask.all.length.should eq 2
 
-      delete :destroy, project_id: Project.first.id, id: ProjectTask.first.id
+      delete :destroy, project_id: @project.id, id: @project.project_tasks.first.id
 
       ProjectTask.all.length.should eq 1
     end
