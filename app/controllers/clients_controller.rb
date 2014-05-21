@@ -11,8 +11,8 @@ class ClientsController < ApiApplicationController
 	def create
 		client = Client.new(params[:client])
 		client.company_id = current_user.company_id
-	  client.save!
-	  render json: client
+		client.save!
+		render json: client
 	end
 
 	def update
