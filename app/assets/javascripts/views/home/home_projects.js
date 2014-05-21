@@ -19,7 +19,7 @@ CresponApp.Views.HomeProjects = Backbone.View.extend ({
 	{
 		self = this;
 
-		this.projectsCollection.fetch({ data: { active: true }, success: function(projectsCollection) {
+		this.projectsCollection.fetch({ data: { active: true, internal: false }, success: function(projectsCollection) {
 		
 			$(self.el).html(self.template({ projectsCollection: projectsCollection }));
 
