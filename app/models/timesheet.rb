@@ -117,27 +117,24 @@ class Timesheet
   	end
   end
 
-  # Project tasks available to fill in the timesheet
-  def self.tasks(user)
-    self.sync_global_tasks(user)
-    ProjectTask.joins(:project).joins(project: :users).includes(:project).includes(:task).uniq.where("user_id = #{user.id} AND projects.active = true").order("projects.name, tasks.name")
+  def self.projects(user)
+    # Ensure that the user has access to all internal projects
+    user.assign_to_internal_projects
+    user.projects.uniq
   end
 
-  # Checks that all global tasks are added to the user projects.
-  # If they're not, then it adds them to the projects
-  def self.sync_global_tasks(user)
-    
-    projects = user.projects.joins(:project_tasks).includes(:project_tasks).includes(project_tasks: :task).where("projects.active = true")
-    projects.each do |project|
-      GlobalTask.all.each do |global_task|
-        unless project.has_task?(global_task) then
-          project_task = ProjectTask.new(hours_planned: 0, completed: false)
-          project_task.project = project
-          project_task.task = global_task
-          project_task.save!
-        end
-      end
+  # Project tasks available to fill in the timesheet (included in the project)
+  def self.tasks(project)
+    project.project_tasks.includes(:task).uniq.order("tasks.name")
+  end
+
+  # Tasks that are not assigned to the project
+  def self.unassigned_tasks(project)
+    unassigned_tasks = []
+    Task.each do |task|
+      unassigned_tasks << task unless project.has_task?(task)
     end
-
+    unassigned_tasks
   end
+
 end

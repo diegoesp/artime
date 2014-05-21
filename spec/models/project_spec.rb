@@ -151,5 +151,5 @@ describe Project do
     @project.users << user
     @project.has_user?(user).should be_true
   end
-
+  
 end

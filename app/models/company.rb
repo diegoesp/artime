@@ -28,7 +28,7 @@ class Company < ActiveRecord::Base
   after_save :after_save
 
   def after_save
-    self.internal_project
+    self.internal_projects
   end
 
   def has_user?(user)
@@ -59,22 +59,28 @@ class Company < ActiveRecord::Base
     ((total_input_days - total_pending_input) / total_input_days.to_f).round(2)
   end
 
-  # Returns the internal project for the company. If it does not exists,
-  # it creates it
-  def internal_project
-    internal_client = self.clients.where("name = 'INTERNAL'").first
-    if internal_client.nil? then
-      internal_client = Client.new(name: "INTERNAL", active: false)
-      internal_client.company = self
-      internal_client.save!
-    end
-    internal_project = internal_client.projects.where("name = 'INTERNAL'").first
-    if internal_project.nil? then
-      internal_project = Project.new(deadline: Date.today, name: "INTERNAL", active: false, description: "Holds global tasks")
-      internal_project.client = internal_client
-      internal_project.save!
-    end
-    internal_project
+  # Returns the internal projects for the company. If no internal projects can
+  # be found, one is created
+  def internal_projects
+    internal_projects = Project.joins(:client).where("company_id = #{self.id} AND internal = true")
+    return internal_projects if internal_projects.length > 0
+  
+    internal_project = Project.new(name: "#{self.name} (Internal)", internal: true, deadline: Date.today, description: "Holds tasks that are accessed by all users")
+    internal_project.client = internal_client
+    internal_project.save!
+
+    [internal_project]
+  end
+
+  # Gets the client used as internal
+  def internal_client
+    clients = Client.where(name: "#{self.name} Internal")
+    return clients.first if clients.length > 0
+
+    client = Client.new(name: self.name)
+    client.company = self
+    client.save!
+    client
   end
 
 end

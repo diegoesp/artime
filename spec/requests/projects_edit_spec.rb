@@ -21,7 +21,7 @@ describe "Project Edit" do
     fill_in "deadline", with: Date.today + 2.month
     fill_in "description", with: "A movie about Jorge Luis Borges book"
 
-    find("#saveButton").click
+    find("#saveButton").trigger("click")
     page.should have_content "Project was saved successfully"
   end
 

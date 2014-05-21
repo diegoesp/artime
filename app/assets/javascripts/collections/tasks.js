@@ -1,18 +1,15 @@
 CresponApp.Collections.Tasks = Backbone.Collection.extend({
 
-	type: "RegularTask",
-
   url: function() 
   {
-    return "/api/tasks?type=" + this.type;
+    return "/api/tasks";
   },
 
 	comparator: "name",
 	
   model: CresponApp.Models.Task,
 
-	initialize: function(hash)
+	initialize: function()
 	{
-		this.type = hash.type;
 	}  
 });

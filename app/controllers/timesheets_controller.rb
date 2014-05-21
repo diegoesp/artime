@@ -42,9 +42,19 @@ class TimesheetsController < ApiApplicationController
 		render json: Timesheet.billable_hours(date_from, timesheet_user)
 	end
 
-	# Returns the list of tasks than the user can pick
+	# Returns the list of projects than the user can pick
+	def projects
+		render json: Timesheet.projects(timesheet_user), each_serializer: ProjectSimpleSerializer
+	end
+
+	# Returns the list of tasks than the user can pick based on a project
 	def tasks
-		render json: Timesheet.tasks(timesheet_user), each_serializer: TimesheetTaskSerializer
+		render json: Timesheet.tasks(project), each_serializer: TimesheetTaskSerializer
+	end
+
+	# Returns the list of tasks that are not assigned to a project
+	def unassigned_tasks
+		render json: Timesheet.unassigned_tasks(project), each_serializer: TimesheetTaskSerializer
 	end
 
 	private
@@ -57,6 +67,13 @@ class TimesheetsController < ApiApplicationController
 			is_manager!
 			current_user.company.users.find(params[:user_id])
 		end
+	end
+
+	# Gets the project stated as a parameter
+	def project
+		project_id = params[:project_id]
+		raise "must specify project_id" if project_id.blank?
+		timesheet_user.projects.find(project_id)
 	end
 
 end

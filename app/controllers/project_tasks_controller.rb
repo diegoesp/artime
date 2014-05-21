@@ -5,7 +5,7 @@ class ProjectTasksController < ApiApplicationController
 
 	def index
     # This view does not require global tasks displayed
-		render json: Project.find(params[:project_id]).project_tasks.joins(:task).where("type <> 'GlobalTask'")
+		render json: Project.find(params[:project_id]).project_tasks.joins(:task)
 	end
 
 	def create

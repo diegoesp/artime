@@ -24,7 +24,7 @@ describe Client do
 
   it "should return all clients for a manager" do
   	user = create(:user, role_code: Role::MANAGER, company: @client.company)
-  	Client.mine(user).length.should eq 1
+  	Client.mine(user).length.should eq Client.all.length
   end
 
   it "should not return clients that are not mine" do

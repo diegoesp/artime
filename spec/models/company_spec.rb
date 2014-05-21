@@ -44,6 +44,7 @@ describe Company do
 
   it "should say when a user belongs to a company" do
     user = create(:user, company: @company)
+    @company.reload
     @company.has_user?(user).should be_true
   end
 
@@ -54,25 +55,20 @@ describe Company do
 
   it "should tell me which users have pending input" do
     user = create(:user, company: @company)
+    @company.reload
     pending_input = @company.users_with_pending_input
     pending_input.length.should eq 1
     pending_input.first.should eq user
   end
 
   it "should tell me what % of input is done" do
-    create(:user, company: @company)
+    user = create(:user, company: @company)
+    @company.reload
     @company.input_completed_percentage.should eq 0
-  end
-
-  it "should create the internal project by default" do
-    @company.save!
-
-    @company.clients.first.name.should eq "INTERNAL"
-    @company.clients.first.projects.first.name.should eq "INTERNAL"
   end
 
   it "should get the internal project" do
     @company.save!
-    @company.internal_project.name.should eq "INTERNAL"
+    @company.internal_projects.length.should eq 1
   end
 end

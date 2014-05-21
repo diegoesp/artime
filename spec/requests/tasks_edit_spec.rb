@@ -29,7 +29,7 @@ describe "Tasks Edit" do
   end
 
   it "should allow me to delete a task", js: true do
-    task = Task.first
+    task = Task.last
     page.first(:xpath, "//li[@data-task-id='#{task.id}']").click
     find("#deleteTask").click
     wait_until_ajax_finishes

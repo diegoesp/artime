@@ -4,8 +4,8 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 
 	events:
 	{
-		"click #add": "add",
-		"click #cancel": "cancel"
+		"change #projects": "projectsChange",
+		"click #add": "add"
 	},
 
 	caller: null,
@@ -26,10 +26,21 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 
 		var user_id = this.caller.user_id;
 		if (user_id === null) user_id = "";
-		this.$("#tasks").populateSelect("/api/timesheets/tasks?user_id=" + user_id);
-		this.$("#tasks").chosen({ width: "100%" });
+		this.$("#projects").populateSelect("/api/timesheets/projects?user_id=" + user_id);
+		this.$("#projects").chosen({ width: "100%" });
+		// Force the projects combo to populate for the first time
+		this.projectsChange();
 		this.$("#inputsEditModal").modal("show");
 		return this;
+	},
+
+	projectsChange: function(event)
+	{
+		var project_id = this.$("#projects").val();
+		this.$("#tasks").empty();
+		this.$("#tasks").populateSelect("/api/timesheets/tasks?project_id=" + project_id);
+		this.$("#tasks").chosen({ width: "100%" });
+		this.$('#tasks').trigger('chosen:updated');
 	},
 
 	add: function(event)

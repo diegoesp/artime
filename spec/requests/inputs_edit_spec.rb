@@ -29,7 +29,11 @@ describe "Tasks Edit" do
     page.all(:xpath, "//input[@name='timesheet_task']").length.should eq 7
     find("#add_task").trigger("click")
     wait_until_ajax_finishes
+    page.execute_script("$('#projects').val('#{project_task.project_id}')");
+    page.execute_script("$('#tasks').populateSelect('/api/timesheets/tasks?project_id=#{project_task.project_id}')");
+    page.execute_script("$('#tasks').trigger('chosen:updated')");
     page.execute_script("$('#tasks').val('#{project_task.id}')");
+    wait_until_ajax_finishes
     find("#add").click
     wait_until_ajax_finishes
     page.all(:xpath, "//input[@name='timesheet_task']").length.should eq 14

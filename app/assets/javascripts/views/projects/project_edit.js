@@ -9,7 +9,8 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 		"click .task-name": "showTask",
 		"click #saveButton": "saveButton",
 		"click #cancelButton": "cancelButton",
-		"change #users": "usersChange"
+		"change #users": "usersChange",
+		"change #internal": "internalChange"
 	},
 
 	project: null,
@@ -51,7 +52,7 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 			width: "100%"}
 		);
 
-		// It it is an update, fill the necessary info
+		// If an update, fill the necessary info
 		if (this.project.id !== null) this.fill_form();
 
 		return this;
@@ -82,6 +83,8 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 	refreshProject: function()
 	{
 		this.$("#project_form").populateForm(this.project);
+		// If it is an internal project, update GUI
+		this.internalChange();
 	},
 
 	refreshProjectTasks: function()
@@ -162,6 +165,17 @@ CresponApp.Views.ProjectEdit = Backbone.View.extend ({
 				AlertMessage.show_error(error);
 			}
 		});
+	},
 
+	internalChange: function(event)
+	{
+		internal = this.$("#internal").val();
+		if (internal === "true")
+		{
+			$("#membersTab").css("display", "none");
+			$("#tasksAnchor").click();
+		}
+		else
+			$("#membersTab").css("display", "inherit");
 	}
 });

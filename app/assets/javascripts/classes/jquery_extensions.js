@@ -93,7 +93,8 @@ $.fn.selectCollection = function(collection)
 	})
 };
 
-// Populates a given select tag with a remote REST call
+// Populates a given select tag with a remote REST call. It does not erase
+// previous content, just appends new items
 //
 // url: REST call URL
 // key: Optional. Field to be used as id. Default is "id"

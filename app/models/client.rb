@@ -15,7 +15,7 @@ class Client < ActiveRecord::Base
   belongs_to :company
   has_many :projects, dependent: :restrict
 
-  attr_accessible :name, :active
+  attr_accessible :name, :active, :internal
 
   validates :active, inclusion: { in: [true, false] }
   validates :name, presence: true

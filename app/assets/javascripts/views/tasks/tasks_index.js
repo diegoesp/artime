@@ -13,11 +13,9 @@ CresponApp.Views.TasksIndex = Backbone.View.extend ({
 
 	tasksCollection: null,
 
-	initialize: function(hash)
+	initialize: function()
 	{
-		var type = hash.type;
-
-		this.tasksCollection = new CresponApp.Collections.Tasks({ type: type });
+		this.tasksCollection = new CresponApp.Collections.Tasks();
 	},
 
 	render: function()
@@ -56,17 +54,17 @@ CresponApp.Views.TasksIndex = Backbone.View.extend ({
 		this.$("#task_detail").html(this.template_detail({ task: task }));
 		this.$("#task_detail").find(".switch").bootstrapSwitch();
 
-		if (task.attributes.type === "RegularTask") this.fillLastProjectsReport(task);
+		this.fillLastProjectsReport(task);
 
 		this.$("#name").focus();
 	},
 
-	// Fills the report for last projects, specific to Regular Tasks
+	// Fills the report for last projects
 	fillLastProjectsReport: function(task)
 	{
 		var promise = $.ajax(
 		{
-			url: "/api/regular_tasks/last_projects_report",
+			url: "/api/tasks/last_projects_report",
 			type: "GET",
 			dataType:'JSON',
 			async: true,
@@ -132,8 +130,6 @@ CresponApp.Views.TasksIndex = Backbone.View.extend ({
 		if (taskId !== "") task = this.tasksCollection.get(taskId);
 
 		var data = $("#task_form").serializeObject();
-		// Add the type
-		data["type"] = this.tasksCollection.type;
 
 		var self = this;
 		task.save(data, { wait: true, success: function(task)

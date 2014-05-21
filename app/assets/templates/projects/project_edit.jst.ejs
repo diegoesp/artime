@@ -3,7 +3,7 @@
 	<h4 class="mb">Project information</h4>
 	<form class="style-form" method="get" id="project_form">
 		<div class="row form-group">
-			<div class="col-md-4">
+			<div class="col-md-2">
 				<label class="control-label">Name</label>
 				<input type="text" id="name" name="name" class="form-control">
 			</div>
@@ -28,18 +28,26 @@
 					<option value="false">Inactive</option>
 				</select>
 			</div>
+			<div class="col-md-2">
+				<label class="control-label">Internal</label>
+				<select id="internal" name="internal" class="form-control">
+					<option value="false">No</option>
+					<option value="true">Yes</option>
+				</select>
+			</div>
+
 		</div>
 		<div class="form-group">
 			<label class="control-label">Project description</label>
 			<textarea id="description" name="description" class="form-control" rows="3"></textarea>
 		</div>
 
-		<!-- Nav tabs -->
+		<!-- Tabs -->
 		<ul class="nav nav-tabs">
 			<li class="active">
-				<a href="#tasks" data-toggle="tab">Tasks</a>
+				<a id="tasksAnchor" href="#tasks" data-toggle="tab">Tasks</a>
 			</li>
-			<li>
+			<li id="membersTab">
 				<a href="#members" data-toggle="tab">Members</a>
 			</li>
 		</ul>

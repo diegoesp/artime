@@ -6,6 +6,7 @@ class ProjectsController < ApiApplicationController
 
 	def index
 		params[:active] = true if params[:active].nil?
+		params[:internal] = false
 		render json: Project.search_by(params, current_user)
 	end
 

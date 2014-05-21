@@ -71,10 +71,20 @@ describe TimesheetsController do
 
   end
 
-  describe "GET 'timesheet_tasks'" do
+  describe "GET 'projects'" do
+
+    it "returns my projects for inputing" do
+      get :projects
+      response.should be_success
+      JSON.parse(response.body).length.should > 0
+    end
+
+  end
+
+  describe "GET 'tasks'" do
 
     it "returns my tasks for inputing" do
-      get :tasks
+      get :tasks, { project_id: Project.last.id }
       response.should be_success
       JSON.parse(response.body).length.should > 0
     end

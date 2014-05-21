@@ -1,3 +1,3 @@
 class TaskSerializer < ActiveModel::Serializer
-  attributes :id, :name, :billable, :type
+  attributes :id, :name, :billable
 end

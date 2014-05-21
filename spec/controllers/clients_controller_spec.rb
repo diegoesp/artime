@@ -18,7 +18,7 @@ describe ClientsController do
 			get :index
 			response.should be_success
 			parsed_json = JSON.parse(response.body)
-			parsed_json.length.should eq 2
+			parsed_json.length.should eq Client.all.length
 		end
 
 	end

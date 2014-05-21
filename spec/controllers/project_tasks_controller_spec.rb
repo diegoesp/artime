@@ -24,17 +24,7 @@ describe ProjectTasksController do
       parsed_json = JSON.parse(response.body)
       parsed_json.length.should eq 2
     end
-
-    it "should not return any global tasks" do
-      task = create(:task, company: @project.client.company, type: "GlobalTask")
-      create(:project_task, project: @project, task: task)
-
-      get :index, project_id: @project.id
-      response.should be_success
-      parsed_json = JSON.parse(response.body)
-      parsed_json.length.should eq 2
-    end
-
+    
   end
 
   describe "POST 'create'" do

@@ -18,15 +18,14 @@ class Project < ActiveRecord::Base
 
   belongs_to :client
 
-  attr_accessible :start_date, :name, :active, :deadline, :description, :client_id
-
-  after_initialize :after_initialize
+  attr_accessible :start_date, :name, :active, :deadline, :description, :client_id, :internal
 
   validates :client, presence: true
 	validates :name, presence: true
   validates :name, length: { maximum: 30 }
 	validates :description, presence: true
   validates :active, inclusion: { in: [true, false] }
+  validates :internal, inclusion: { in: [true, false] }
   validates :start_date, presence:true
   validates :deadline, presence: true
   validate :deadline_valid?
@@ -35,8 +34,22 @@ class Project < ActiveRecord::Base
 
   has_and_belongs_to_many :users
 
+  after_initialize :after_initialize
+  after_save :after_save
+
   def after_initialize
     self.start_date = Date.today if self.start_date.nil?
+    self.active = true if self.active.nil?
+    self.internal = false if self.internal.nil?
+  end
+
+  def after_save
+    if self.internal then
+      # If an internal project, it must include all users
+      self.client.company.users.each do |user|
+        user.assign_to_internal_projects
+      end
+    end
   end
 
   # Prevents deadline from being before today
@@ -93,6 +106,7 @@ class Project < ActiveRecord::Base
   # client: by client_id
   # active: if true, only gets active projects
   # name: name of the project as a like
+  # internal: if the project is internal
   def self.search_by(params, user)
     conditions = []
     arguments = Hash.new
@@ -108,6 +122,11 @@ class Project < ActiveRecord::Base
     unless params[:active].blank?
       conditions << "projects.active = :active"
       arguments[:active] = params[:active]
+    end
+
+    unless params[:internal].nil?
+      conditions << "projects.internal = :internal"
+      arguments[:internal] = params[:internal]
     end
 
     unless params[:name].blank?

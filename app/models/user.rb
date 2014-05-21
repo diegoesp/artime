@@ -113,4 +113,16 @@ class User < ActiveRecord::Base
     [days - input_days, days]
   end
 
+  # Checks that the user is assigned to the global projects. If not, he's assigned
+  def assign_to_internal_projects
+    save = false
+    self.company.internal_projects.each do |internal_project|
+      unless self.projects.include?(internal_project) then
+        self.projects << internal_project
+        save = true
+      end
+    end
+    # Reload the user so he has the assigned projects
+    self.save! if save
+  end
 end
