@@ -28,6 +28,33 @@ $color-yellow: #ffcb05;
 $color-info-bg: #3498db;
 $color-info-fg: #ffffff;
 
+@font-face {
+  font-family: 'Ruda';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ruda'), 
+       url(/assets/ruda-regular.woff) format('woff'),
+       url(/assets/ruda-regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ruda';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Ruda Bold'), 
+       local('Ruda-Bold'), 
+       url(/assets/ruda-bold.woff) format('woff'),
+       url(/assets/ruda-bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ruda';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Ruda Black'), 
+       local('Ruda-Black'), 
+       url(/assets/ruda-black.woff) format('woff'),
+       url(/assets/ruda-black.ttf) format('truetype');
+}
+
 #alert
 {
 	border: none;
