@@ -33,6 +33,19 @@ describe TimesheetsController do
 
   end
 
+  describe "POST 'create'" do
+
+    it "adds a task to the project" do
+      project = Project.last
+      task = create(:task, company: project.client.company )
+      post :create, { project_id: project.id, task_id: task.id }
+      response.should be_success
+      parsed_json = JSON.parse(response.body)
+      parsed_json.length.should > 0
+    end
+
+  end
+
   describe "PUT 'update'" do
 
     it "update the input grid" do

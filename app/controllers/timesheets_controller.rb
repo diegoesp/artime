@@ -13,6 +13,13 @@ class TimesheetsController < ApiApplicationController
 	end
 
 	#
+	# Given a task id, it appoints the task to the project
+	#
+	def create
+		render json: Timesheet.create(timesheet_user, project, task)
+	end
+
+	#
 	# Gets a single line for the timesheet
 	# 
 	def show
@@ -54,7 +61,7 @@ class TimesheetsController < ApiApplicationController
 
 	# Returns the list of tasks that are not assigned to a project
 	def unassigned_tasks
-		render json: Timesheet.unassigned_tasks(project), each_serializer: TimesheetTaskSerializer
+		render json: Timesheet.unassigned_tasks(project)
 	end
 
 	private
@@ -74,6 +81,13 @@ class TimesheetsController < ApiApplicationController
 		project_id = params[:project_id]
 		raise "must specify project_id" if project_id.blank?
 		timesheet_user.projects.find(project_id)
+	end
+
+	# Gets the task stated as a parameter
+	def task
+		task_id = params[:task_id]
+		raise "must specify task_id" if task_id.blank?
+		timesheet_user.company.tasks.find(task_id)
 	end
 
 end

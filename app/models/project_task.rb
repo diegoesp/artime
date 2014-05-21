@@ -28,6 +28,12 @@ class ProjectTask < ActiveRecord::Base
 
   has_many :inputs, dependent: :restrict
 
+  after_initialize :after_initialize
+  def after_initialize
+    self.completed = false if self.completed.nil?
+    self.hours_planned = 0 if self.hours_planned.nil?
+  end
+
 	# Returns hours already spent on this task
   def hours_spent
   	hours_spent = 0

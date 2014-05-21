@@ -26,6 +26,7 @@ Artime::Application.routes.draw do
 				get :billable_hours
 				get :projects
 				get :tasks
+				get :unassigned_tasks
 			end
 		end
 

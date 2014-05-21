@@ -51,4 +51,25 @@ describe Timesheet do
     Timesheet.billable_hours(date_from, user).should eq 0.2
   end
 
+  it "should tell me which tasks are unassigned" do
+    project = Project.last
+    Timesheet.unassigned_tasks(project).length.should eq 0
+    # Create a new task that is not included in the timesheet
+    create(:task, company: project.client.company)
+    Timesheet.unassigned_tasks(project).length.should eq 1
+  end
+
+  it "should allow me to add a new task to this project" do
+    project = Project.last
+    company = project.client.company
+    user = create(:user, company: company)
+    # Pick a task that is not assigned
+    task = create(:task, company: company)
+    # Ask the timesheet to add it
+    timesheet = Timesheet.create(user, project, task)
+    timesheet.task_name.should eq task.name
+    task.reload
+    task.project_tasks.find(timesheet.id).should_not be_nil
+  end
+
 end

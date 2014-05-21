@@ -37,6 +37,27 @@ class Timesheet
   	hash.values
   end
 
+  # Assigns a task to the project and returns the timesheet for it
+  # Expects a user (the one that added the task), the project and the
+  # task so I can link them together
+  def self.create(user, project, task)
+    project_task = ProjectTask.new()
+    project_task.project = project
+    project_task.task = task
+    project_task.save!
+
+    # Timesheet.mail_task_added(project_task, user)
+    
+    ProjectTaskWeekInput.new(project_task)
+  end
+
+  # Sends a notification to manager users reporting that a user added a task
+  def self.mail_task_added(project_task, adder_user)
+    User.where("role_code = #{Role::MANAGER}").each do |manager_user|
+      TimesheetMailer.mail_task_added(project_task, adder_user, manager_user).deliver
+    end
+  end
+
   # Saves the updated timesheet for a given user and 7 days range
   # See get_timesheet_for_user
   def self.update(user, date_from, timesheet)
@@ -131,7 +152,7 @@ class Timesheet
   # Tasks that are not assigned to the project
   def self.unassigned_tasks(project)
     unassigned_tasks = []
-    Task.each do |task|
+    Task.all.each do |task|
       unassigned_tasks << task unless project.has_task?(task)
     end
     unassigned_tasks
