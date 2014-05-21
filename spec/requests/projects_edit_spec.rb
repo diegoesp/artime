@@ -28,11 +28,14 @@ describe "Project Edit" do
   it "should allow me to update an existing project", js: true do
     project = create(:project, client: Client.last)
     visit "/#projects"
-    page.first(".project-link").click
+    sleep(2)
+    page.first("[data-project-id='#{project.id}']").click
     # Update description
     fill_in "description", with: "new"
+    sleep(2)
     find("#saveButton").click
     wait_until_ajax_finishes
+    sleep(2)
     project.reload.description.should eq "new"
   end
 

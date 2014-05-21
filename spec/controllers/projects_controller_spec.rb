@@ -16,10 +16,10 @@ describe ProjectsController do
   describe "GET 'index'" do
 
     it "returns a list of projects for the dashboard" do
-      get :index
+      get :index, { internal: false }
       response.should be_success
       parsed_json = JSON.parse(response.body)
-      parsed_json.length.should eq 2
+      parsed_json.length.should eq Project.where("internal = false").length
     end
 
   end
