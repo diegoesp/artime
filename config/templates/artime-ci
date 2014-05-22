@@ -36,7 +36,7 @@ colored_echo "Prepare test database"
 bundle exec rake db:test:prepare
 
 colored_echo "Run tests"
-bundle exec rspec spec
+bundle exec rspec spec/models spec/controllers
 
 colored_echo "Run Rails server"
-bundle exec rails server -d -port=1111
+bundle exec rails server -d --port=1111
