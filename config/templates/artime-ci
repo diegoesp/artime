@@ -18,7 +18,7 @@ git checkout develop
 git pull origin develop
 
 colored_echo "Update gems"
-bundle install
+bundle install --path vendor/bundle --binstubs
 
 colored_echo "Drop database"
 bundle exec rake db:drop
