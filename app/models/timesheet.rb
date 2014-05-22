@@ -46,7 +46,7 @@ class Timesheet
     project_task.task = task
     project_task.save!
 
-    # Timesheet.mail_task_added(project_task, user)
+    Timesheet.delay.mail_task_added(project_task, user)
     
     ProjectTaskWeekInput.new(project_task)
   end
