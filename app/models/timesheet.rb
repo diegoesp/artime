@@ -152,7 +152,7 @@ class Timesheet
   # Tasks that are not assigned to the project
   def self.unassigned_tasks(project)
     unassigned_tasks = []
-    Task.all.each do |task|
+    project.client.company.tasks.all.each do |task|
       unassigned_tasks << task unless project.has_task?(task)
     end
     unassigned_tasks
