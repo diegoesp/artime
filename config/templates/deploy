@@ -77,9 +77,9 @@ RAILS_ENV=production /usr/bin/env bundle exec unicorn -D -c /home/deployer/apps/
 # RAILS_ENV=production /usr/bin/env bundle exec rackup private_pub.ru -s thin -E production -D -P tmp/pids/private_pub.pid
 
 # Restart Delayed job
-# kill_process delayed_job
-# colored_echo "Starting delayed_job"
-# RAILS_ENV=production script/delayed_job start
+kill_process delayed_job
+colored_echo "Starting delayed_job"
+RAILS_ENV=production script/delayed_job start
 
 # Go back to initial dir
 cd $current_dir

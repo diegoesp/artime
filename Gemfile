@@ -52,4 +52,5 @@ end
 
 group :production do
   gem 'unicorn', '4.7.0'                                    # Powerful ruby - rails server
+  gem 'daemons', '1.1.9'                                    # To run delayed job as a daemon
 end
