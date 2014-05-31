@@ -5,8 +5,11 @@
 
 colored_echo() 
 {
-	echo -e "\e[96m[artime-ci]\e[0m \e[92m$1\e[0m"
+#  echo -e "\e[96m[artime-ci]\e[0m \e[92m$1\e[0m"
+  printf "$1"
 }
+
+colored_echo "CI script started $(date)"
 
 cd ~/apps/artime
 
@@ -40,3 +43,5 @@ bundle exec rspec spec/models spec/controllers
 
 colored_echo "Run Rails server"
 bundle exec rails server -d --port=1111
+
+colored_echo "Done"
