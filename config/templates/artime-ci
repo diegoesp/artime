@@ -1,6 +1,9 @@
 ###############################################################################
-# This shell script simulates a basic continuous integration functionality
-# To be replaced by Jenkins soon
+# This shell script simulates a basic continuous integration functionality.
+
+# It is aimed to be run inside cron or from the command line.
+# it generates a log in /home/deployer/logs/nightly-build.log
+# Log is then mailed to info@artimeapp.com
 ###############################################################################
 
 colored_echo() 
