@@ -27,9 +27,9 @@ describe Task do
   	@task.should_not be_valid
   end
 
-  it "name should be unique" do
+  it "name should be unique in the context of the company" do
     @task.save!
-    task = build(:task, name: @task.name)
+    task = build(:task, name: @task.name, company: @task.company)
     task.should_not be_valid
   end
 
