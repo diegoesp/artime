@@ -50,7 +50,7 @@ CresponApp.Views.UsersEdit = Backbone.View.extend ({
 			dataType: 'json',
 			done: function (e, data) {
 				self.model.set(data.result);
-				AlertMessage.show_success("Avatar cambiado con éxito");
+				AlertMessage.show_success("Avatar updated");
 				self.reloadAvatar();
 			},
 		});
@@ -75,7 +75,7 @@ CresponApp.Views.UsersEdit = Backbone.View.extend ({
 			success: function(model, response)
 			{
 				self.model.set(response);
-				AlertMessage.show_success("Avatar removido con éxito");
+				AlertMessage.show_success("Avatar deleted");
 				self.reloadAvatar(); 
 			}
 		});
@@ -88,7 +88,7 @@ CresponApp.Views.UsersEdit = Backbone.View.extend ({
 		  wait: true,
 		  success: function()
 		  {
-			AlertMessage.show_success("Usuario actualizado con éxito");
+			AlertMessage.show_success("User updated");
 			Backbone.history.navigate("users/me", true);
 		  }
 		});	

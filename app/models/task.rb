@@ -19,7 +19,7 @@ class Task < ActiveRecord::Base
 
   validates :company, presence: true
 	validates :name, presence: true
-  validates :name, uniqueness: true
+  validates_uniqueness_of :name, :scope => :company_id
 	validates :billable, inclusion: { in: [true, false] }
 
   has_many :project_tasks, dependent: :restrict

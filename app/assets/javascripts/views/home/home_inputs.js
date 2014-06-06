@@ -15,8 +15,7 @@ CresponApp.Views.HomeInputs = Backbone.View.extend ({
 
 	render: function()
 	{
-		var input_completed_percentage = this.company.attributes.input_completed_percentage * 100;
-
+		var input_completed_percentage = Math.round(this.company.attributes.input_completed_percentage * 100);
 		var inputData = 
 		[
 			{
