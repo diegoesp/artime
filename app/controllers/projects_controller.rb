@@ -5,7 +5,6 @@ class ProjectsController < ApiApplicationController
 	before_filter :can_user_see_client, except: [:index, :destroy]
 
 	def index
-		params[:active] = true if params[:active].nil?
 		render json: Project.search_by(params, current_user)
 	end
 

@@ -10,6 +10,9 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 
 	caller: null,
 
+	// Holds the user selected in the timesheet, if user is manager
+	userId: null,
+
 	// Expects a "caller" member that includes the following:
 	//
 	// 1: timesheet, containing all timesheet lines
@@ -18,15 +21,15 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 	initialize: function(hash)
 	{
 		this.caller = hash.caller;
+		this.userId = this.caller.user_id;
+		if (this.userId === undefined || this.userId === null) this.userId = "";
 	},
 
 	render: function()
 	{
 		$(this.el).html(this.template());
 
-		var user_id = this.caller.user_id;
-		if (user_id === null) user_id = "";
-		this.$("#projects").populateSelect("/api/timesheets/projects?user_id=" + user_id);
+		this.$("#projects").populateSelect("/api/timesheets/projects?user_id=" + this.userId);
 		this.$("#projects").chosen({ width: "100%" });
 		// Force the projects combo to populate for the first time
 		this.projectsChange();
@@ -42,7 +45,7 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 		// Get the tasks that are assigned to this project
 		var promise = $.ajax(
 		{
-			url: "/api/timesheets/tasks?project_id=" + project_id,
+			url: "/api/timesheets/tasks?user_id=" + this.userId + "&project_id=" + project_id,
 			type: "GET",
 			dataType:'JSON',
 			async: true
@@ -66,7 +69,7 @@ CresponApp.Views.InputsEdit = Backbone.View.extend ({
 			// Now get the tasks that are not assigned in the project...
 			var promise = $.ajax(
 			{
-				url: "/api/timesheets/unassigned_tasks?project_id=" + project_id,
+				url: "/api/timesheets/unassigned_tasks?user_id=" + self.userId + "&project_id=" + project_id,
 				type: "GET",
 				dataType:'JSON',
 				async: true

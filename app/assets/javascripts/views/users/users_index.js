@@ -21,7 +21,7 @@ CresponApp.Views.UsersIndex = Backbone.View.extend ({
 	remove: function()
 	{
     // custom cleanup or closing code, here
-    console.log("CHAU");
+
     // call the base class remove method 
     Backbone.View.prototype.remove.apply(this, arguments);
   },
