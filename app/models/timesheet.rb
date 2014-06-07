@@ -53,7 +53,7 @@ class Timesheet
 
   # Sends a notification to manager users reporting that a user added a task
   def self.mail_task_added(project_task, adder_user)
-    User.where("role_code = #{Role::MANAGER}").each do |manager_user|
+    User.where("role_code = #{Role::MANAGER} AND company_id = #{adder_user.company_id}").each do |manager_user|
       TimesheetMailer.mail_task_added(project_task, adder_user, manager_user).deliver
     end
   end

@@ -72,4 +72,25 @@ describe Timesheet do
     task.project_tasks.find(timesheet.id).should_not be_nil
   end
 
+  it "should sent mails to managers when user adds a task" do
+    ActionMailer::Base.deliveries = []
+
+    create(:user, role_code: Role::MANAGER, company: @input.user.company)
+
+    Timesheet.mail_task_added(@input.project_task, @input.user)
+
+    ActionMailer::Base.deliveries.length.should eq 1
+  end
+
+  it "should not sent mails to managers from different companies when user adds a task" do
+    ActionMailer::Base.deliveries = []
+
+    create(:user, role_code: Role::MANAGER, company: @input.user.company)
+    create(:user, role_code: Role::MANAGER)
+
+    Timesheet.mail_task_added(@input.project_task, @input.user)
+
+    ActionMailer::Base.deliveries.length.should eq 1
+  end
+
 end
