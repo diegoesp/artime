@@ -63,7 +63,9 @@ class Project < ActiveRecord::Base
 
   # How many weeks do we have left until deadline is reached ?
   def weeks_left
-    ((self.deadline - Date.today) / 7).to_i
+    date = Date.today
+    date = self.start_date if self.start_date > Date.today
+    ((self.deadline - date) / 7).to_i
   end
 
   # The duration of the project expressed in weeks

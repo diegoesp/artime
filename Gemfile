@@ -17,9 +17,9 @@ gem 'devise'
 
 # Optional gems for additional features
 gem "paperclip", "3.5.0"                                    # Easy file attachment library for Active Record
+gem 'delayed_job_active_record', "4.0.0"                    # Schedules job to an internal queue
 # gem 'private_pub', "1.0.3"                                  # Push technology (using Faye) for the chat feature
 # gem 'thin', "1.5.1"                                         # Simple server used by private_pub
-# gem 'delayed_job_active_record', "4.0.0"                    # Schedules job to an internal queue
 # gem 'clockwork', '0.7.3'                                    # cron-like gem to schedule repetitive tasks
 
 # Javascript components
@@ -52,4 +52,5 @@ end
 
 group :production do
   gem 'unicorn', '4.7.0'                                    # Powerful ruby - rails server
+  gem 'daemons', '1.1.9'                                    # To run delayed job as a daemon
 end

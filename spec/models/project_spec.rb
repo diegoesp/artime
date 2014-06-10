@@ -66,6 +66,12 @@ describe Project do
     @project.weeks_left.should eq 1
   end
 
+  it "should return total weeks left as most" do
+    @project.start_date = Date.today + 7
+    @project.deadline = Date.today + 14
+    @project.weeks_left.should eq 1
+  end
+
   it "should return total weeks for project" do
     @project.start_date = Date.today
     @project.deadline = (Date.today + 7)

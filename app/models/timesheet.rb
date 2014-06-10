@@ -46,14 +46,14 @@ class Timesheet
     project_task.task = task
     project_task.save!
 
-    # Timesheet.mail_task_added(project_task, user)
+    Timesheet.delay.mail_task_added(project_task, user)
     
     ProjectTaskWeekInput.new(project_task)
   end
 
   # Sends a notification to manager users reporting that a user added a task
   def self.mail_task_added(project_task, adder_user)
-    User.where("role_code = #{Role::MANAGER}").each do |manager_user|
+    User.where("role_code = #{Role::MANAGER} AND company_id = #{adder_user.company_id}").each do |manager_user|
       TimesheetMailer.mail_task_added(project_task, adder_user, manager_user).deliver
     end
   end
@@ -152,7 +152,7 @@ class Timesheet
   # Tasks that are not assigned to the project
   def self.unassigned_tasks(project)
     unassigned_tasks = []
-    Task.all.each do |task|
+    Task.where("company_id = #{project.client.company.id}").each do |task|
       unassigned_tasks << task unless project.has_task?(task)
     end
     unassigned_tasks
