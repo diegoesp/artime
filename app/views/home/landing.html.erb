@@ -1,10 +1,85 @@
 <style>
-.landing-main {
-	background: #fff;
-	min-height: 500px;
+
+.container 
+{
+	width: 860px;
+}
+
+.modal-dialog 
+{
+	width: 80%;
+}
+
+.landing-section-main {
+	background: #ffe16a url("/assets/landing_section_1_bg.jpg") no-repeat center;
+	margin-top: -20px;
+	min-height: 600px;
 	padding-bottom: 20px;
+	padding-top: 140px;
+	text-align: center;
 	width: 100%;
 }
+
+.ball-green {
+	background-color: #1cbc9d;
+	color: #fff;
+}
+
+.ball-yellow {
+	background-color: #ffe16a;
+	color: #2b2e31;
+}
+
+.section-bullet-ball
+{
+	border-radius: 50%;
+	display: table;
+	font-family: "Lobster";
+	font-size: 30px;
+	margin: 0 auto;
+	height: 140px;
+	padding-top: 50px;
+	width: 140px;
+}
+
+.section-bullet-text {
+	font-family: "Dosis", "Roboto", "Arial", "Helvetica";
+	font-size: 18px;	
+	padding-top: 30px;
+	padding-bottom: 30px;
+	text-align: center;
+}
+
+.section-title {
+	font-family: "Dosis", "Roboto", "Arial", "Helvetica";
+	font-size: 46px;
+}
+
+.section-description {
+	font-family: "Dosis", "Roboto", "Arial", "Helvetica";
+	font-size: 28px;	
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.logo-text {
+	font-family: "Lobster";
+}
+
+.landing-section-why, .landing-section-how, .landing-section-price {
+	color: #2b2e31;
+	min-height: 600px;
+	padding-top: 30px;
+}
+
+.landing-section-3 {
+	background: url("/assets/landing_section_3_bg.jpg") no-repeat center;
+	color: #2b2e31;
+	min-height: 600px;
+	padding-top: 60px;
+	width: 100%;
+}
+
 .landing-separator {
 	background-color: rgb(26, 188, 156);
 	color: #fff;
@@ -29,14 +104,38 @@
 	position:absolute;
 }
 .main-title {
+	color: #2b2e31;
+	font-family: Dosis, Roboto, Arial, Helvetica;
 	font-size: 32px;
 	padding: 30px;
-	text-align: center;
 }
 .price-month {
 	color: #fff;
 	position: relative;
 	top:-46px;
+}
+
+.price-box
+{
+	border: 1px solid #ddd;
+}
+.price-box-header 
+{
+	background-color: #2b2e31;
+	color: #fff;
+	font-family: Lobster;
+	font-size: 32px;
+	height: 132px;
+	line-height: 32px;
+	padding-top: 28px;
+	text-align: center;
+}
+.price-box-body 
+{
+	color: #2b2e31;
+	font-family: Dosis, Roboto, Arial, Helvetica;
+	padding: 20px;
+	text-align: center;
 }
 .embed-container { 
 	position: relative; 
@@ -72,121 +171,101 @@ if Rails.env.production? then
 end
 %>
 
-<section class="container landing-main">
+<section class="container landing-section-main">
+	<img src="/assets/landing_section_1_logo.png" width="600"/>
 	<div class="main-title">The only project tracking tool for creative companies</div>
+	<img src="/assets/landing_section_1_button.png" data-toggle="modal" data-target="#videoModal" width="100" style="cursor:pointer"/>	
+</section>
+
+<section class="container landing-section-why">
+	<a name="why"></a>
+	<div class="section-title">Why <span class="logo-text">Artime</span>?</div>
+	<div class="section-description">
+			Ofrecemos un producto pensado para empresas creativas que entiende la dinámica de trabajo en proyectos corto
+	</div>
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class='embed-container'>
-				<iframe src='//player.vimeo.com/video/93361853?title=0&amp;byline=0&amp;portrait=0&amp;color=ed5565' 
-					frameborder='0' 
-					webkitAllowFullScreen 
-					mozallowfullscreen 
-					allowFullScreen>
-				</iframe>
-			</div>
+		<div class="col-md-4 text-center">
+			<div class="section-bullet-ball ball-green">Simple</div>
 		</div>
-		<div class="col-md-2 visible-lg" style="height: 440px">
-			<img src="/assets/landing_video.png" class="cosetti-video" />
+		<div class="col-md-4 text-center">
+			<div class="section-bullet-ball ball-green">Smart</div>
 		</div>
+		<div class="col-md-4 text-center">
+			<div class="section-bullet-ball ball-green">Flexible</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 section-bullet-text">
+			Pensado para proyectos de empresas creativas: cortos, dinámicos y ágiles. 
+			Se configura y mantiene con simples pasos
+		</div>
+		<div class="col-md-4 section-bullet-text">
+			Para que ni vos ni tu equipo gasten tiempo haciendo configuraciones y 
+			cargas tediosas, Artime piensa y aprende de vos y de tus proyectos
+		</div>
+		<div class="col-md-4 section-bullet-text">
+			Entendemos que la estructura de un proyecto puede surgir cambios o 
+			incrementarse las tareas, por eso usamos una metodología que permite este tipo variables.
+		</div>
+	</div>
+	<div class="text-center" style="padding:40px">
+		<a href="/users/sign_up" class="btn btn-danger btn-lg">Register Now !</a>
 	</div>
 </section>
-		
-<section>
-	<a name="features"></a>
-	<div class="landing-separator">
-		<div class="container text-right">
-			<div class="landing-title">WE KEEP IT SIMPLE</div>
-			<div class="landing-subtitle">It is easy to enter data, and even easier to assess projects with it !</div>
-		</div>
-	</div>
+<!--
+<section class="landing-section-3">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 hidden-xs hidden-sm text-center" style="padding: 20px 0">
-				<img src="/assets/landing_cosetti_easy.png" />
-			</div>
-			<div class="col-md-6 landing-text text-right">
-				<div>
-					Artime gives you the chance to assess project performance. <b>NOW</b>. And
-					whenever you want to. It is always available when you need it.
-					Just create a project (takes about one minute) and your team can start
-					to input effort hours to it.
-				</div>
-			</div>
-		</div>
+		<div class="section-title"><span class="logo-text">Artime</span> clients</div>
+		<img src="/assets/landing_section_3_image.png" />
 	</div>
 </section>
-
-<section>
-	<a name="features"></a>
-	<div class="landing-separator">
-		<div class="container">
-			<div class="landing-title">ARTIME IS EVERYWHERE</div>
-			<div class="landing-subtitle">In the office. In the cafe. In the bus. In the street !</div>
-		</div>
-	</div>
+-->
+<section class="landing-section-how" style="background-color: whitesmoke">
+	<a name="how"></a>
 	<div class="container">
+		<div class="section-title">How <span class="logo-text">Artime</span> works?</div>
+		<div class="section-description">
+			Artime está pensado para darte grandes beneficios con poco esfuerzo. Podes usarlo en 3 simples pasos.
+		</div>
 		<div class="row">
-			<div class="col-md-6 landing-text">
-				<div>
-					Artime works on your Mac, PC, tablet or smartphone. You can reach your
-					information whenever you want and in any possible way.
-					No setup is needed. No software to install. Just create your new project
-					and start using Artime now !
-				</div>
+			<div class="col-md-4 text-center">
+				<div class="section-bullet-ball ball-yellow">Estimate</div>
 			</div>
-			<div class="col-md-6 hidden-xs hidden-sm" style="padding: 20px 0">
-				<img src="/assets/landing_devices.png" />
+			<div class="col-md-4 text-center">
+				<div class="section-bullet-ball ball-yellow">Input</div>
+			</div>
+			<div class="col-md-4 text-center">
+				<div class="section-bullet-ball ball-yellow">Control</div>
 			</div>
 		</div>
-	</div>
-</section>
-
-<section>
-	<div class="landing-separator">
-		<div class="container text-right">
-			<div class="landing-title">WE UNDERSTAND CREATIVE COMPANIES</div>
-			<div class="landing-subtitle">We know exactly what you need</div>
-		</div>
-	</div>
-	<div class="container">
 		<div class="row">
-			<div class="col-md-5 hidden-xs hidden-sm text-center" style="padding: 20px 0">
-				<img src="/assets/landing_market.png" style="height:300px" />
-			</div>		
-			<div class="col-md-7 landing-text text-right">
-				Artime is specifically designed for creative companies where projects
-				require an agile and dynamic follow up. Unlike traditional 
-				hour tracking systems, Artime focuses on doing a smart analysis
-				of projects' performance, helping you to detect problems and
-				bottlenecks based on previous experiences.
-
-				Imagine how much time and money you will save by taking
-				advantage of what you already know !
+			<div class="col-md-4 section-bullet-text">
+				Configura tu proyecto en base a una estimación de tareas y recursos, aprovechando la experiencia de proyectos similares
 			</div>
+			<div class="col-md-4 section-bullet-text">
+				Tu equipo de trabajo ingresa los recursos asignados al proyecto de forma simple y con un mínimo esfuerzo
+			</div>
+			<div class="col-md-4 section-bullet-text">
+				Comparando la información ingresada por tu equipo con la estimación inicial podrás supervisar y controlar la ejecución de tus proyectos tomando mejores decisiones
+			</div>
+		</div>
+		<div class="text-center" style="padding:40px">
+			<a href="/users/sign_up" class="btn btn-danger btn-lg">Register Now !</a>
 		</div>
 	</div>
 </section>
 
-<section>
-	<a name="prices"></a>
-	<div class="landing-separator">
-		<div class="container">
-			<img class="pull-right" src="/assets/trial.png" style="height:70px" />
-			<div class="landing-title">PRICES</div>
-			<div class="landing-subtitle">Try it for free right now. No credit card required. You will love it !</div>
-		</div>
+<section class="container landing-section-price">
+	<a name="price"></a>
+	<div class="section-title">Choose your weapon !</div>
+	<div class="section-description">
+		Try it for free right now. No credit card required. You will love it !
 	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4" data-effect="slide-bottom">
-				<div class="custom-box">
-					<div class="servicetitle">
-						<h4>Freelancer</h4>
-						<hr>
-					</div>
-					<div class="icn-main-container">
-						<span class="icn-container" style="line-height: 100px;">Free</span>
-					</div> 
+	<div class="row">
+		<div class="col-md-4">
+			<div class="price-box">
+				<div class="price-box-header">Free<br>forever</div>
+				<div class="price-box-body">
 					<p>All features availables for ever for 1 user</p>
 					<ul class="pricing">
 						<li>Unlimited clients</li>
@@ -194,45 +273,39 @@ end
 						<li>Unlimited tasks</li>
 						<li>Unlimited reports</li>
 					</ul>
-					<a class="btn btn-primary" href="/users/sign_up?plan=1">Order Now</a>
-				</div><!-- end custombox -->
-			</div><!-- end col-4 -->
-
-			<div class="col-md-4" data-effect="slide-bottom">
-				<div class="custom-box">
-					<div class="servicetitle">
-						<h4>Startup team</h4>
-						<hr>
-					</div>
-					<div class="icn-main-container">
-						<p class="icn-container" style="padding-top:32px">
-							$ 25 <br/>
-							<span style="font-weigth:300; font-size: 14px">/ month</span>
-						</p>
-					</div> 
-					<p>For teams up to 5 users </p>
+					<a class="btn btn-danger" href="/users/sign_up?plan=1">Register Now !</a>
+				</div>
+			</div><!-- end custombox -->
+		</div><!-- end col-4 -->
+		<div class="col-md-4">
+			<div class="price-box">
+				<div class="price-box-header">
+					Startup<br>
+					$25
+					<div style="font-size:12px;margin-top:-8px">/month</div>
+					<img src="/assets/trial.png" style="position:relative;top:-10px" width="50%"/>
+				</div>
+				<div class="price-box-body">
+					<p>All features for teams up to 5 users</p>
 					<ul class="pricing">
 						<li>Unlimited clients</li>
 						<li>Unlimited projects</li>
 						<li>Unlimited tasks</li>
 						<li>Unlimited reports</li>
 					</ul>
-					<a class="btn btn-primary" href="/users/sign_up?plan=2">Order Now</a>
-				</div><!-- end custombox -->
-			</div><!-- end col-4 -->
-
-			<div class="col-md-4" data-effect="slide-bottom">
-				<div class="custom-box">
-					<div class="servicetitle">
-						<h4>Rocket team</h4>
-						<hr>
-					</div>
-					<div class="text-center">
-						<p class="icn-container" style="padding-top:32px">
-							$ 49 <br/>
-							<span style="font-weigth:300; font-size: 14px">/ month</span>
-						</p>
-					</div> 
+					<a class="btn btn-danger" href="/users/sign_up?plan=2">Register Now !</a>
+				</div>
+			</div><!-- end custombox -->
+		</div><!-- end col-4 -->
+		<div class="col-md-4">
+			<div class="price-box">
+				<div class="price-box-header">
+					Rocket<br>
+					$49
+					<div style="font-size:12px;margin-top:-8px">/month</div>
+					<img src="/assets/trial.png" style="position:relative;top:-10px" width="50%"/>
+				</div>
+				<div class="price-box-body">
 					<p>Up to 20 users. Then $ 5 month / user </p>
 					<ul class="pricing">
 						<li>Unlimited clients</li>
@@ -240,10 +313,29 @@ end
 						<li>Unlimited tasks</li>
 						<li>Unlimited reports</li>
 					</ul>
-					<a class="btn btn-primary" href="/users/sign_up?plan=3">Order Now</a>
-				</div><!-- end custombox -->
-			</div><!-- end col-4 -->
-			
-		</div><!-- end row -->
-	</div>
+					<a class="btn btn-danger" href="/users/sign_up?plan=3">Register Now !</a>
+				</div>
+			</div><!-- end custombox -->
+		</div><!-- end col-4 -->
+		
+	</div><!-- end row -->
+	<br><br>
 </section>
+
+<div id="videoModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<div class='embed-container'>
+					<iframe src='//player.vimeo.com/video/93361853?title=0&amp;byline=0&amp;portrait=0&amp;color=ed5565' 
+						frameborder='0' 
+						webkitAllowFullScreen 
+						mozallowfullscreen 
+						allowFullScreen>
+					</iframe>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->	
