@@ -50,6 +50,11 @@ group :development, :test do
   gem "connection_pool", "1.2.0"                            # Custom connection pool. We use it to manage test connection pools
 end
 
+# Gems for CI
+group :test do
+  gem "ci-reporter", "1.9.2"
+end
+
 group :production do
   gem 'unicorn', '4.7.0'                                    # Powerful ruby - rails server
   gem 'daemons', '1.1.9'                                    # To run delayed job as a daemon
