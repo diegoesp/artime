@@ -52,7 +52,8 @@ end
 
 # Gems for CI
 group :test do
-  gem "ci-reporter", "1.9.2"
+  # gem "ci-reporter", "1.9.2"
+  gem "ci-reporter", "1.9.1"
 end
 
 group :production do
