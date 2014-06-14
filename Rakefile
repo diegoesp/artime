@@ -4,4 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+# Generates XML reports for jenkins
+require 'ci/reporter/rake/rspec'
+
 Artime::Application.load_tasks

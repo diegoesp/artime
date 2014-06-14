@@ -69,3 +69,10 @@ pickle-email-*.html
 
 /config/private_pub.yml
 /config/database.yml
+
+
+############################################
+# Ignore ci_reporter reports
+############################################
+
+/spec/reports
