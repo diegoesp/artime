@@ -18,6 +18,10 @@ require 'support/base'
 # Disable private pub when using PostgreSQL + zeus in tests
 require 'support/disable_private_pub'
 
+# Test coverage
+require 'simplecov'
+require 'simplecov-rcov'
+
 RSpec.configure do |config|
 
   # ## Mock Framework
@@ -38,6 +42,10 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
+
+  # Test coverage
+  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+  SimpleCov.start 'rails'
 
   config.before(:each, js: true) do
     # Comment this line if you want to use Selenium

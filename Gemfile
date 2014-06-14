@@ -53,6 +53,8 @@ end
 # Gems for CI
 group :test do
   gem "ci_reporter", "1.9.2"
+  gem "simplecov", "0.8.2"
+  gem "simplecov-rcov", "0.2.3"
 end
 
 group :production do
