@@ -20,7 +20,6 @@ describe Client do
   it "should require a name" do
   	@client.name = nil
   	@client.should_not be_valid
-    d
   end
 
   it "should return all clients for a manager" do
