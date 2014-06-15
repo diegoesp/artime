@@ -112,8 +112,8 @@ RSpec.configure do |config|
 
   # RSpec tests retry
   config.verbose_retry = true
-  config.default_retry_count = 3
-  config.retry_wait = 2
+  config.default_retry_count = 5
+  config.default_sleep_interval = 1
 end
 
 # 
