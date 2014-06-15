@@ -30,6 +30,5 @@ describe Client do
   it "should not return clients that are not mine" do
   	user = create(:user)
   	Client.mine(user).length.should eq 0
-    d
   end
 end
