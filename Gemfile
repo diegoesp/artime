@@ -43,7 +43,7 @@ group :development, :test do
   gem 'annotate', "2.5.0"                                   # Annotates models adding the schema to the top of the file 
   gem 'capybara', "2.1.0"                                   # Support for testing web apps using a specific DSL
   gem 'selenium-webdriver', "2.40.0"                        # Driver for Capybara that allows to test using a full browser
-  gem "poltergeist", "1.5.0"                                # Integrates phantomjs to Capybara
+  gem "poltergeist", "1.5.1"                                # Integrates phantomjs to Capybara
   gem 'rails-erd', "1.1.0"                                  # Generates a domain model graphic for easy documentation
   gem 'faker', "1.3.0"                                      # Generates fake data for your factories
   gem 'awesome_print'                                       # Prints objects in a pretty way in the console using the ap command
@@ -55,6 +55,7 @@ group :test do
   gem "ci_reporter", "1.9.2"
   gem "simplecov", "0.8.2"
   gem "simplecov-rcov", "0.2.3"
+  gem 'rspec-retry', '0.3.0'
 end
 
 group :production do

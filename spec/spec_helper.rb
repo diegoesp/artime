@@ -24,6 +24,8 @@ require 'support/poltergeist_crespon_driver'
 require 'support/base'
 # Disable private pub when using PostgreSQL + zeus in tests
 require 'support/disable_private_pub'
+# Retry selenium tests
+require 'rspec/retry'
 
 RSpec.configure do |config|
 
@@ -107,6 +109,10 @@ RSpec.configure do |config|
 
   # Include Factory Girl helper methods (aka create instead FactoryGirl.create and such)
   config.include FactoryGirl::Syntax::Methods
+
+  # RSpec tests retry
+  config.verbose_retry = true
+  config.default_retry_count = 3
 end
 
 # 
