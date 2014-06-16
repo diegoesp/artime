@@ -116,9 +116,11 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   # RSpec tests retry
-  config.verbose_retry = true
-  config.default_retry_count = 5
-  config.default_sleep_interval = 1
+  if ENV["JENKINS"] == "true" then
+    config.verbose_retry = true
+    config.default_retry_count = 10
+    config.default_sleep_interval = 3
+  end
 end
 
 # 

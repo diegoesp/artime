@@ -76,3 +76,4 @@ pickle-email-*.html
 ############################################
 
 /spec/reports
+/coverage
