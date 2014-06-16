@@ -3,7 +3,12 @@ require 'simplecov'
 require 'simplecov-rcov'
 # Test coverage
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails'
+SimpleCov.start "rails" do
+  # Exclude Active Admin classes
+  add_filter "/app/admin/"
+  add_filter "/vendor/"
+  add_filter "/spec/"
+end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
